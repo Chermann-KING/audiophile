@@ -80,6 +80,7 @@ const HeaderStyled = styled.header`
   padding: 32px 13.5%;
 
   /* position: relative; */
+  z-index: 1;
   position: sticky;
   top: 0; //if I want to fix the header at the top of the page during scrolling
 
