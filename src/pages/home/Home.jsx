@@ -152,5 +152,54 @@ const HomeStyled = styled.div`
         }
       }
     }
+    /* Responsive */
+    @media (max-width: 768px) {
+      // Tablet devices
+      .categories {
+        width: 689px;
+        height: 217px;
+        column-gap: 10px;
+
+        margin: 96px auto;
+
+        .category-item {
+          width: 223px;
+          height: 165px;
+
+          picture {
+            width: 103px;
+            top: -18%;
+          }
+        }
+      }
+    }
+
+    @media (max-width: 480px) {
+      // Mobile devices
+      .categories {
+        width: 327px;
+        height: 683px;
+        row-gap: 16px;
+
+        flex-direction: column;
+
+        margin-top: 40px;
+        margin-bottom: 120px;
+        margin-left: auto;
+        margin-right: auto;
+
+        .category-item {
+          width: 327px;
+          height: 165px;
+
+          margin-top: 30px;
+
+          picture {
+            width: 103px;
+            top: -18%;
+          }
+        }
+      }
+    }
   }
 `;
