@@ -1,28 +1,63 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { styled } from "styled-components";
 import { theme } from "../../theme/theme";
 import { SlBasket } from "react-icons/sl";
+import { useState } from "react";
 
 export default function Header() {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
     <HeaderStyled>
-      <div className="logo">
-        <img src="/assets/shared/desktop/logo.svg" alt="audiophile-logo" />
+      <div
+        className="hamburger"
+        onClick={() => {
+          setIsOpen(!isOpen);
+        }}
+      >
+        <img src="/assets/shared/tablet/icon-hamburger.svg" alt="menu" />
       </div>
 
-      <nav>
+      <div className="logo">
+        <Link to={"/"}>
+          <img src="/assets/shared/desktop/logo.svg" alt="audiophile-logo" />
+        </Link>
+      </div>
+
+      {isOpen && (
+        <div className="overlay">
+          <nav className="tablet-menu">
+            <ul>
+              <li>
+                <NavLink to="/">Home</NavLink>
+              </li>
+              <li>
+                <NavLink to="/headphones">Headphones</NavLink>
+              </li>
+              <li>
+                <NavLink to="/speakers">Speakers</NavLink>
+              </li>
+              <li>
+                <NavLink to="/earphones">Earphones</NavLink>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      )}
+
+      <nav className="desktop-menu">
         <ul>
           <li>
-            <Link to="/">Home</Link>
+            <NavLink to="/">Home</NavLink>
           </li>
           <li>
-            <Link to="/headphones">Headphones</Link>
+            <NavLink to="/headphones">Headphones</NavLink>
           </li>
           <li>
-            <Link to="/speakers">Speakers</Link>
+            <NavLink to="/speakers">Speakers</NavLink>
           </li>
           <li>
-            <Link to="/earphones">Earphones</Link>
+            <NavLink to="/earphones">Earphones</NavLink>
           </li>
         </ul>
       </nav>
@@ -44,7 +79,9 @@ const HeaderStyled = styled.header`
   margin: 0 auto;
   padding: 32px 13.5%;
 
-  position: relative;
+  /* position: relative; */
+  position: sticky;
+  top: 0; //if I want to fix the header at the top of the page during scrolling
 
   &:after {
     content: "";
@@ -61,9 +98,20 @@ const HeaderStyled = styled.header`
   .logo {
     display: flex;
     justify-content: center;
+    margin: 0 20px;
+  }
+
+  .active {
+    color: ${theme.colors.primaryColor};
+  }
+
+  .hamburger {
+    display: none;
+    cursor: pointer;
   }
 
   nav > ul {
+    margin: 0 20px;
     list-style: none;
     display: flex;
     gap: 34px;
@@ -77,6 +125,39 @@ const HeaderStyled = styled.header`
       &:hover {
         color: ${theme.colors.primaryColor};
       }
+    }
+  }
+
+  .overlay {
+    background-color: ${theme.colors.secondaryColor};
+    position: fixed;
+    top: 92px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 290px;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    transition: all 0.3s ease-in-out;
+
+    .tablet-menu > ul {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .hamburger {
+      display: flex;
+    }
+    .desktop-menu {
+      display: none;
+    }
+    .overlay {
+      display: flex;
     }
   }
 `;
