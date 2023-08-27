@@ -90,4 +90,36 @@ const HomeStyled = styled.div`
       }
     }
   }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    main {
+      .hero {
+        background-image: url("/assets/home/tablet/image-header.jpg");
+        background-position: center;
+        justify-content: center;
+
+        .hero-item {
+          padding: 0px 13px;
+          text-align: center;
+          align-items: center;
+        }
+      }
+    }
+  }
+  @media (max-width: 480px) {
+    main {
+      .hero {
+        background-image: url("/assets/home/mobile/image-header.jpg");
+        background-position: bottom center;
+
+        .hero-item {
+          h1 {
+            font-size: 36px;
+            line-height: 40px;
+          }
+        }
+      }
+    }
+  }
 `;
