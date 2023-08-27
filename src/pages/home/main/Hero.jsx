@@ -1,6 +1,7 @@
 import React from "react";
 import { theme } from "../../../theme/theme";
 import { styled } from "styled-components";
+import PrimaryButton from "../../../components/buttons/PrimaryButton";
 
 export default function Hero() {
   return (
@@ -12,7 +13,7 @@ export default function Hero() {
           Experience natural, lifelike audio and exceptional build quality made
           for the passionate music enthusiast.
         </p>
-        <button>See product</button>
+        <PrimaryButton label={"See product"} />
       </div>
     </HeroStyled>
   );
@@ -57,24 +58,6 @@ const HeroStyled = styled.section`
       font-size: ${theme.fonts.size.Body};
       line-height: ${theme.fonts.lineSpace.BodyLineSpace};
       opacity: 0.6;
-    }
-    button {
-      cursor: pointer;
-      width: 160px;
-      height: 48px;
-      font-size: ${theme.fonts.size.SUBTITLE};
-      font-weight: ${theme.fonts.weights.bold};
-      letter-spacing: ${theme.fonts.charSpace.SubtilteCharSpace};
-      text-transform: uppercase;
-
-      border: 2px solid ${theme.colors.primaryColor};
-      background-color: ${theme.colors.primaryColor};
-      color: ${theme.colors.whiteColor};
-
-      &:hover {
-        border: 2px solid ${theme.colors.primaryLightColor};
-        background-color: ${theme.colors.primaryLightColor};
-      }
     }
   }
 
