@@ -13,6 +13,41 @@ export default function () {
         <Hero />
         <Categories />
         <Products />
+        <section className="about">
+          <div className="about-infos">
+            <h2>
+              Bringing you the <span>best</span> audio gear
+            </h2>
+            <p>
+              Located at the heart of New York City, Audiophile is the premier
+              store for high end headphones, earphones, speakers, and audio
+              accessories. We have a large showroom and luxury demonstration
+              rooms available for you to browse and experience a wide range of
+              our products. Stop by our store to meet some of the fantastic
+              people who make Audiophile the best place to buy your portable
+              audio equipment.
+            </p>
+          </div>
+
+          <div className="about-image">
+            <picture>
+              <source
+                media="(min-width: 1025px)"
+                srcSet="/assets/shared/desktop/image-best-gear.jpg"
+              />
+
+              <source
+                media="(min-width: 768px) and (max-width: 1024px)"
+                srcSet="/assets/shared/tablet/image-best-gear.jpg"
+              />
+
+              <img
+                src="/assets/shared/mobile/image-best-gear.jpg"
+                alt="best-gear-image"
+              />
+            </picture>
+          </div>
+        </section>
       </main>
     </HomeStyled>
   );
@@ -23,5 +58,52 @@ const HomeStyled = styled.div`
 
   main {
     margin: 0 auto;
+
+    .about {
+      margin: 200px auto;
+      width: 1110px;
+      height: 588px;
+
+      display: flex;
+      align-items: center;
+      column-gap: 125px;
+
+      .about-infos {
+        width: 445px;
+        height: 245px;
+
+        display: flex;
+        flex-direction: column;
+        row-gap: 32px;
+
+        color: ${theme.colors.secondaryColor};
+
+        h2 {
+          font-size: ${theme.fonts.size.H2};
+          font-weight: ${theme.fonts.weights.bold};
+          line-height: ${theme.fonts.lineSpace.H2LineSpace};
+          letter-spacing: ${theme.fonts.charSpace.H2CharSpace};
+          text-transform: uppercase;
+
+          span {
+            color: ${theme.colors.primaryColor};
+          }
+        }
+        p {
+          font-size: ${theme.fonts.size.SUBTITLE};
+          font-weight: ${theme.fonts.weights.medium};
+          line-height: ${theme.fonts.lineSpace.SubtitleLineSpace};
+          letter-spacing: ${theme.fonts.charSpace.SubtilteCharSpace};
+          opacity: 0.6;
+        }
+      }
+      .about-image {
+        width: 540px;
+        height: 100%;
+
+        border-radius: 10px;
+        overflow: hidden;
+      }
+    }
   }
 `;
