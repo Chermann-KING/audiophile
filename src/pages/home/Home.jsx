@@ -29,24 +29,11 @@ export default function () {
             </p>
           </div>
 
-          <div className="about-image">
-            <picture>
-              <source
-                media="(min-width: 1025px)"
-                srcSet="/assets/shared/desktop/image-best-gear.jpg"
-              />
-
-              <source
-                media="(min-width: 768px) and (max-width: 1024px)"
-                srcSet="/assets/shared/tablet/image-best-gear.jpg"
-              />
-
-              <img
-                src="/assets/shared/mobile/image-best-gear.jpg"
-                alt="best-gear-image"
-              />
-            </picture>
-          </div>
+          <div
+            className="about-image"
+            role="img"
+            aria-label="best-gear-image"
+          ></div>
         </section>
       </main>
     </HomeStyled>
@@ -98,11 +85,13 @@ const HomeStyled = styled.div`
         }
       }
       .about-image {
+        border: 3px solid red;
         width: 540px;
         height: 100%;
 
         border-radius: 10px;
-        overflow: hidden;
+
+        background-image: url("/assets/shared/desktop/image-best-gear.jpg");
       }
     }
   }
