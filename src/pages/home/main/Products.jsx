@@ -1,6 +1,7 @@
 import { theme } from "../../../theme/theme";
 import { styled } from "styled-components";
 import PrimaryButton from "../../../components/buttons/PrimaryButton";
+import SecondaryButton from "../../../components/buttons/SecondaryButton";
 
 export default function Products() {
   return (
@@ -38,7 +39,7 @@ export default function Products() {
       <article className="product-item-2">
         <div className="product-item-infos">
           <h4>ZX7 SPEAKER</h4>
-          <button>See product</button>
+          <SecondaryButton label={"See product"} />
         </div>
       </article>
 
@@ -47,7 +48,7 @@ export default function Products() {
 
         <div className="product-item-infos">
           <h4>YX1 EARPHONES</h4>
-          <button>See product</button>
+          <SecondaryButton label={"See product"} />
         </div>
       </article>
     </ProductsStyled>
@@ -156,26 +157,6 @@ const ProductsStyled = styled.section`
         letter-spacing: ${theme.fonts.charSpace.H4CharSpace};
         line-height: ${theme.fonts.lineSpace.H4LineSpace};
       }
-
-      button {
-        cursor: pointer;
-        width: 160px;
-        height: 48px;
-        font-size: ${theme.fonts.size.SUBTITLE};
-        font-weight: ${theme.fonts.weights.bold};
-        letter-spacing: ${theme.fonts.charSpace.SubtilteCharSpace};
-        text-transform: uppercase;
-
-        border: 2px solid ${theme.colors.blackColor};
-        background-color: transparent;
-        color: ${theme.colors.blackColor};
-
-        &:hover {
-          color: ${theme.colors.whiteColor};
-          border: 2px solid ${theme.colors.blackColor};
-          background-color: ${theme.colors.blackColor};
-        }
-      }
     }
   }
   .product-item-3 {
@@ -212,26 +193,6 @@ const ProductsStyled = styled.section`
         font-weight: ${theme.fonts.weights.bold};
         letter-spacing: ${theme.fonts.charSpace.H4CharSpace};
         line-height: ${theme.fonts.lineSpace.H4LineSpace};
-      }
-
-      button {
-        cursor: pointer;
-        width: 160px;
-        height: 48px;
-        font-size: ${theme.fonts.size.SUBTITLE};
-        font-weight: ${theme.fonts.weights.bold};
-        letter-spacing: ${theme.fonts.charSpace.SubtilteCharSpace};
-        text-transform: uppercase;
-
-        border: 2px solid ${theme.colors.blackColor};
-        background-color: transparent;
-        color: ${theme.colors.blackColor};
-
-        &:hover {
-          color: ${theme.colors.whiteColor};
-          border: 2px solid ${theme.colors.blackColor};
-          background-color: ${theme.colors.blackColor};
-        }
       }
     }
   }
