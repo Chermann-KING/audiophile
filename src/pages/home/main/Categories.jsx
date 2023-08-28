@@ -1,6 +1,7 @@
 import { styled } from "styled-components";
 import { theme } from "../../../theme/theme";
 import { IoIosArrowForward } from "react-icons/io";
+import TertiaryButton from "../../../components/buttons/TertiaryButton";
 
 export default function Categories() {
   return (
@@ -13,12 +14,7 @@ export default function Categories() {
           />
         </picture>
         <h6>Headphones</h6>
-        <button>
-          <span className="button-label">Shop</span>
-          <span className="button-icon">
-            <IoIosArrowForward />
-          </span>
-        </button>
+        <TertiaryButton label={"Shop"} icon={<IoIosArrowForward />} />
       </div>
 
       <div className="category-item">
@@ -29,12 +25,7 @@ export default function Categories() {
           />
         </picture>
         <h6>Speakers</h6>
-        <button>
-          <span className="button-label">Shop</span>
-          <span className="button-icon">
-            <IoIosArrowForward />
-          </span>
-        </button>
+        <TertiaryButton label={"Shop"} icon={<IoIosArrowForward />} />
       </div>
 
       <div className="category-item">
@@ -45,12 +36,7 @@ export default function Categories() {
           />
         </picture>
         <h6>Earphones</h6>
-        <button>
-          <span className="button-label">Shop</span>
-          <span className="button-icon">
-            <IoIosArrowForward />
-          </span>
-        </button>
+        <TertiaryButton label={"Shop"} icon={<IoIosArrowForward />} />
       </div>
     </CategoriesStyled>
   );
@@ -100,35 +86,6 @@ const CategoriesStyled = styled.section`
       font-size: ${theme.fonts.size.H6};
     }
 
-    button {
-      cursor: pointer;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 13px;
-
-      font-size: ${theme.fonts.size.SUBTITLE};
-      font-weight: ${theme.fonts.weights.bold};
-      letter-spacing: ${theme.fonts.charSpace.SubtilteCharSpace};
-      text-transform: uppercase;
-
-      border: none;
-      background-color: transparent;
-
-      .button-label {
-        color: ${theme.colors.blackColor};
-        opacity: 0.6;
-        /* &:hover {
-              color: ${theme.colors.primaryColor};
-              opacity: 1;
-            } */
-      }
-      .button-icon {
-        color: ${theme.colors.primaryColor};
-      }
-    }
-
     &:hover {
       cursor: pointer;
       button .button-label {
@@ -140,8 +97,6 @@ const CategoriesStyled = styled.section`
 
   /* Responsive */
   @media (max-width: 768px) {
-    // Tablet devices
-
     width: 689px;
     height: 217px;
     column-gap: 10px;
@@ -160,8 +115,6 @@ const CategoriesStyled = styled.section`
   }
 
   @media (max-width: 480px) {
-    // Mobile devices
-
     width: 327px;
     height: 683px;
     row-gap: 16px;
