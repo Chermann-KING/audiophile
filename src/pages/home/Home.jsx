@@ -253,4 +253,117 @@ const HomeStyled = styled.div`
       }
     }
   }
+
+  @media (max-width: 768px) {
+    main {
+      .products {
+        width: 689px;
+        height: 1424px;
+        gap: 32px;
+
+        .product-item-1 {
+          flex-direction: column;
+          align-items: center;
+          justify-content: space-around;
+          height: 720px;
+
+          background-position: -138px -312px;
+
+          .product-item-image {
+            align-self: center;
+
+            width: 197px;
+            height: 237px;
+            overflow-y: hidden;
+
+            img {
+              position: relative;
+              bottom: -5px;
+            }
+          }
+          .product-item-infos {
+            text-align: center;
+            align-items: center;
+            gap: 24px;
+          }
+        }
+        .product-item-2 {
+          background-image: url("/assets/home/tablet/image-speaker-zx7.jpg");
+        }
+        .product-item-3 {
+          column-gap: 11px;
+          height: 320px;
+
+          .product-item-image,
+          .product-item-infos {
+            width: 339px;
+          }
+          .product-item-image {
+            background-image: url("/assets/home/tablet/image-earphones-yx1.jpg");
+            background-position: center;
+            background-size: contain;
+          }
+          .product-item-infos {
+            padding-left: 40px;
+          }
+        }
+      }
+    }
+  }
+  @media (max-width: 480px) {
+    main {
+      .products {
+        width: 327px;
+        height: 1392px;
+        gap: 24px;
+
+        .product-item-1 {
+          height: 600px;
+          background-position: -119px -110px;
+          background-size: 566px;
+
+          .product-item-image {
+            width: 172px;
+            height: 207px;
+          }
+          .product-item-infos {
+            width: 280px;
+            height: 251px;
+            gap: 24px;
+            padding-right: 0px;
+
+            h2 {
+              font-size: 36px;
+              letter-spacing: 1.3px;
+              line-height: 40px;
+              padding: 0 20px;
+            }
+          }
+        }
+        .product-item-2 {
+          background-image: url("/assets/home/mobile/image-speaker-zx7.jpg");
+          background-size: contain;
+          .product-item-infos {
+            height: 118px;
+            padding-left: 24px;
+          }
+        }
+        .product-item-3 {
+          flex-direction: column;
+          width: 327px;
+          height: 424px;
+          column-gap: 24px;
+
+          .product-item-image,
+          .product-item-infos {
+            width: 100%;
+            height: 200px;
+          }
+          .product-item-image {
+            background-image: url("/assets/home/mobile/image-earphones-yx1.jpg");
+          }
+        }
+      }
+    }
+  }
 `;
