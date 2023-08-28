@@ -85,13 +85,65 @@ const HomeStyled = styled.div`
         }
       }
       .about-image {
-        border: 3px solid red;
         width: 540px;
         height: 100%;
 
         border-radius: 10px;
 
         background-image: url("/assets/shared/desktop/image-best-gear.jpg");
+        background-repeat: no-repeat;
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    main {
+      .about {
+        margin: 96px auto;
+        width: 689px;
+        height: 633px;
+
+        flex-direction: column-reverse;
+        justify-content: space-between;
+        text-align: center;
+
+        .about-image {
+          width: 689px;
+          height: 300px;
+
+          background-image: url("/assets/shared/tablet/image-best-gear.jpg");
+          background-size: contain;
+        }
+
+        .about-infos {
+          width: 573px;
+          height: 270px;
+        }
+      }
+    }
+  }
+  @media (max-width: 480px) {
+    main {
+      .about {
+        margin: 120px auto;
+        width: 327px;
+        height: 698px;
+
+        .about-image {
+          width: 100%;
+          height: 300px;
+
+          background-image: url("/assets/shared/mobile/image-best-gear.jpg");
+        }
+        .about-infos {
+          width: 100%;
+          height: 358px;
+          row-gap: 32px;
+
+          h2 {
+            font-size: 28px;
+          }
+        }
       }
     }
   }
