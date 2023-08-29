@@ -183,4 +183,72 @@ const HomeStyled = styled.div`
       }
     }
   }
+
+  @media (max-width: 768px) {
+    footer {
+      height: 400px;
+      padding: 32px 6.5%;
+      justify-content: space-between;
+      &:after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 6%;
+        width: 101px;
+        height: 4px;
+        background: ${theme.colors.primaryColor};
+      }
+      .footer-top {
+        flex-wrap: wrap;
+        flex-direction: column;
+        align-items: start;
+        row-gap: 32px;
+      }
+      .footer-middle {
+        width: 100%;
+        p {
+          padding-right: 0px;
+        }
+      }
+      .footer-bottom {
+        .social-networks {
+          margin-top: 0px;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 480px) {
+    footer {
+      height: 654px;
+      text-align: center;
+      &:after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 101px;
+        height: 4px;
+        background: ${theme.colors.primaryColor};
+      }
+      .footer-top {
+        flex-wrap: wrap;
+        flex-direction: column;
+        align-items: center;
+        row-gap: 48px;
+        nav > ul {
+          width: 100%;
+          font-weight: ${theme.fonts.weights.bold};
+          flex-direction: column;
+        }
+      }
+
+      .footer-bottom {
+        height: 97px;
+        flex-direction: column;
+        gap: 48px;
+      }
+    }
+  }
 `;
