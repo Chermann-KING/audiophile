@@ -2,6 +2,7 @@ import { styled } from "styled-components";
 import { theme } from "../../theme/theme";
 import Header from "../../components/header/Header";
 import TitlePage from "../../components/page-title/TitlePage";
+import Categories from "../../components/categories/Categories";
 
 import Product from "./products/Product";
 
@@ -55,6 +56,8 @@ export default function Headphones() {
           mobileImage={"/assets/shared/mobile/image-xx59-headphones.jpg"}
           imageAlt={"XX59 Headphones"}
         />
+
+        <Categories />
       </main>
     </HeadphonesStyled>
   );
