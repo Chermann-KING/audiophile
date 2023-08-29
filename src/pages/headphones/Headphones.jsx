@@ -2,15 +2,17 @@ import { styled } from "styled-components";
 import { theme } from "../../theme/theme";
 import Header from "../../components/header/Header";
 import TitlePage from "../../components/page-title/TitlePage";
-import Categories from "../../components/categories/Categories";
-
 import Product from "./products/Product";
+import Categories from "../../components/categories/Categories";
+import About from "../../components/about/About";
+import Footer from "../../components/footer/Footer";
 
 export default function Headphones() {
   return (
     <HeadphonesStyled>
       <Header />
       <TitlePage label={"Headphones"} />
+
       <main>
         <Product
           subtitle={"New product"}
@@ -24,7 +26,6 @@ export default function Headphones() {
           mobileImage="/assets/shared/mobile/image-xx99-mark-two-headphones.jpg"
           imageAlt="XX99 Mark II Headphones"
         />
-
         <Product
           className={"reverse"}
           title={"XX99 Mark I Headphones"}
@@ -43,7 +44,6 @@ export default function Headphones() {
           }
           imageAlt={"XX99 Mark One Headphones"}
         />
-
         <Product
           className={"margin"}
           title={"XX59 Headphones"}
@@ -58,7 +58,10 @@ export default function Headphones() {
         />
 
         <Categories />
+        <About />
       </main>
+
+      <Footer />
     </HeadphonesStyled>
   );
 }
