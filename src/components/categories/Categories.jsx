@@ -1,7 +1,7 @@
 import { styled } from "styled-components";
-import { theme } from "../../../theme/theme";
+import { theme } from "../../theme/theme";
 import { IoIosArrowForward } from "react-icons/io";
-import TertiaryButton from "../../../components/buttons/TertiaryButton";
+import TertiaryButton from "../buttons/TertiaryButton";
 
 export default function Categories() {
   return (
