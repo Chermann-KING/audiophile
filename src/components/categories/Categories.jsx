@@ -43,8 +43,6 @@ export default function Categories() {
 }
 
 const CategoriesStyled = styled.section`
-  background-color: ${theme.colors.quaternaryColor};
-  width: 1110px;
   height: 284px;
 
   margin: 120px auto;
@@ -52,6 +50,7 @@ const CategoriesStyled = styled.section`
   display: flex;
   align-items: end;
   justify-content: space-between;
+  grid-column: 30px;
 
   .category-item {
     width: 350px;
@@ -97,7 +96,7 @@ const CategoriesStyled = styled.section`
 
   /* Responsive */
   @media (max-width: 768px) {
-    width: 689px;
+    width: 100%;
     height: 217px;
     column-gap: 10px;
 
@@ -115,22 +114,17 @@ const CategoriesStyled = styled.section`
   }
 
   @media (max-width: 480px) {
-    width: 327px;
     height: 683px;
     row-gap: 16px;
 
     flex-direction: column;
+    align-items: center;
 
-    margin-top: 40px;
     margin-bottom: 120px;
-    margin-left: auto;
-    margin-right: auto;
 
     .category-item {
-      width: 327px;
+      width: 100%;
       height: 165px;
-
-      margin-top: 30px;
 
       picture {
         width: 103px;

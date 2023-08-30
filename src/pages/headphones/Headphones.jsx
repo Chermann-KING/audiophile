@@ -68,8 +68,12 @@ export default function Headphones() {
 
 const HeadphonesStyled = styled.div`
   main {
+    border: 3px solid blue;
     margin: 0 13.5%; // to review
     margin-top: 160px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
     .reverse {
       flex-direction: row-reverse;
