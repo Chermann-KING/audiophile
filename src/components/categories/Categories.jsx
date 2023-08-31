@@ -44,6 +44,7 @@ export default function Categories() {
 
 const CategoriesStyled = styled.section`
   height: 284px;
+  width: 100%;
 
   margin: 120px auto;
 
