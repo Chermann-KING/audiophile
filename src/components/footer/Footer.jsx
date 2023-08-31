@@ -86,7 +86,7 @@ const FooterStyled = styled.footer`
     content: "";
     position: absolute;
     top: 0;
-    left: 13%;
+    left: 13.5%;
     width: 101px;
     height: 4px;
     background: ${theme.colors.primaryColor};
