@@ -3,9 +3,9 @@ import { theme } from "../../theme/theme";
 import { IoIosArrowForward } from "react-icons/io";
 import TertiaryButton from "../buttons/TertiaryButton";
 
-export default function Categories() {
+export default function Categories({ className }) {
   return (
-    <CategoriesStyled className="categories">
+    <CategoriesStyled className={className}>
       <div className="category-item">
         <picture>
           <img

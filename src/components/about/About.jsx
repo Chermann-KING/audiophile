@@ -1,9 +1,9 @@
 import { theme } from "../../theme/theme";
 import { styled } from "styled-components";
 
-export default function About() {
+export default function About({ className }) {
   return (
-    <AboutStyled className="about">
+    <AboutStyled className={className}>
       <div className="about-infos">
         <h2>
           Bringing you the <span>best</span> audio gear
