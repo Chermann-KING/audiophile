@@ -45,11 +45,13 @@ export default function Product({
 
 const ProductStyled = styled.section`
   margin-bottom: 160px; // to review
+  width: 100%;
 
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  column-gap: 125px;
 
   .product-image {
     width: 540px;
@@ -65,11 +67,11 @@ const ProductStyled = styled.section`
   }
   .product-infos {
     width: 445px;
-    height: 343px;
 
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    row-gap: 32px;
 
     span,
     h2 {
@@ -80,6 +82,7 @@ const ProductStyled = styled.section`
       font-size: ${theme.fonts.size.OVERLINE};
       font-weight: ${theme.fonts.weights.regular};
       letter-spacing: ${theme.fonts.charSpace.OverlineCharSpace};
+      margin-bottom: -15px;
     }
     h2 {
       font-size: ${theme.fonts.size.H2};
@@ -92,6 +95,7 @@ const ProductStyled = styled.section`
       font-size: ${theme.fonts.size.Body};
       line-height: ${theme.fonts.lineSpace.BodyLineSpace};
       opacity: 0.6;
+      width: 100%;
     }
   }
 
@@ -106,6 +110,7 @@ const ProductStyled = styled.section`
     .product-infos {
       text-align: center;
       align-items: center;
+      width: 100%;
 
       h2 {
         padding: 0 68px;

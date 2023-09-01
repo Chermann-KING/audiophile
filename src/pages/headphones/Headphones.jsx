@@ -78,7 +78,7 @@ const HeadphonesStyled = styled.div`
       flex-direction: row-reverse;
     }
     .margin-bottom {
-      margin-bottom: 0px;
+      margin-bottom: 40px;
     }
   }
 
