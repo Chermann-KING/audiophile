@@ -1,5 +1,4 @@
 import { styled } from "styled-components";
-import { theme } from "../../theme/theme";
 import Header from "../../components/header/Header";
 import TitlePage from "../../components/page-title/TitlePage";
 import Product from "./products/Product";

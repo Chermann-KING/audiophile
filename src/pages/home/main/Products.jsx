@@ -57,7 +57,7 @@ export default function Products() {
 
 const ProductsStyled = styled.section`
   height: 1296px;
-  margin: 0 auto;
+  margin-top: 140px;
 
   display: flex;
   flex-direction: column;
