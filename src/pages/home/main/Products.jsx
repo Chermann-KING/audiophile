@@ -56,9 +56,8 @@ export default function Products() {
 }
 
 const ProductsStyled = styled.section`
-  width: 1110px;
   height: 1296px;
-  margin: 0 auto;
+  margin-top: 140px;
 
   display: flex;
   flex-direction: column;
@@ -72,29 +71,31 @@ const ProductsStyled = styled.section`
   .product-item-1 {
     background-color: ${theme.colors.primaryColor};
     height: 560px;
-    overflow-y: hidden;
     position: relative;
 
     display: flex;
     justify-content: center;
+    align-items: end;
     column-gap: 138px;
 
     background-image: url("/assets/home/desktop/pattern-circles.svg");
     background-repeat: no-repeat;
     background-size: 944px;
-    background-position: -153px -39px;
+    background-position: -100% 10%;
 
     .product-item-image {
-      align-self: flex-end;
+      position: relative;
+      overflow-y: hidden;
 
       width: 410px;
-      height: 493px;
 
       position: relative;
-      bottom: -10px;
+      bottom: 0px;
 
       img {
+        position: relative;
         width: 100%;
+        bottom: -20px;
       }
     }
     .product-item-infos {
@@ -136,6 +137,8 @@ const ProductsStyled = styled.section`
     height: 320px;
     background-image: url("/assets/home/desktop/image-speaker-zx7.jpg");
     background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
 
     display: flex;
     justify-content: flex-start;
@@ -144,7 +147,7 @@ const ProductsStyled = styled.section`
       align-self: center;
 
       height: 118px;
-      padding-left: 96px;
+      padding-left: 8.5%;
 
       display: flex;
       flex-direction: column;
@@ -175,12 +178,13 @@ const ProductsStyled = styled.section`
     .product-item-image {
       background-image: url("/assets/home/desktop/image-earphones-yx1.jpg");
       background-repeat: no-repeat;
+      background-position: center;
     }
 
     .product-item-infos {
       align-self: center;
       background-color: ${theme.colors.tertiaryColor};
-      padding-left: 96px;
+      padding-left: 8.8%;
 
       display: flex;
       flex-direction: column;
@@ -193,12 +197,12 @@ const ProductsStyled = styled.section`
         font-weight: ${theme.fonts.weights.bold};
         letter-spacing: ${theme.fonts.charSpace.H4CharSpace};
         line-height: ${theme.fonts.lineSpace.H4LineSpace};
+        padding-right: 15%;
       }
     }
   }
 
   @media (max-width: 768px) {
-    width: 689px;
     height: 1424px;
     gap: 32px;
 
@@ -208,17 +212,15 @@ const ProductsStyled = styled.section`
       justify-content: space-around;
       height: 720px;
 
-      background-position: -138px -312px;
+      background-position: 50% 120%;
 
       .product-item-image {
         align-self: center;
 
         width: 197px;
         height: 237px;
-        overflow-y: hidden;
 
         img {
-          position: relative;
           bottom: -5px;
         }
       }
@@ -230,6 +232,8 @@ const ProductsStyled = styled.section`
     }
     .product-item-2 {
       background-image: url("/assets/home/tablet/image-speaker-zx7.jpg");
+      background-size: cover;
+      background-position: center right;
     }
     .product-item-3 {
       column-gap: 11px;
@@ -241,8 +245,8 @@ const ProductsStyled = styled.section`
       }
       .product-item-image {
         background-image: url("/assets/home/tablet/image-earphones-yx1.jpg");
-        background-position: center;
-        background-size: contain;
+        /* background-position: center; */
+        background-size: cover;
       }
       .product-item-infos {
         padding-left: 40px;
@@ -257,8 +261,10 @@ const ProductsStyled = styled.section`
 
     .product-item-1 {
       height: 600px;
-      background-position: -119px -110px;
-      background-size: 566px;
+      background-position: 50% -400%;
+      background-size: 174%;
+      row-gap: 32px;
+      justify-content: center;
 
       .product-item-image {
         width: 172px;
@@ -283,7 +289,6 @@ const ProductsStyled = styled.section`
       background-size: contain;
       .product-item-infos {
         height: 118px;
-        padding-left: 24px;
       }
     }
     .product-item-3 {
@@ -299,6 +304,11 @@ const ProductsStyled = styled.section`
       }
       .product-item-image {
         background-image: url("/assets/home/mobile/image-earphones-yx1.jpg");
+      }
+      .product-item-infos {
+        h4 {
+          padding-right: 0;
+        }
       }
     }
   }

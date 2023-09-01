@@ -1,9 +1,9 @@
-import { theme } from "../../../theme/theme";
+import { theme } from "../../theme/theme";
 import { styled } from "styled-components";
 
-export default function About() {
+export default function About({ className }) {
   return (
-    <AboutStyled className="about">
+    <AboutStyled className={className}>
       <div className="about-infos">
         <h2>
           Bringing you the <span>best</span> audio gear
@@ -29,19 +29,22 @@ export default function About() {
 
 const AboutStyled = styled.section`
   margin: 200px auto;
-  width: 1110px;
   height: 588px;
+  width: 100%;
 
   display: flex;
   align-items: center;
-  column-gap: 125px;
+  justify-content: space-between;
+  column-gap: 10%;
 
   .about-infos {
     width: 445px;
-    height: 245px;
+    min-width: 294px;
+    height: 295px;
 
     display: flex;
     flex-direction: column;
+    justify-content: center;
     row-gap: 32px;
 
     color: ${theme.colors.secondaryColor};
@@ -73,28 +76,36 @@ const AboutStyled = styled.section`
 
     background-image: url("/assets/shared/desktop/image-best-gear.jpg");
     background-repeat: no-repeat;
+    background-position: center;
   }
 
   @media (max-width: 768px) {
-    margin: 96px auto;
-    width: 689px;
     height: 633px;
+    width: 100%;
 
     flex-direction: column-reverse;
     justify-content: space-between;
+    align-items: center;
     text-align: center;
+    row-gap: 63px;
 
     .about-image {
-      width: 689px;
+      width: 100%;
       height: 300px;
 
       background-image: url("/assets/shared/tablet/image-best-gear.jpg");
-      background-size: contain;
+      background-size: cover;
     }
 
     .about-infos {
-      width: 573px;
-      height: 270px;
+      width: 100%;
+      justify-content: space-between;
+      row-gap: 10%;
+      padding: 0 3%;
+
+      p {
+        letter-spacing: normal;
+      }
     }
   }
   @media (max-width: 480px) {
@@ -115,6 +126,7 @@ const AboutStyled = styled.section`
 
       h2 {
         font-size: 28px;
+        line-height: normal;
       }
     }
   }

@@ -99,7 +99,7 @@ const HeaderStyled = styled.header`
   .logo {
     display: flex;
     justify-content: center;
-    margin: 0 20px;
+    margin-right: 20px;
   }
 
   .active {
