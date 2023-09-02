@@ -16,18 +16,19 @@ Thanks for taking a look at my solution to this front-end coding challenge.
 
 ### Screenshot
 
-![]()
+![](../assets/audiophile-printscreen.png)
 
 ### Links
 
-- Solution URL:
-- Live Site URL:
+- Solution URL: https://github.com/Chermann-KING/audiophile
+- Live Site URL: https://audiophile-one-mu.vercel.app/
 
 ### Built with
 
 - Vite
 - Yarn
 - React JS
+- Styled Components
 
 ## Author
 
