@@ -29,8 +29,6 @@ Thanks for taking a look at my solution to this front-end coding challenge.
 - Yarn
 - React JS
 - Styled Components
-- Styled Components
-- Styled Components
 
 ## Author
 
