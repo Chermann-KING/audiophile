@@ -1,7 +1,7 @@
 import { styled } from "styled-components";
 import Header from "../../components/header/Header";
 import TitlePage from "../../components/page-title/TitlePage";
-import Product from "./products/Product";
+import Product from "../../components/products/Product";
 import Categories from "../../components/categories/Categories";
 import About from "../../components/about/About";
 import Footer from "../../components/footer/Footer";
@@ -92,6 +92,12 @@ const HeadphonesStyled = styled.div`
       .margin-top-about {
         margin-top: 70px;
       }
+    }
+  }
+
+  @media (max-width: 480px) {
+    main {
+      margin-top: 64px;
     }
   }
 `;
