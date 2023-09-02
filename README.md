@@ -16,10 +16,12 @@ Thanks for taking a look at my solution to this front-end coding challenge.
 
 ### Screenshot
 
-![](../assets/audiophile-printscreen.png)
+![](./public/assets/audiophile-printscreen.png)
 
 ### Links
 
+- Solution URL: https://github.com/Chermann-KING/audiophile
+- Live Site URL: https://audiophile-one-mu.vercel.app/
 - Solution URL: https://github.com/Chermann-KING/audiophile
 - Live Site URL: https://audiophile-one-mu.vercel.app/
 
@@ -28,6 +30,7 @@ Thanks for taking a look at my solution to this front-end coding challenge.
 - Vite
 - Yarn
 - React JS
+- Styled Components
 - Styled Components
 
 ## Author
