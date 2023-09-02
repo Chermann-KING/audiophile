@@ -1,6 +1,6 @@
-import { theme } from "../../../theme/theme";
+import { theme } from "../../theme/theme";
 import { styled } from "styled-components";
-import PrimaryButton from "../../../components/buttons/PrimaryButton";
+import PrimaryButton from "../../components/buttons/PrimaryButton";
 
 export default function Product({
   className,
