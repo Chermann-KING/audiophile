@@ -94,4 +94,10 @@ const HeadphonesStyled = styled.div`
       }
     }
   }
+
+  @media (max-width: 480px) {
+    main {
+      margin-top: 64px;
+    }
+  }
 `;
