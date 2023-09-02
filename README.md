@@ -24,12 +24,15 @@ Thanks for taking a look at my solution to this front-end coding challenge.
 - Live Site URL: https://audiophile-one-mu.vercel.app/
 - Solution URL: https://github.com/Chermann-KING/audiophile
 - Live Site URL: https://audiophile-one-mu.vercel.app/
+- Solution URL: https://github.com/Chermann-KING/audiophile
+- Live Site URL: https://audiophile-one-mu.vercel.app/
 
 ### Built with
 
 - Vite
 - Yarn
 - React JS
+- Styled Components
 - Styled Components
 - Styled Components
 
