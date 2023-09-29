@@ -176,17 +176,8 @@ const FooterStyled = styled.footer`
 
   @media (max-width: 768px) {
     height: 400px;
-    padding: 32px 6.5%;
     justify-content: space-between;
-    &:after {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 6%;
-      width: 101px;
-      height: 4px;
-      background: ${theme.colors.primaryColor};
-    }
+
     .footer-top {
       flex-wrap: wrap;
       flex-direction: column;
@@ -210,14 +201,8 @@ const FooterStyled = styled.footer`
     height: 654px;
     text-align: center;
     &:after {
-      content: "";
-      position: absolute;
-      top: 0;
       left: 50%;
       transform: translateX(-50%);
-      width: 101px;
-      height: 4px;
-      background: ${theme.colors.primaryColor};
     }
     .footer-top {
       flex-wrap: wrap;

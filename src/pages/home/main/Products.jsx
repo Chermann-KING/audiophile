@@ -5,7 +5,7 @@ import SecondaryButton from "../../../components/buttons/SecondaryButton";
 
 export default function Products() {
   return (
-    <ProductsStyled className="products">
+    <ProductsStyled>
       <article className="product-item-1">
         <div className="product-item-image">
           <picture>
@@ -57,8 +57,6 @@ export default function Products() {
 
 const ProductsStyled = styled.section`
   height: 1296px;
-  margin-top: 140px;
-
   display: flex;
   flex-direction: column;
   gap: 48px 30px;

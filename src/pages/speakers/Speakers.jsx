@@ -11,6 +11,7 @@ export default function Speakers() {
     <SpeakersStyled>
       <Header />
       <TitlePage label={"Seapkers"} />
+
       <main>
         <Product
           subtitle={"New Product"}
@@ -39,6 +40,7 @@ export default function Speakers() {
         <Categories />
         <About className={"margin-top-about"} />
       </main>
+
       <Footer />
     </SpeakersStyled>
   );
@@ -46,11 +48,12 @@ export default function Speakers() {
 
 const SpeakersStyled = styled.div`
   main {
-    margin: 0 13.5%; // to review
-    margin-top: 160px;
+    padding: 160px 13.5%;
+
     display: flex;
     flex-direction: column;
     align-items: center;
+    row-gap: 160px;
 
     h2 {
       margin-right: 30%;
@@ -66,7 +69,8 @@ const SpeakersStyled = styled.div`
 
   @media (max-width: 768px) {
     main {
-      margin-top: 120px;
+      padding: 120px 13.5%;
+      row-gap: 120px;
 
       span {
         transform: translateX(10px);
@@ -88,7 +92,7 @@ const SpeakersStyled = styled.div`
 
   @media (max-width: 480px) {
     main {
-      margin-top: 64px;
+      padding-top: 64px;
     }
   }
 `;
