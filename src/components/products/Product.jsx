@@ -44,7 +44,6 @@ export default function Product({
 }
 
 const ProductStyled = styled.section`
-  margin-bottom: 160px; // to review
   width: 100%;
 
   display: flex;

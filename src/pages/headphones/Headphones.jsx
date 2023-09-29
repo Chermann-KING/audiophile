@@ -44,7 +44,6 @@ export default function Headphones() {
           imageAlt={"XX99 Mark One Headphones"}
         />
         <Product
-          className={"margin-bottom"}
           title={"XX59 Headphones"}
           description={
             "Enjoy your audio almost anywhere and customize it to your specific tastes with the XX59 headphones. The stylish yet durable versatile wireless headset is a brilliant companion at home or on the move."
@@ -67,37 +66,31 @@ export default function Headphones() {
 
 const HeadphonesStyled = styled.div`
   main {
-    margin: 0 13.5%; // to review
-    margin-top: 160px;
+    padding: 160px 13.5%;
+
     display: flex;
     flex-direction: column;
     align-items: center;
+    row-gap: 160px;
 
     .reverse {
       flex-direction: row-reverse;
-    }
-    .margin-bottom {
-      margin-bottom: 40px;
     }
   }
 
   @media (max-width: 768px) {
     main {
+      padding: 120px 13.5%;
+      row-gap: 120px;
       .reverse {
         flex-direction: column;
-      }
-      .margin-top-categories {
-        margin-top: 140px;
-      }
-      .margin-top-about {
-        margin-top: 70px;
       }
     }
   }
 
   @media (max-width: 480px) {
     main {
-      margin-top: 64px;
+      padding-top: 64px;
     }
   }
 `;

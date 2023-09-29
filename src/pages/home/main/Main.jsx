@@ -5,23 +5,40 @@ import Products from "./Products";
 import About from "../../../components/about/About";
 import { styled } from "styled-components";
 
-const MarginWrapper = styled.div`
-  margin: 0 13.5%;
+const PaddingWrapper = styled.div`
+  padding: 120px 13.5% 13.5% 200px;
+
+  @media (max-width: 768px) {
+    padding: 96px 13.5%;
+  }
+`;
+const ProductWrapper = styled.div`
+  padding-top: 168px;
+  padding-bottom: 200px;
+
+  @media (max-width: 768px) {
+    padding: 96px 0px;
+  }
+  @media (max-width: 480px) {
+    padding: 120px 0px;
+  }
 `;
 
 export default function Main() {
   return (
     <MainStyled>
       <Hero />
-      <MarginWrapper>
+      <PaddingWrapper>
         <Categories />
-        <Products />
+        <ProductWrapper>
+          <Products />
+        </ProductWrapper>
         <About />
-      </MarginWrapper>
+      </PaddingWrapper>
     </MainStyled>
   );
 }
 
 const MainStyled = styled.main`
-  margin: 0 auto;
+  /* border: 3px solid black; */
 `;

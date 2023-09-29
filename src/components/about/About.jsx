@@ -28,7 +28,6 @@ export default function About({ className }) {
 }
 
 const AboutStyled = styled.section`
-  margin: 200px auto;
   height: 588px;
   width: 100%;
 
@@ -72,7 +71,7 @@ const AboutStyled = styled.section`
     width: 540px;
     height: 100%;
 
-    border-radius: 10px;
+    border-radius: 8px;
 
     background-image: url("/assets/shared/desktop/image-best-gear.jpg");
     background-repeat: no-repeat;
@@ -109,7 +108,6 @@ const AboutStyled = styled.section`
     }
   }
   @media (max-width: 480px) {
-    margin: 120px auto;
     width: 327px;
     height: 698px;
 
