@@ -1,6 +1,7 @@
 import { theme } from "../../theme/theme";
 import { styled } from "styled-components";
 import PrimaryButton from "../../components/buttons/PrimaryButton";
+import { useState } from "react";
 
 export default function Product({
   className,
@@ -12,7 +13,22 @@ export default function Product({
   tabletImage,
   mobileImage,
   imageAlt,
+  price,
 }) {
+  // state
+  const [quantity, setQuantity] = useState(1);
+
+  // comportement
+  const handleIncrement = () => {
+    setQuantity(quantity + 1);
+  };
+
+  const handleDecrement = () => {
+    if (quantity > 1) {
+      setQuantity(quantity - 1);
+    }
+  };
+
   return (
     <ProductStyled className={className}>
       <div className="product-image">
@@ -37,7 +53,19 @@ export default function Product({
         {subtitle && <span>{subtitle}</span>}
         <h2>{title}</h2>
         <p>{description}</p>
-        <PrimaryButton label={labelButton} />
+        {price && <p className="product-price">${price}</p>}
+        <div className="action-buttons">
+          <div className="quantity-container">
+            {price && (
+              <div className="quantity">
+                <button onClick={handleDecrement}>-</button>
+                <span>{quantity}</span>
+                <button onClick={handleIncrement}>+</button>
+              </div>
+            )}
+          </div>
+          <PrimaryButton label={labelButton} />
+        </div>
       </div>
     </ProductStyled>
   );
@@ -95,6 +123,53 @@ const ProductStyled = styled.section`
       line-height: ${theme.fonts.lineSpace.BodyLineSpace};
       opacity: 0.6;
       width: 100%;
+    }
+    p.product-price {
+      font-size: ${theme.fonts.size.H6};
+      color: ${theme.colors.secondaryColor};
+      font-weight: ${theme.fonts.weights.bold};
+      opacity: 1;
+    }
+    .action-buttons {
+      display: flex;
+      align-items: center;
+      column-gap: 16px;
+
+      .quantity-container {
+        background-color: ${theme.colors.tertiaryColor};
+
+        .quantity {
+          width: 120px;
+          height: 48px;
+
+          display: flex;
+          align-items: center;
+          justify-content: space-around;
+
+          font-size: ${theme.fonts.size.SUBTITLE};
+
+          button {
+            cursor: pointer;
+            width: 18px;
+            height: 16px;
+            background-color: transparent;
+            color: ${theme.colors.secondaryColor};
+            border: none;
+            opacity: 0.25;
+            &:hover {
+              color: ${theme.colors.primaryColor};
+              opacity: 1;
+            }
+          }
+
+          span {
+            margin: 0;
+            font-weight: ${theme.fonts.weights.bold};
+            color: ${theme.colors.secondaryColor};
+            letter-spacing: normal;
+          }
+        }
+      }
     }
   }
 
