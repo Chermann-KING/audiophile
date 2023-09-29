@@ -2,6 +2,7 @@ import { styled } from "styled-components";
 import { theme } from "../../theme/theme";
 import { IoIosArrowForward } from "react-icons/io";
 import TertiaryButton from "../buttons/TertiaryButton";
+import { NavLink } from "react-router-dom";
 
 export default function Categories({ className }) {
   return (
@@ -14,7 +15,9 @@ export default function Categories({ className }) {
           />
         </picture>
         <h6>Headphones</h6>
-        <TertiaryButton label={"Shop"} icon={<IoIosArrowForward />} />
+        <NavLink to="/headphones">
+          <TertiaryButton label={"Shop"} icon={<IoIosArrowForward />} />
+        </NavLink>
       </div>
 
       <div className="category-item">
@@ -25,7 +28,9 @@ export default function Categories({ className }) {
           />
         </picture>
         <h6>Speakers</h6>
-        <TertiaryButton label={"Shop"} icon={<IoIosArrowForward />} />
+        <NavLink to="/speakers">
+          <TertiaryButton label={"Shop"} icon={<IoIosArrowForward />} />
+        </NavLink>
       </div>
 
       <div className="category-item">
@@ -36,7 +41,9 @@ export default function Categories({ className }) {
           />
         </picture>
         <h6>Earphones</h6>
-        <TertiaryButton label={"Shop"} icon={<IoIosArrowForward />} />
+        <NavLink to="/earphones">
+          <TertiaryButton label={"Shop"} icon={<IoIosArrowForward />} />
+        </NavLink>
       </div>
     </CategoriesStyled>
   );
