@@ -11,6 +11,7 @@ import { OrderService } from '../../../../core/services/order.service';
 import { UserService } from '../../../../core/services/user.service';
 import { take } from 'rxjs/operators';
 import { OrderConfirmationModalService } from '../../services/order-confirmation-modal.service';
+import { Order, OrderResponse } from '../../../../core/models/order.model';
 
 @Component({
   selector: 'app-checkout',
@@ -162,10 +163,12 @@ export class CheckoutComponent implements OnInit {
       console.log('5. Données de la commande:', orderData);
 
       this._orderService.createOrder(orderData).subscribe({
-        next: (order) => {
-          console.log('6. Commande créée avec succès:', order);
+        next: (response: Order | OrderResponse) => {
+          console.log('6. Commande créée avec succès:', response);
+          const order = 'order' in response ? response.order : response;
           this._modalService.showModal(order);
-          this._cartService.clearCart(); // Vider le panier après la commande
+          this._cartService.clearCart();
+          this.loading = false;
         },
         error: (error) => {
           console.error('7. Erreur lors de la création de la commande:', error);

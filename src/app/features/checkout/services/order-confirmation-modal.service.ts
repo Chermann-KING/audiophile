@@ -1,18 +1,20 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { Order } from '../../../core/models/order.model';
+import { Order, OrderResponse } from '../../../core/models/order.model';
 
 @Injectable()
 export class OrderConfirmationModalService {
   private isVisibleSubject = new BehaviorSubject<boolean>(false);
-  private orderDataSubject = new BehaviorSubject<Order | null>(null);
+  private orderDataSubject = new BehaviorSubject<Order | OrderResponse | null>(
+    null
+  );
 
   isVisible$ = this.isVisibleSubject.asObservable();
   orderData$ = this.orderDataSubject.asObservable();
 
-  showModal(order: Order): void {
-    console.log('showModal appelé avec:', order);
-    this.orderDataSubject.next(order);
+  showModal(orderData: Order | OrderResponse): void {
+    console.log('showModal appelé avec:', orderData);
+    this.orderDataSubject.next(orderData);
     this.isVisibleSubject.next(true);
     console.log(
       'État isVisible après mise à jour:',
