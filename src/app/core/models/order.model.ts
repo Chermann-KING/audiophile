@@ -1,4 +1,5 @@
 export interface OrderItem {
+  id?: string;
   name: string;
   price: number;
   quantity: number;
@@ -39,6 +40,8 @@ export interface Order {
   shipping: number;
   vat: number;
   subtotal: number;
+  status?: 'pending' | 'processing' | 'shipped' | 'delivered' | 'cancelled';
+  date?: string;
 }
 
 export interface OrderResponse {
