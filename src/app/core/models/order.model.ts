@@ -1,10 +1,9 @@
 export interface OrderItem {
-  id: number;
-  productId: number;
   name: string;
-  image: string;
-  quantity: number;
   price: number;
+  quantity: number;
+  image: string;
+  productId: string;
 }
 
 export interface ShippingInfo {
@@ -25,14 +24,25 @@ export interface PaymentInfo {
 
 export interface Order {
   id?: string;
-  userId: number;
+  name: string;
+  email: string;
+  phone: string;
+  address: string;
+  zipCode: string;
+  city: string;
+  country: string;
+  paymentMethod: 'emoney' | 'cash';
+  emoneyNumber?: string;
+  emoneyPin?: string;
   items: OrderItem[];
-  shipping: ShippingInfo;
-  payment: PaymentInfo;
   total: number;
-  shipping_fee: number;
+  shipping: number;
   vat: number;
-  grandTotal: number;
-  status: 'pending' | 'processing' | 'shipped' | 'delivered' | 'cancelled';
-  date: string;
+  subtotal: number;
+}
+
+export interface OrderResponse {
+  success: boolean;
+  message: string;
+  order: Order;
 }
