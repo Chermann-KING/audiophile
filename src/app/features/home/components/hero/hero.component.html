@@ -1,0 +1,47 @@
+<section class="hero" *ngIf="!isLoading && activeProduct" [attr.data-product]="activeProduct.slug">
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-text">
+        <p class="overline">NEW PRODUCT</p>
+        <h1>{{ activeProduct.name }}</h1>
+        <p class="description">{{ activeProduct.description }}</p>
+        <app-button variant="primary" (buttonClick)="onSeeProduct()">
+          SEE PRODUCT
+        </app-button>
+      </div>
+      <div class="image-container">
+        <div class="hero-image">
+          <!-- Image de fond gérée par CSS avec des classes dynamiques -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Contrôles du slider -->
+    <div class="hero-slider-controls" *ngIf="newProducts.length > 1">
+      <div class="slider-dots">
+        <button *ngFor="let product of newProducts; let i = index" class="slider-dot"
+          [class.active]="i === currentProductIndex" (click)="goToSlide(i)"
+          [attr.aria-label]="'Go to slide ' + (i + 1)">
+        </button>
+      </div>
+      <!-- <div class="slider-arrows">
+        <button class="slider-arrow prev" (click)="previousSlide()" aria-label="Previous slide">
+          <svg width="14" height="24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M13 0L1 12l12 12" stroke="#FFF" fill="none" fill-rule="evenodd" />
+          </svg>
+        </button>
+        <button class="slider-arrow next" (click)="nextSlide()" aria-label="Next slide">
+          <svg width="14" height="24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1 0l12 12L1 24" stroke="#FFF" fill="none" fill-rule="evenodd" />
+          </svg>
+        </button>
+      </div> -->
+    </div>
+  </div>
+</section>
+
+<div class="hero-loading" *ngIf="isLoading">
+  <div class="container">
+    <p>Loading featured products...</p>
+  </div>
+</div>

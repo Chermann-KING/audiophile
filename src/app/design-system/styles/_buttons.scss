@@ -1,0 +1,107 @@
+// Design System - Buttons
+
+@use "./variables" as vars;
+@use "./mixins" as mix;
+@use "./typography" as type;
+
+// Styles de base des boutons
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: type.$font-family-base;
+  font-weight: type.$font-weight-bold;
+  font-size: 0.8125rem; // 13px
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border: none;
+  cursor: pointer;
+  transition: all vars.$transition-normal;
+  padding: 1rem 2rem;
+  min-width: 160px;
+  height: 48px;
+
+  &:focus {
+    outline: none;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+// Bouton 1 - Primaire (fond orange)
+.btn-primary {
+  @extend .btn;
+  background-color: vars.$primary;
+  color: vars.$white;
+
+  &:hover,
+  &:focus {
+    background-color: vars.$primary-light;
+  }
+}
+
+// Bouton 2 - Secondaire (fond transparent/ bordure noir)
+.btn-secondary {
+  @extend .btn;
+  background-color: transparent;
+  color: vars.$black;
+  border: 1px solid vars.$black;
+
+  &:hover,
+  &:focus {
+    background-color: vars.$black;
+    color: vars.$white;
+  }
+}
+
+// Bouton 3 - tertiaire (fond noir/gris foncé)
+.btn-dark {
+  @extend .btn;
+  background-color: vars.$black;
+  color: vars.$white;
+  transition: all vars.$transition-normal;
+
+  &:hover,
+  &:focus {
+    background-color: vars.$grayish-black;
+  }
+}
+
+// Bouton 4 - Texte avec flèche (Boutique)
+.btn-text {
+  @extend .btn;
+  background-color: transparent;
+  color: vars.$light-grayish-black;
+  padding: 0;
+  min-width: auto;
+  height: auto;
+  position: relative;
+
+  &::after {
+    content: ">";
+    color: vars.$primary;
+    margin-left: 0.5rem;
+    font-size: 1rem;
+    transition: transform vars.$transition-normal;
+  }
+
+  &:hover,
+  &:focus {
+    color: vars.$primary;
+
+    &::after {
+      transform: translateX(5px);
+    }
+  }
+}
+
+// Styles supplémentaires pour la réactivité
+@media (max-width: vars.$breakpoint-sm) {
+  .btn {
+    min-width: 120px;
+    padding: 0.75rem 1.5rem;
+  }
+}

@@ -1,0 +1,109 @@
+@use "../../../../design-system/styles/variables" as vars;
+@use "../../../../design-system/styles/mixins" as mix;
+
+.auth-page {
+  min-height: calc(100vh - 90px);
+  background-color: vars.$white;
+  padding: 3rem 0;
+
+  .container {
+    max-width: 450px;
+    margin: 0 auto;
+    padding: 0 vars.$spacing-md;
+  }
+}
+
+.auth-card {
+  background-color: vars.$pure-white;
+  border-radius: vars.$border-radius-md;
+  padding: 2rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+
+  h1 {
+    margin-bottom: 2rem;
+    font-size: 2rem;
+    color: vars.$black;
+  }
+}
+
+.auth-form {
+  .form-group {
+    margin-bottom: 1.5rem;
+
+    label {
+      display: block;
+      font-size: 0.875rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    input {
+      width: 100%;
+      height: 56px;
+      padding: 0 1.5rem;
+      font-size: 0.875rem;
+      border: 1px solid #cfcfcf;
+      border-radius: vars.$border-radius-sm;
+      transition: all 0.3s ease;
+
+      &:focus {
+        outline: none;
+        border-color: vars.$primary;
+      }
+
+      &.error {
+        border-color: #cd2c2c;
+      }
+    }
+  }
+
+  .error-message {
+    color: #cd2c2c;
+    font-size: 0.75rem;
+    margin-top: 0.5rem;
+  }
+
+  button {
+    width: 100%;
+    margin-top: 1rem;
+
+    &:disabled {
+      background-color: rgba(vars.$primary, 0.5);
+      cursor: not-allowed;
+    }
+  }
+}
+
+.demo-info {
+  margin-top: 2rem;
+  padding: 1rem;
+  background-color: rgba(vars.$primary, 0.1);
+  border-radius: vars.$border-radius-sm;
+
+  p {
+    margin: 0.25rem 0;
+    font-size: 0.875rem;
+    color: rgba(vars.$black, 0.7);
+
+    &:first-child {
+      font-weight: 700;
+      color: vars.$primary;
+    }
+  }
+}
+
+.auth-footer {
+  margin-top: 2rem;
+  text-align: center;
+  font-size: 0.875rem;
+
+  a {
+    color: vars.$primary;
+    text-decoration: none;
+    font-weight: 700;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

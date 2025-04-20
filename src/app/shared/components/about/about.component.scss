@@ -1,0 +1,78 @@
+@use "../../../design-system/styles/variables" as vars;
+@use "../../../design-system/styles/mixins" as mix;
+@use "../../../design-system/styles/typography" as type;
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 vars.$spacing-md;
+
+  @include mix.respond-to(sm) {
+    padding: 0 vars.$spacing-sm;
+  }
+}
+
+.about-content {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  gap: 7.8125rem;
+
+  @include mix.respond-to(md) {
+    flex-direction: column;
+    gap: vars.$spacing-lg;
+  }
+}
+
+.about-image {
+  flex: 1;
+
+  img {
+    width: 100%;
+    height: auto;
+    border-radius: vars.$border-radius-md;
+
+    @include mix.box-shadow(1);
+  }
+}
+
+.about-text {
+  flex: 1;
+  max-width: 550px;
+
+  @include mix.respond-to(md) {
+    max-width: 100%;
+    text-align: center;
+    padding: 0 vars.$spacing-md;
+  }
+
+  h2 {
+    font-size: type.$h2-font-size;
+    margin-bottom: vars.$spacing-md;
+    text-transform: uppercase;
+    font-weight: type.$font-weight-bold;
+
+    @include mix.respond-to(md) {
+      font-size: calc(type.$h2-font-size * 0.9);
+    }
+
+    @include mix.respond-to(sm) {
+      font-size: calc(type.$h2-font-size * 0.8);
+    }
+  }
+
+  p {
+    color: rgba(vars.$black, 0.6);
+    line-height: 1.8;
+    margin-bottom: vars.$spacing-md;
+
+    @include mix.respond-to(sm) {
+      font-size: 0.9rem;
+    }
+  }
+
+  .text-primary {
+    color: vars.$primary;
+  }
+}

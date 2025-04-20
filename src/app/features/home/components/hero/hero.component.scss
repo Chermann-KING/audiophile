@@ -1,0 +1,350 @@
+@use "../../../../design-system/styles/variables" as vars;
+@use "../../../../design-system/styles/mixins" as mix;
+
+// Définition des animations
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+// Mixins pour les animations
+@mixin animate($animation, $duration: 0.6s, $delay: 0s) {
+  opacity: 0;
+  animation: $animation $duration ease forwards;
+  animation-delay: $delay;
+  animation-fill-mode: forwards;
+}
+
+.hero {
+  background-color: #191919;
+  color: vars.$white;
+  height: 89vh;
+  position: relative;
+  overflow: hidden;
+  transition: background-image 0.5s ease;
+
+  // Par défaut, tous les éléments sont cachés
+  .hero-image,
+  .image-container,
+  .hero-text,
+  .hero-text .overline,
+  .hero-text h1,
+  .hero-text .description,
+  .hero-text app-button {
+    opacity: 0;
+  }
+
+  // Une fois que les animations sont terminées, garder les éléments visibles
+  &.animation-complete {
+    .hero-image,
+    .image-container,
+    .hero-text,
+    .hero-text .overline,
+    .hero-text h1,
+    .hero-text .description,
+    .hero-text app-button {
+      opacity: 1 !important;
+      transform: none !important;
+      animation: none !important;
+    }
+  }
+
+  .container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    height: 100%;
+
+    @include mix.respond-to(md) {
+      padding: 0;
+    }
+  }
+
+  .hero-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 4rem 0;
+    position: relative;
+    height: 100%;
+
+    @include mix.respond-to(md) {
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      padding: 4rem 0;
+      height: auto;
+    }
+  }
+
+  .hero-text {
+    max-width: 40%;
+    z-index: 1;
+
+    @include mix.respond-to(md) {
+      max-width: 80%;
+      margin-top: 0;
+      order: 2;
+    }
+
+    .overline {
+      font-size: 0.875rem;
+      letter-spacing: 10px;
+      text-transform: uppercase;
+      color: rgba(vars.$white, 0.5);
+      margin-bottom: 1.5rem;
+      opacity: 0;
+    }
+
+    h1 {
+      font-size: 3.5rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+      opacity: 0;
+
+      @include mix.respond-to(sm) {
+        font-size: 2.5rem;
+      }
+    }
+
+    .description {
+      color: rgba(vars.$white, 0.75);
+      line-height: 1.6;
+      margin-bottom: 2.5rem;
+      opacity: 0;
+    }
+
+    app-button {
+      display: inline-block;
+      opacity: 0;
+    }
+  }
+
+  .image-container {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    background: radial-gradient(ellipse at center, #3f3f3f 0%, #191919 40%);
+    transform-origin: center center;
+    transition: opacity 0.5s ease;
+
+    @include mix.respond-to(md) {
+      height: 400px;
+      order: 1;
+    }
+
+    @include mix.respond-to(sm) {
+      height: 350px;
+    }
+  }
+
+  .hero-image {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-position: center;
+    background-size: 66% auto;
+    background-repeat: no-repeat;
+    z-index: 0;
+    transform-origin: center center;
+    transition: opacity 0.5s ease;
+
+    @include mix.respond-to(md) {
+      background-position: center center;
+      background-size: 50% auto;
+    }
+
+    @include mix.respond-to(sm) {
+      background-position: center center;
+      background-size: 80% auto;
+    }
+  }
+
+  // Contrôles du slider
+  .hero-slider-controls {
+    position: absolute;
+    bottom: 2rem;
+    right: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+}
+
+// Styles des dots du slider
+.slider-dots {
+  display: flex;
+  gap: 0.5rem;
+
+  .slider-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: none;
+    background-color: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &.active {
+      background-color: vars.$primary;
+    }
+  }
+}
+
+// Styles des flèches du slider
+.slider-arrows {
+  display: flex;
+  gap: 1rem;
+
+  .slider-arrow {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+  }
+}
+
+// État de chargement
+.hero-loading {
+  background-color: #f5f5f5;
+  height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+// Animation des slides
+.hero {
+  &.slide-entering,
+  &.slide-first-load {
+    .hero-text {
+      animation: fadeInLeft 0.8s ease forwards;
+      opacity: 0;
+    }
+
+    // Animation séquentielle des éléments à l'intérieur du hero-text
+    .hero-text .overline {
+      animation: fadeInUp 0.6s ease forwards;
+      animation-delay: 0.1s;
+    }
+
+    .hero-text h1 {
+      animation: fadeInUp 0.6s ease forwards;
+      animation-delay: 0.3s;
+    }
+
+    .hero-text .description {
+      animation: fadeInUp 0.6s ease forwards;
+      animation-delay: 0.5s;
+    }
+
+    .hero-text app-button {
+      animation: fadeInUp 0.6s ease forwards;
+      animation-delay: 0.7s;
+    }
+
+    .image-container {
+      animation: fadeInRight 0.8s ease forwards;
+      animation-delay: 0.4s;
+      opacity: 0;
+    }
+
+    .hero-image {
+      animation: scaleIn 1.2s ease forwards;
+      animation-delay: 0.6s;
+      opacity: 0;
+    }
+  }
+
+  &.slide-exiting {
+    .hero-text,
+    .image-container,
+    .hero-image,
+    .hero-text .overline,
+    .hero-text h1,
+    .hero-text .description,
+    .hero-text app-button {
+      animation: fadeOut 0.4s ease forwards;
+    }
+  }
+}
+
+// Gestion des images par produit
+@each $product in "xx99-mark-two-headphones", "yx1-earphones", "zx9-speaker" {
+  .hero[data-product="#{$product}"] .hero-image {
+    background-image: url("/assets/images/home/desktop/hero-#{$product}.png");
+
+    @include mix.respond-to(md) {
+      background-image: url("/assets/images/home/tablet/hero-#{$product}.png");
+    }
+
+    @include mix.respond-to(sm) {
+      background-image: url("/assets/images/home/mobile/hero-#{$product}.png");
+    }
+  }
+}

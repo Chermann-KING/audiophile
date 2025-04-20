@@ -1,0 +1,49 @@
+@use "../../../../design-system/styles/variables" as vars;
+@use "../../../../design-system/styles/mixins" as mix;
+
+.categories {
+  padding: 4rem 0;
+}
+
+.category-grid {
+  @include mix.grid(3, vars.$spacing-md);
+
+  @include mix.respond-to(sm) {
+    @include mix.grid(1, vars.$spacing-md);
+    .category-item {
+      padding-top: vars.$spacing-xl;
+    }
+  }
+}
+
+.category-item {
+  .category-card {
+    background-color: vars.$white;
+    padding: 2rem 1rem 1.5rem;
+    border-radius: vars.$border-radius-md;
+    text-align: center;
+    position: relative;
+    @include mix.box-shadow(1);
+    transition: transform 0.3s ease;
+
+    &:hover {
+      transform: translateY(-5px);
+    }
+  }
+
+  .category-image {
+    height: 140px;
+    margin-top: -80px;
+    margin-bottom: 1rem;
+
+    img {
+      max-height: 100%;
+      object-fit: contain;
+    }
+  }
+
+  .category-title {
+    margin-bottom: vars.$spacing-sm;
+    font-size: 1.25rem;
+  }
+}

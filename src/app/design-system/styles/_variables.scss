@@ -1,0 +1,45 @@
+// Couleurs principales
+$primary: #d87d4a; // Orange (#D87D4A - RGB: 216, 125, 74)
+$black: #101010; // Noir (#101010 - RGB: 16, 16, 16)
+$white: #f1f1f1; // Blanc cassé (#F1F1F1 - RGB: 241, 241, 241)
+$light-gray: #fafafa; // Gris clair (#FAFAFA - RGB: 250, 250, 250)
+
+// Couleurs secondaires
+$primary-light: #fbaf85; // Orange clair (#FBAF85 - RGB: 251, 175, 133)
+$pure-white: #ffffff; // Blanc pur (#FFFFFF - RGB: 255, 255, 255)
+$pure-black: #000000; // Noir pur (#000000 - RGB: 0, 0, 0)
+
+// Couleurs tertiaires
+$grayish-black: #2e2e2e; // Noir grisâtre (#2E2E2E - RGB: 46, 46, 46)
+$light-grayish-black: #4a4a4a; // Noir grisâtre clair (#4A4A4A - RGB: 74, 74, 74)
+
+// Espacements
+$spacing-xxs: 0.25rem; // 4px
+$spacing-xs: 0.5rem; // 8px
+$spacing-sm: 1rem; // 16px
+$spacing-md: 1.5rem; // 24px
+$spacing-lg: 2rem; // 32px
+$spacing-xl: 3rem; // 48px
+$spacing-xxl: 4rem; // 64px
+$spacing-xxxl: 5rem; // 80px
+
+// Breakpoints
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 992px;
+$breakpoint-xl: 1200px;
+
+// Border radius
+$border-radius-sm: 4px;
+$border-radius-md: 8px;
+$border-radius-lg: 12px;
+
+// Transitions
+$transition-fast: 0.2s ease;
+$transition-normal: 0.3s ease;
+$transition-slow: 0.5s ease;
+
+// Z-index
+$z-index-dropdown: 1000;
+$z-index-modal: 2000;
+$z-index-tooltip: 3000;

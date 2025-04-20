@@ -1,0 +1,7 @@
+<div class="number-input">
+  <button type="button" class="number-btn" (click)="decrement()" [disabled]="value <= min">-</button>
+  <div class="number-value">
+    <input type="number" [min]="min" [max]="max" [value]="value" (input)="onInput($event)" [disabled]="disabled" />
+  </div>
+  <button type="button" class="number-btn" (click)="increment()" [disabled]="value >= max">+</button>
+</div>

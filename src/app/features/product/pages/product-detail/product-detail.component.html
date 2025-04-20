@@ -1,0 +1,107 @@
+<div class="product-detail-page" *ngIf="!loading && product">
+  <div class="container">
+    <!-- Bouton retour -->
+    <button class="go-back" (click)="goBack()">Go Back</button>
+
+    <!-- Section principale du produit -->
+    <div class="product-main">
+      <div class="product-image">
+        <picture>
+          <source media="(max-width: 576px)" [srcset]="product.image.mobile">
+          <source media="(max-width: 992px)" [srcset]="product.image.tablet">
+          <img [src]="product.image.desktop" [alt]="product.name" class="img-fluid">
+        </picture>
+      </div>
+
+      <div class="product-info">
+        <div *ngIf="product.new" class="product-badge">NEW PRODUCT</div>
+        <h1 class="product-title">{{ product.name }}</h1>
+        <p class="product-description">{{ product.description }}</p>
+        <p class="product-price">{{ product.price | currency: 'USD':'symbol':'1.0-0' }}</p>
+
+        <div class="product-actions">
+          <div class="quantity-selector">
+            <button class="quantity-btn" (click)="decreaseQuantity()">-</button>
+            <span class="quantity">{{ quantity }}</span>
+            <button class="quantity-btn" (click)="increaseQuantity()">+</button>
+          </div>
+          <button class="btn-primary" (click)="addToCart()">ADD TO CART</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section caractéristiques et contenu de la boîte -->
+    <div class="product-details">
+      <div class="features-section">
+        <h2>FEATURES</h2>
+        <div class="features-content">
+          <p>{{ product.features }}</p>
+        </div>
+      </div>
+
+      <div class="in-box-section">
+        <h2>IN THE BOX</h2>
+        <ul class="in-box-list">
+          <li *ngFor="let item of product.includes">
+            <span class="item-quantity">{{ item.quantity }}x</span>
+            <span class="item-name">{{ item.item }}</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Galerie d'images -->
+    <div class="product-gallery">
+      <div class="gallery-column">
+        <div class="gallery-item">
+          <picture>
+            <source media="(max-width: 576px)" [srcset]="product.gallery.first.mobile">
+            <source media="(max-width: 992px)" [srcset]="product.gallery.first.tablet">
+            <img [src]="product.gallery.first.desktop" alt="Gallery image 1" class="img-fluid">
+          </picture>
+        </div>
+        <div class="gallery-item">
+          <picture>
+            <source media="(max-width: 576px)" [srcset]="product.gallery.second.mobile">
+            <source media="(max-width: 992px)" [srcset]="product.gallery.second.tablet">
+            <img [src]="product.gallery.second.desktop" alt="Gallery image 2" class="img-fluid">
+          </picture>
+        </div>
+      </div>
+      <div class="gallery-main-item">
+        <picture>
+          <source media="(max-width: 576px)" [srcset]="product.gallery.third.mobile">
+          <source media="(max-width: 992px)" [srcset]="product.gallery.third.tablet">
+          <img [src]="product.gallery.third.desktop" alt="Gallery image 3" class="img-fluid">
+        </picture>
+      </div>
+    </div>
+
+    <!-- Produits suggérés -->
+    <div class="related-products">
+      <h2>YOU MAY ALSO LIKE</h2>
+      <div class="related-products-grid">
+        <div class="related-product" *ngFor="let related of product.others">
+          <div class="related-product-image">
+            <picture>
+              <source media="(max-width: 576px)" [srcset]="related.image.mobile">
+              <source media="(max-width: 992px)" [srcset]="related.image.tablet">
+              <img [src]="related.image.desktop" [alt]="related.name" class="img-fluid">
+            </picture>
+          </div>
+          <h3>{{ related.name }}</h3>
+          <button class="btn-primary" (click)="navigateToProduct(related.slug)">SEE PRODUCT</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sections partagées -->
+  <app-category-list></app-category-list>
+  <app-about></app-about>
+</div>
+
+<!-- État de chargement -->
+<div class="loading-container" *ngIf="loading">
+  <p>Loading product information...</p>
+</div>

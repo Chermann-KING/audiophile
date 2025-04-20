@@ -1,0 +1,163 @@
+<div class="checkout-page">
+  <div class="container">
+    <button class="go-back" (click)="goBack()">Go Back</button>
+
+    <div class="checkout-container">
+      <!-- Formulaire principal -->
+      <form [formGroup]="checkoutForm" class="checkout-form">
+        <h1>CHECKOUT</h1>
+
+        <!-- BILLING DETAILS -->
+        <div class="form-section">
+          <h2 class="section-title">BILLING DETAILS</h2>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" id="name" formControlName="name" [class.error]="isFieldInvalid('name')"
+                placeholder="Alexei Ward">
+              <div class="error-message" *ngIf="isFieldInvalid('name')">
+                {{ getErrorMessage('name') }}
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" formControlName="email" [class.error]="isFieldInvalid('email')"
+                placeholder="alexei@gmail.com">
+              <div class="error-message" *ngIf="isFieldInvalid('email')">
+                {{ getErrorMessage('email') }}
+              </div>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="phone">Phone Number</label>
+              <input type="tel" id="phone" formControlName="phone" [class.error]="isFieldInvalid('phone')"
+                placeholder="+1 (202) 555-0136">
+              <div class="error-message" *ngIf="isFieldInvalid('phone')">
+                {{ getErrorMessage('phone') }}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SHIPPING INFO -->
+        <div class="form-section">
+          <h2 class="section-title">SHIPPING INFO</h2>
+
+          <div class="form-row full-width">
+            <div class="form-group">
+              <label for="address">Address</label>
+              <input type="text" id="address" formControlName="address" [class.error]="isFieldInvalid('address')"
+                placeholder="1137 Williams Avenue">
+              <div class="error-message" *ngIf="isFieldInvalid('address')">
+                {{ getErrorMessage('address') }}
+              </div>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="zipCode">ZIP Code</label>
+              <input type="text" id="zipCode" formControlName="zipCode" [class.error]="isFieldInvalid('zipCode')"
+                placeholder="10001">
+              <div class="error-message" *ngIf="isFieldInvalid('zipCode')">
+                {{ getErrorMessage('zipCode') }}
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="city">City</label>
+              <input type="text" id="city" formControlName="city" [class.error]="isFieldInvalid('city')"
+                placeholder="New York">
+              <div class="error-message" *ngIf="isFieldInvalid('city')">
+                {{ getErrorMessage('city') }}
+              </div>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="country">Country</label>
+              <input type="text" id="country" formControlName="country" [class.error]="isFieldInvalid('country')"
+                placeholder="United States">
+              <div class="error-message" *ngIf="isFieldInvalid('country')">
+                {{ getErrorMessage('country') }}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PAYMENT DETAILS -->
+        <div class="form-section">
+          <h2 class="section-title">PAYMENT DETAILS</h2>
+
+          <div class="form-row payment-method">
+            <p class="payment-label">Payment Method</p>
+
+            <div class="payment-options">
+              <div class="radio-option" [class.active]="selectedPaymentMethod === 'emoney'">
+                <input type="radio" id="emoney" formControlName="paymentMethod" value="emoney">
+                <label for="emoney">
+                  <span class="radio-custom"></span>
+                  e-Money
+                </label>
+              </div>
+
+              <div class="radio-option" [class.active]="selectedPaymentMethod === 'cash'">
+                <input type="radio" id="cash" formControlName="paymentMethod" value="cash">
+                <label for="cash">
+                  <span class="radio-custom"></span>
+                  Cash on Delivery
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Champs e-Money (conditionnels) -->
+          <div *ngIf="showEMoneyDetails">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="emoneyNumber">e-Money Number</label>
+                <input type="text" id="emoneyNumber" formControlName="emoneyNumber"
+                  [class.error]="isFieldInvalid('emoneyNumber')" placeholder="238521993">
+                <div class="error-message" *ngIf="isFieldInvalid('emoneyNumber')">
+                  {{ getErrorMessage('emoneyNumber') }}
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="emoneyPin">e-Money PIN</label>
+                <input type="password" id="emoneyPin" formControlName="emoneyPin"
+                  [class.error]="isFieldInvalid('emoneyPin')" placeholder="6891">
+                <div class="error-message" *ngIf="isFieldInvalid('emoneyPin')">
+                  {{ getErrorMessage('emoneyPin') }}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Message Cash on Delivery -->
+          <div *ngIf="selectedPaymentMethod === 'cash'" class="cash-delivery-info">
+            <div class="cash-icon">
+              <img src="assets/images/checkout/icon-cash-on-delivery.svg" alt="Paiement à la livraison">
+
+            </div>
+            <p>
+              The 'Cash on Delivery' option enables you to pay in cash when our delivery courier arrives at your
+              residence. Just make sure your address is correct so that your order will not be cancelled.
+            </p>
+          </div>
+        </div>
+      </form>
+
+      <!-- Récapitulatif de commande -->
+      <app-checkout-summary [cartItems]="cartItems" [total]="total" [shipping]="shipping" [vat]="vat"
+        [grandTotal]="grandTotal" [formValid]="checkoutForm.valid" (onSubmit)="onSubmit()"></app-checkout-summary>
+    </div>
+  </div>
+</div>
+
+<app-order-confirmation></app-order-confirmation>

@@ -1,0 +1,117 @@
+@use "../../../../design-system/styles/variables" as vars;
+@use "../../../../design-system/styles/mixins" as mix;
+
+:host {
+  display: block;
+
+  &.even app-product-card,
+  &.odd app-product-card {
+    display: block;
+  }
+}
+
+.product-card {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 7.875rem;
+  overflow: hidden;
+
+  :host.even & {
+    flex-direction: row-reverse;
+  }
+
+  @include mix.respond-to(md) {
+    flex-direction: column;
+    align-items: center;
+    gap: 3.25rem;
+
+    :host.even & {
+      flex-direction: column;
+    }
+  }
+}
+
+.product-image {
+  width: 100%;
+  height: auto;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: vars.$white;
+  border-radius: vars.$border-radius-md;
+  overflow: hidden;
+
+  @include mix.respond-to(md) {
+    height: 352px;
+  }
+
+  img {
+    display: block;
+
+    @include mix.respond-to(lg) {
+      width: 100%;
+      height: 352px;
+      object-fit: cover;
+    }
+  }
+}
+
+.product-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  @include mix.respond-to(md) {
+    text-align: center;
+    align-items: center;
+  }
+}
+
+.product-badge {
+  color: vars.$primary;
+  font-size: 0.875rem;
+  letter-spacing: 10px;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+}
+
+.product-title {
+  margin-bottom: 1.5rem;
+
+  @include mix.respond-to(sm) {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+.product-description {
+  color: rgba(vars.$black, 0.5);
+  margin-bottom: 1.5rem;
+  max-width: 90%;
+
+  @include mix.respond-to(sm) {
+    text-align: center;
+    max-width: 100%;
+  }
+}
+
+.product-price {
+  font-weight: bold;
+  font-size: 1.125rem;
+  margin-bottom: 2rem;
+}
+
+button {
+  align-self: flex-start;
+
+  @include mix.respond-to(md) {
+    align-self: center;
+  }
+
+  @include mix.respond-to(sm) {
+    align-self: center;
+  }
+}

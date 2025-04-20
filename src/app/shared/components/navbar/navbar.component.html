@@ -1,0 +1,9 @@
+<nav class="navbar">
+  <ul class="nav-list">
+    <li class="nav-item" *ngFor="let item of navItems">
+      <a [routerLink]="[item.route]" routerLinkActive="active" [routerLinkActiveOptions]="{exact: item.route === '/'}">
+        {{ item.label }}
+      </a>
+    </li>
+  </ul>
+</nav>

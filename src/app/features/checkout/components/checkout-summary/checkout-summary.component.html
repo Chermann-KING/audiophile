@@ -1,0 +1,51 @@
+<div class="summary-container">
+  <h2>SUMMARY</h2>
+
+  <!-- Liste des articles du panier -->
+  <div class="cart-items">
+    <div class="cart-item" *ngFor="let item of cartItems">
+      <div class="item-image">
+        <img [src]="getProductImageUrl(item)" [alt]="item.product.name">
+      </div>
+      <div class="item-details">
+        <h3 class="item-name">{{ getShortProductName(item) }}</h3>
+        <p class="item-price">$ {{ item.product.price | number: '1.0-0' }}</p>
+      </div>
+      <div class="item-quantity">x{{ item.quantity }}</div>
+    </div>
+  </div>
+
+  <!-- Message panier vide -->
+  <div class="empty-cart" *ngIf="cartItems.length === 0">
+    <p>Your cart is empty</p>
+  </div>
+
+  <!-- Informations de prix -->
+  <div class="price-summary">
+    <div class="price-row">
+      <span class="price-label">TOTAL</span>
+      <span class="price-value">$ {{ total | number: '1.0-0' }}</span>
+    </div>
+
+    <div class="price-row">
+      <span class="price-label">SHIPPING</span>
+      <span class="price-value">$ {{ shipping | number: '1.0-0' }}</span>
+    </div>
+
+    <div class="price-row">
+      <span class="price-label">VAT (INCLUDED)</span>
+      <span class="price-value">$ {{ vat | number: '1.0-0' }}</span>
+    </div>
+
+    <div class="price-row grand-total">
+      <span class="price-label">GRAND TOTAL</span>
+      <span class="price-value">$ {{ grandTotal | number: '1.0-0' }}</span>
+    </div>
+  </div>
+
+  <!-- Bouton de validation -->
+  <button class="btn-primary continue-btn" [disabled]="cartItems.length === 0 || !formValid" (click)="submitOrder()">
+    CONTINUE
+  </button>
+
+</div>

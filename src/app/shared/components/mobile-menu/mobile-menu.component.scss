@@ -1,0 +1,47 @@
+@use "../../../../app/design-system/styles/variables" as vars;
+@use "../../../../app/design-system/styles/mixins" as mix;
+
+.hamburger-button {
+  display: none; // ?Caché par défaut sur desktop
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  width: 24px;
+  height: 20px;
+  position: relative;
+  z-index: 100;
+  padding: 0;
+
+  @include mix.respond-to(md) {
+    display: block; // ?Visible sur tablette et mobile
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  .hamburger-line {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background-color: vars.$white;
+    margin: 4px 0;
+    transition: all 0.3s ease;
+  }
+
+  &.open {
+    .hamburger-line {
+      &:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+      }
+
+      &:nth-child(2) {
+        opacity: 0;
+      }
+
+      &:nth-child(3) {
+        transform: rotate(-45deg) translate(4px, -4px);
+      }
+    }
+  }
+}

@@ -1,0 +1,40 @@
+<div class="modal-overlay" *ngIf="isVisible$ | async">
+  <div class="modal-content" [class.loading]="loading">
+    <div class="confirmation-content">
+      <div class="success-icon">
+        <img src="assets/images/checkout/icon-order-confirmation.svg" alt="Order confirmed">
+      </div>
+
+      <h2>THANK YOU<br>FOR YOUR ORDER</h2>
+      <p class="confirmation-message">You will receive an email confirmation shortly.</p>
+
+      <div class="order-summary" *ngIf="order">
+        <div class="items-preview">
+          <div class="visible-items">
+            <div class="item" *ngFor="let item of visibleItems">
+              <img [src]="item.image" [alt]="item.name">
+              <div class="item-details">
+                <span class="name">{{item.name}}</span>
+                <span class="price">$ {{item.price | number:'1.0-0'}}</span>
+              </div>
+              <span class="quantity">x{{item.quantity}}</span>
+            </div>
+          </div>
+
+          <button *ngIf="remainingItems > 0" class="view-more" (click)="toggleItemsVisibility()">
+            {{ showAllItems ? 'View less' : 'and ' + remainingItems + ' other item(s)' }}
+          </button>
+        </div>
+
+        <div class="total-section">
+          <div class="total-item">
+            <span>GRAND TOTAL</span>
+            <span class="total-amount">$ {{order.total | number:'1.0-0'}}</span>
+          </div>
+        </div>
+      </div>
+
+      <button class="back-home" (click)="backToHome()">BACK TO HOME</button>
+    </div>
+  </div>
+</div>
