@@ -69,7 +69,7 @@ export class CartService {
     this._updateCart();
   }
 
-  updateQuantity(productId: number, quantity: number): void {
+  updateQuantity(productId: string, quantity: number): void {
     const item = this._cartItems.find((item) => item.product.id === productId);
 
     if (item) {
@@ -78,7 +78,7 @@ export class CartService {
     }
   }
 
-  removeFromCart(productId: number): void {
+  removeFromCart(productId: string): void {
     this._cartItems = this._cartItems.filter(
       (item) => item.product.id !== productId
     );

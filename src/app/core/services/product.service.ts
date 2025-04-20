@@ -15,7 +15,7 @@ export class ProductService {
 
   // Récupère un produit par son slug
   getProductBySlug(slug: string): Observable<Product> {
-    return this._http.get<Product[]>(`${this.apiUrl}`).pipe(
+    return this._http.get<Product[]>(this.apiUrl).pipe(
       map((products) => {
         const product = products.find((p) => p.slug === slug);
         if (!product) {
@@ -30,7 +30,7 @@ export class ProductService {
 
   // Récupère les produits par leurs slugs (pour les produits suggérés)
   getProductsBySlugs(slugs: string[]): Observable<Product[]> {
-    return this._http.get<Product[]>(`${this.apiUrl}`).pipe(
+    return this._http.get<Product[]>(this.apiUrl).pipe(
       map((products) => {
         return products.filter((product) => slugs.includes(product.slug));
       })
@@ -40,15 +40,23 @@ export class ProductService {
   // Récupère les nouveaux produits
   getNewProducts(): Observable<Product[]> {
     return this._http
-      .get<Product[]>(`${this.apiUrl}`)
+      .get<Product[]>(this.apiUrl)
       .pipe(map((products) => products.filter((product) => product.new)));
   }
 
-  getProducts(): Observable<any[]> {
-    return this._http.get<any[]>(this.apiUrl);
+  getProducts(): Observable<Product[]> {
+    return this._http.get<Product[]>(this.apiUrl);
   }
 
-  getProductById(id: number): Observable<any> {
-    return this._http.get<any>(`${this.apiUrl}/${id}`);
+  getProductById(id: string): Observable<Product> {
+    return this._http.get<Product[]>(this.apiUrl).pipe(
+      map((products) => {
+        const product = products.find((p) => p.id === id);
+        if (!product) {
+          throw new Error(`Le produit avec l'ID "${id}" n'a pas été trouvé`);
+        }
+        return product;
+      })
+    );
   }
 }
