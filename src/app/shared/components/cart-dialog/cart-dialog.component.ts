@@ -26,7 +26,7 @@ export class CartDialogComponent implements OnInit {
     this._cartService.toggleCartDialog(false);
   }
 
-  updateQuantity(productId: number, quantity: number): void {
+  updateQuantity(productId: string, quantity: number): void {
     if (quantity > 0) {
       this._cartService.updateQuantity(productId, quantity);
     } else if (quantity === 0) {
@@ -34,7 +34,7 @@ export class CartDialogComponent implements OnInit {
     }
   }
 
-  removeItem(productId: number): void {
+  removeItem(productId: string): void {
     this._cartService.removeFromCart(productId);
   }
 
