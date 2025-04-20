@@ -1,0 +1,43 @@
+<header class="header" (click)="closeUserMenu()">
+  <div class="container">
+    <div class="header-content">
+      <app-mobile-menu (menuToggle)="onMenuToggle($event)" class="mobile-menu"></app-mobile-menu>
+      <!-- <a routerLink="/" class="logo">
+        <img src="assets/images/shared/desktop/logo.svg" alt="Audio Store Logo" />
+      </a> -->
+      <app-logo></app-logo>
+
+      <!-- Navigation Bar -->
+      <app-navbar [class.mobile-visible]="isMobileMenuOpen"></app-navbar>
+
+      <!-- User Actions -->
+      <div class="user-actions">
+        <!-- User Menu -->
+        <div class="user-menu-container" clickOutside (clickOutside)="closeUserMenu()">
+          <button class="user-icon-btn" [class.active]="isUserMenuOpen" (click)="toggleUserMenu($event)">
+            <app-user-icon></app-user-icon>
+          </button>
+
+          @if (isUserMenuOpen) {
+          <div class="user-dropdown">
+            <div class="dropdown-content">
+              @if (isLoggedIn$ | async) {
+              <span class="user-name">{{ (currentUser$ | async)?.email }}</span>
+              <a routerLink="/profile" class="dropdown-item" (click)="closeUserMenu()">MY PROFILE</a>
+              <button class="dropdown-item" (click)="logout()">LOGOUT</button>
+              } @else {
+              <a routerLink="/auth/login" class="dropdown-item" (click)="closeUserMenu()">LOGIN</a>
+              }
+            </div>
+          </div>
+          }
+        </div>
+        <!-- Urser Cart -->
+        <app-cart></app-cart>
+      </div>
+    </div>
+  </div>
+
+  <!-- Overlay pour le menu mobile -->
+  <div class="mobile-menu-overlay" [class.active]="isMobileMenuOpen" (click)="onMenuToggle(false)"></div>
+</header>

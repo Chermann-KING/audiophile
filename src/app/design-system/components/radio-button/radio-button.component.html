@@ -1,0 +1,7 @@
+<div class="radio-container" [ngClass]="{'active': checked}" (click)="onSelect()">
+  <input type="radio" class="radio-input" [id]="id" [value]="value" [checked]="checked" [name]="name" />
+  <label class="radio-label" [for]="id">
+    <span class="radio-custom"></span>
+    {{ label }}
+  </label>
+</div>

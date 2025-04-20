@@ -1,0 +1,251 @@
+@use "../../../../design-system/styles/variables" as vars;
+@use "../../../../design-system/styles/mixins" as mix;
+@use "../../../../design-system/styles/typography" as typo;
+
+.category-header {
+  height: 240px;
+  width: 100%;
+  background-color: vars.$black;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  color: vars.$white;
+  text-align: center;
+
+  @include mix.respond-to(md) {
+    height: 247px;
+  }
+  @include mix.respond-to(sm) {
+    height: 103px;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+
+    @include mix.respond-to(sm) {
+      font-size: 1.75rem;
+      margin-bottom: 0;
+    }
+  }
+}
+.wrapper {
+  padding: 10rem 0;
+
+  @include mix.respond-to(md) {
+    padding: 7.5rem 0;
+  }
+  @include mix.respond-to(sm) {
+    padding: 4rem 0;
+  }
+
+  .category-detail {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 vars.$spacing-md;
+
+    @include mix.respond-to(sm) {
+      padding: 0 vars.$spacing-sm;
+    }
+
+    .product-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8rem;
+      margin-bottom: 7rem;
+    }
+  }
+}
+
+// Notification aucun produit
+.notification {
+  width: 100%;
+  background-color: vars.$light-gray;
+  border-radius: vars.$border-radius-md;
+  padding: vars.$spacing-lg;
+  margin: vars.$spacing-xl 0;
+  text-align: center;
+  @include mix.box-shadow(1);
+
+  .notification-icon {
+    font-size: 2.5rem;
+    margin-bottom: vars.$spacing-md;
+    color: vars.$primary;
+  }
+
+  .notification-title {
+    font-size: 1.5rem;
+    font-weight: typo.$font-weight-bold;
+    margin-bottom: vars.$spacing-sm;
+    color: vars.$grayish-black;
+    text-transform: uppercase;
+    letter-spacing: 1.7px;
+  }
+
+  .notification-message {
+    color: vars.$light-grayish-black;
+    margin-bottom: vars.$spacing-md;
+  }
+
+  .notification-action {
+    margin-top: vars.$spacing-md;
+  }
+}
+
+// Adaptations pour différents écrans
+@include mix.respond-to(md) {
+  .notification {
+    padding: vars.$spacing-md;
+  }
+}
+
+@include mix.respond-to(sm) {
+  .notification {
+    padding: vars.$spacing-sm;
+
+    .notification-icon {
+      font-size: 2rem;
+    }
+
+    .notification-title {
+      font-size: 1.25rem;
+    }
+  }
+}
+
+// État de chargement élégant
+.loading-container {
+  width: 100%;
+  padding: vars.$spacing-xl 0;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  .loader {
+    position: relative;
+    margin-bottom: vars.$spacing-md;
+
+    .progress-ring {
+      position: relative;
+      width: 80px;
+      height: 80px;
+      transform: rotate(-90deg);
+
+      .circle-bg {
+        fill: none;
+        stroke: vars.$light-gray;
+        stroke-width: 4;
+      }
+
+      .circle-progress {
+        fill: none;
+        stroke: vars.$primary;
+        stroke-width: 4;
+        stroke-linecap: round;
+        stroke-dasharray: 251.2; // Circonférence du cercle (2*PI*r)
+        stroke-dashoffset: 62.8; // 25% de la circonférence
+        transform-origin: center;
+        animation: progress-animation 2s ease-in-out infinite;
+      }
+    }
+
+    .accent-dot {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background-color: vars.$primary-light;
+      border-radius: 50%;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      animation: dot-animation 2s ease-in-out infinite;
+    }
+  }
+
+  .loader-text {
+    font-weight: typo.$font-weight-medium;
+    color: vars.$grayish-black;
+    letter-spacing: 0.5px;
+    position: relative;
+
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: -6px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        vars.$primary,
+        transparent
+      );
+      animation: line-animation 2s ease-in-out infinite;
+    }
+  }
+}
+
+// Animations
+@keyframes progress-animation {
+  0% {
+    stroke-dashoffset: 251.2; // Complètement vide
+    transform: rotate(0deg);
+  }
+  50% {
+    stroke-dashoffset: 125.6; // Mi-rempli
+  }
+  100% {
+    stroke-dashoffset: 251.2; // Retour à vide
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes dot-animation {
+  0%,
+  100% {
+    transform: translateX(-50%) rotate(0deg) translateY(-35px);
+  }
+  50% {
+    transform: translateX(-50%) rotate(180deg) translateY(-40px);
+  }
+}
+
+@keyframes line-animation {
+  0%,
+  100% {
+    width: 20%;
+    opacity: 0.5;
+  }
+  50% {
+    width: 100%;
+    opacity: 1;
+  }
+}
+
+// Adaptations pour différents écrans
+@include mix.respond-to(md) {
+  .loading-container {
+    padding: vars.$spacing-lg 0;
+
+    .loader .progress-ring {
+      width: 70px;
+      height: 70px;
+    }
+  }
+}
+
+@include mix.respond-to(sm) {
+  .loading-container {
+    padding: vars.$spacing-md 0;
+
+    .loader .progress-ring {
+      width: 60px;
+      height: 60px;
+    }
+  }
+}

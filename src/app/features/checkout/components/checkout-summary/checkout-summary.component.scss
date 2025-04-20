@@ -1,0 +1,134 @@
+@use "../../../../design-system/styles/variables" as vars;
+@use "../../../../design-system/styles/mixins" as mix;
+@use "../../../../design-system/styles/typography" as typo;
+
+.summary-container {
+  flex: 1;
+  background-color: vars.$pure-white;
+  border-radius: vars.$border-radius-md;
+  padding: 2rem;
+  align-self: flex-start;
+  height: fit-content;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  max-width: 350px;
+
+  @include mix.respond-to(md) {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  h2 {
+    margin-bottom: 2rem;
+    font-size: 1.125rem;
+  }
+}
+
+.cart-items {
+  margin-bottom: 2rem;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5rem;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.item-image {
+  width: 64px;
+  height: 64px;
+  border-radius: vars.$border-radius-sm;
+  overflow: hidden;
+  background-color: #f1f1f1;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.item-details {
+  flex: 1;
+  margin: 0 1rem;
+}
+
+.item-name {
+  color: vars.$black;
+  font-size: 0.875rem;
+  font-weight: 700;
+  margin: 0 0 0.25rem;
+}
+
+.item-price {
+  color: rgba(vars.$black, 0.5);
+  font-size: 0.875rem;
+  margin: 0;
+}
+
+.item-quantity {
+  color: rgba(vars.$black, 0.5);
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+
+.empty-cart {
+  text-align: center;
+  padding: 2rem 0;
+  color: rgba(vars.$black, 0.5);
+}
+
+.price-summary {
+  margin-bottom: 2rem;
+}
+
+.price-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+
+  &:last-of-type {
+    margin-bottom: 0;
+  }
+
+  &.grand-total {
+    margin-top: 1.5rem;
+
+    .price-label {
+      text-transform: uppercase;
+      font-size: 0.9375rem;
+      color: rgba(vars.$black, 0.5);
+    }
+
+    .price-value {
+      color: vars.$primary;
+      font-weight: 700;
+      font-size: 1.125rem;
+    }
+  }
+}
+
+.price-label {
+  color: rgba(vars.$black, 0.5);
+  font-size: 0.875rem;
+}
+
+.price-value {
+  color: vars.$black;
+  font-weight: 700;
+  font-size: 0.9375rem;
+}
+
+.continue-btn {
+  width: 100%;
+
+  &:disabled {
+    background-color: rgba(vars.$primary, 0.5);
+    cursor: not-allowed;
+  }
+}

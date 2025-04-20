@@ -1,0 +1,41 @@
+<div class="category-header">
+  <h1>{{ category | titlecase }}</h1>
+</div>
+
+<div class="wrapper">
+  <div class="category-detail">
+    <!-- État de chargement élégant -->
+    <div *ngIf="loading" class="loading-container fade-in">
+      <div class="loader">
+        <svg class="progress-ring" viewBox="0 0 100 100">
+          <circle class="circle-bg" cx="50" cy="50" r="40"></circle>
+          <circle class="circle-progress" cx="50" cy="50" r="40"></circle>
+        </svg>
+        <div class="accent-dot"></div>
+      </div>
+      <div class="loader-text">Chargement des produits...</div>
+    </div>
+
+    <!-- Notification aucun produit -->
+    <div *ngIf="!loading && products.length === 0" class="notification">
+      <div class="notification-icon">&#9888;</div>
+      <h3 class="notification-title">Aucun produit disponible</h3>
+      <p class="notification-message">Aucun produit trouvé dans cette catégorie.</p>
+      <div class="notification-action">
+        <app-button variant="secondary" (buttonClick)="backToHome()">Retour à l'accueil</app-button>
+      </div>
+    </div>
+
+    <!-- Liste de produits -->
+    <div class="product-list" *ngIf="!loading && products.length > 0">
+      <app-product-card *ngFor="let product of products; let i = index" [product]="product"
+        [ngClass]="{'even': i % 2 === 1, 'odd': i % 2 === 0}">
+      </app-product-card>
+    </div>
+
+  </div>
+
+  <app-category-list></app-category-list>
+
+  <app-about></app-about>
+</div>

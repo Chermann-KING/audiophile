@@ -1,37 +1,59 @@
-# Frontend Mentor - Audiophile e-commerce website
+# AngularAudioEcommerceApp
 
-This is the [Audiophile e-commerce website](https://www.frontendmentor.io/challenges/audiophile-ecommerce-website-C8cuSd_wx). Frontend Mentor challenges help improve coding skills by completing realistic projects.
+This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.1.3.
 
-## Welcome! 👋
+## Development server
 
-Thanks for taking a look at my solution to this front-end coding challenge.
+To start a local development server, run:
 
-## Table of contents
+```bash
+ng serve
+```
 
-- [Overview](#overview)
-  - [Screenshot](#screenshot)
-  - [Links](#links)
-  - [Built with](#built-with)
-- [Author](#author)
+Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
 
-### Screenshot
+## Code scaffolding
 
-![](./public/assets/audiophile-printscreen.png)
+Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
 
-### Links
+```bash
+ng generate component component-name
+```
 
-- Solution URL: https://github.com/Chermann-KING/audiophile
-- Live Site URL: https://audiophile-one-mu.vercel.app/
+For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
 
-### Built with
+```bash
+ng generate --help
+```
 
-- Vite
-- Yarn
-- React JS
-- Styled Components
+## Building
 
-## Author
+To build the project run:
 
-- Website - [Hermann MOUSSAVOU](https://hermann-moussavou.com)
-- Frontend Mentor - [Chermann KING](https://www.frontendmentor.io/profile/Chermann-KING)
-- LinkedIn - [Hermann MOUSSAVOU](https://www.linkedin.com/in/hermann-moussavou)
+```bash
+ng build
+```
+
+This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+
+## Running unit tests
+
+To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+
+```bash
+ng test
+```
+
+## Running end-to-end tests
+
+For end-to-end (e2e) testing, run:
+
+```bash
+ng e2e
+```
+
+Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+
+## Additional Resources
+
+For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.

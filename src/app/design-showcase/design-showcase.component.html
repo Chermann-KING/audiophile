@@ -1,0 +1,202 @@
+<div class="container mt-5 mb-3">
+  <h1>Design System Showcase</h1>
+  <p class="mb-5">Cette page présente tous les composants du design system avec leurs différentes variantes.</p>
+
+  <!-- Couleurs -->
+  <section class="showcase-section">
+    <div class="overline">01</div>
+    <h2>Couleurs</h2>
+    <div class="color-grid">
+      <div class="color-item">
+        <div class="color-swatch primary"></div>
+        <div class="color-info">
+          <p class="color-name">Primary</p>
+          <p class="color-hex">#D87D4A</p>
+        </div>
+      </div>
+      <div class="color-item">
+        <div class="color-swatch black"></div>
+        <div class="color-info">
+          <p class="color-name">Black</p>
+          <p class="color-hex">#101010</p>
+        </div>
+      </div>
+      <div class="color-item">
+        <div class="color-swatch white"></div>
+        <div class="color-info">
+          <p class="color-name">White</p>
+          <p class="color-hex">#F1F1F1</p>
+        </div>
+      </div>
+      <div class="color-item">
+        <div class="color-swatch light-gray"></div>
+        <div class="color-info">
+          <p class="color-name">Light Gray</p>
+          <p class="color-hex">#FAFAFA</p>
+        </div>
+      </div>
+      <div class="color-item">
+        <div class="color-swatch primary-light"></div>
+        <div class="color-info">
+          <p class="color-name">Primary Light</p>
+          <p class="color-hex">#FBAF85</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Typographie -->
+  <section class="showcase-section">
+    <div class="overline">02</div>
+    <h2>Typographie</h2>
+
+    <div class="typography-item">
+      <div class="typography-label">H1 - Manrope Bold - 56px</div>
+      <h1>Exemple de titre H1</h1>
+    </div>
+
+    <div class="typography-item">
+      <div class="typography-label">H2 - Manrope Bold - 40px</div>
+      <h2>Exemple de titre H2</h2>
+    </div>
+
+    <div class="typography-item">
+      <div class="typography-label">H3 - Manrope Bold - 32px</div>
+      <h3>Exemple de titre H3</h3>
+    </div>
+
+    <div class="typography-item">
+      <div class="typography-label">H4 - Manrope Bold - 28px</div>
+      <h4>Exemple de titre H4</h4>
+    </div>
+
+    <div class="typography-item">
+      <div class="typography-label">H5 - Manrope Bold - 24px</div>
+      <h5>Exemple de titre H5</h5>
+    </div>
+
+    <div class="typography-item">
+      <div class="typography-label">H6 - Manrope Bold - 18px</div>
+      <h6>Exemple de titre H6</h6>
+    </div>
+
+    <div class="typography-item">
+      <div class="typography-label">Body - Manrope Medium - 15px</div>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris nulla quam, hendrerit lacinia vestibulum a,
+        ultrices quis sem. Vestibulum et sagittis ante. Curabitur posuere dolor eget lectus elementum faucibus. Quisque
+        sem diam.</p>
+    </div>
+
+    <div class="typography-item">
+      <div class="typography-label">Overline - Manrope Regular - 14px</div>
+      <div class="overline">Exemple de texte overline</div>
+    </div>
+
+    <div class="typography-item">
+      <div class="typography-label">Subtitle - Manrope Bold - 13px</div>
+      <div class="subtitle">Exemple de sous-titre</div>
+    </div>
+  </section>
+
+  <!-- Boutons -->
+  <section class="showcase-section">
+    <div class="overline">03</div>
+    <h2>Boutons</h2>
+
+    <div class="buttons-grid">
+      <div class="button-item">
+        <div class="button-label">Button 1 - Primary (Default)</div>
+        <app-button variant="primary" (buttonClick)="onPrimaryButtonClick($event)">
+          {{ primaryButtonClicked ? 'Cliqué !' : 'Voir produit' }}
+        </app-button>
+      </div>
+
+      <div class="button-item">
+        <div class="button-label">Button 2 - Secondary (Default)</div>
+        <app-button variant="secondary" (buttonClick)="onSecondaryButtonClick($event)">
+          {{ secondaryButtonClicked ? 'Cliqué !' : 'Voir produit' }}
+        </app-button>
+      </div>
+
+      <div class="button-item">
+        <div class="button-label">Button 3 - Tertiaire (Default)</div>
+        <app-button variant="dark" (buttonClick)="onDarkButtonClick($event)">
+          {{ darkButtonClicked ? 'Cliqué !' : 'SEE PRODUCT' }}
+        </app-button>
+      </div>
+
+      <div class="button-item">
+        <div class="button-label">Button 4 - Text (Default)</div>
+        <app-button variant="text" (buttonClick)="onTextButtonClick($event)">
+          {{ textButtonClicked ? 'Cliqué !' : 'Shop' }}
+        </app-button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Éléments de formulaire -->
+  <section class="showcase-section">
+    <div class="overline">04</div>
+    <h2>Éléments de formulaire</h2>
+
+    <form [formGroup]="demoForm" (ngSubmit)="onSubmit()" class="demo-form">
+      <h3 class="mb-3">Exemple de formulaire</h3>
+
+      <!-- Champs texte -->
+      <div class="form-row">
+        <div class="form-col">
+          <div class="form-label-demo">Text Field (Default)</div>
+          <app-text-field label="Nom" placeholder="Entrez votre nom" [formControl]="nameControl"></app-text-field>
+        </div>
+
+        <div class="form-col">
+          <div class="form-label-demo">Text Field (Email)</div>
+          <app-text-field label="Email" placeholder="Entrez votre email" type="email"
+            [formControl]="emailControl"></app-text-field>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-col">
+          <div class="form-label-demo">Text Field (Password)</div>
+          <app-text-field label="Mot de passe" placeholder="Entrez votre mot de passe" type="password"
+            [formControl]="passwordControl"></app-text-field>
+        </div>
+      </div>
+
+      <!-- Radio buttons -->
+      <div class="form-row mt-4">
+        <div class="form-col">
+          <div class="form-label-demo">Radio Buttons</div>
+          <div class="radio-group-demo">
+            <app-radio-button label="Carte de crédit" value="card" name="paymentMethod"
+              [checked]="selectedPaymentMethod === 'card'" (change)="onPaymentMethodChange($event)"></app-radio-button>
+
+            <app-radio-button label="e-Money" value="emoney" name="paymentMethod"
+              [checked]="selectedPaymentMethod === 'emoney'"
+              (change)="onPaymentMethodChange($event)"></app-radio-button>
+
+            <app-radio-button label="Paiement à la livraison" value="cash" name="paymentMethod"
+              [checked]="selectedPaymentMethod === 'cash'" (change)="onPaymentMethodChange($event)"></app-radio-button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Number input -->
+      <div class="form-row mt-4">
+        <div class="form-col">
+          <div class="form-label-demo">Number Input</div>
+          <app-number-input [value]="quantity" [min]="1" [max]="10"
+            (valueChange)="onQuantityChange($event)"></app-number-input>
+        </div>
+      </div>
+
+      <!-- Submit button -->
+      <div class="form-row mt-4">
+        <div class="form-col">
+          <app-button variant="primary" type="submit">Soumettre</app-button>
+        </div>
+      </div>
+    </form>
+  </section>
+</div>

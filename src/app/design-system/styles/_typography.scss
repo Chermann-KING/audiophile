@@ -1,0 +1,168 @@
+// Design System - Typography
+@use "./variables" as vars;
+
+// Import de la police Manrope
+@font-face {
+  font-family: "Manrope";
+  src: url("/public/assets/fonts/manrope/Manrope-Regular.ttf") format("ttf"),
+    url("/public/assets/fonts/manrope/Manrope-Regular.ttf") format("ttf");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Manrope";
+  src: url("/public/assets/fonts/manrope/Manrope-Medium.ttf") format("ttf"),
+    url("/public/assets/fonts/manrope/Manrope-Medium.ttf") format("ttf");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Manrope";
+  src: url("/public/assets/fonts/manrope/Manrope-Bold.ttf") format("ttf"),
+    url("/public/assets/fonts/manrope/Manrope-Bold.ttf") format("ttf");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+// Variables de typographie
+$font-family-base: "Manrope", sans-serif;
+$font-weight-normal: 400;
+$font-weight-medium: 500;
+$font-weight-bold: 700;
+
+// Rubriques
+$h1-font-size: 3.5rem; // 56px, (All Caps, 58px Line Space, 2px Char. Space)
+$h2-font-size: 2.5rem; // 40px, (All Caps, 44px Line Space, 1.5px Char. Space)
+$h3-font-size: 2rem; // 32px, (All Caps, 36px Line Space, 1.15px Char. Space)
+$h4-font-size: 1.75rem; // 28px, (All Caps, 38px Line Space, 2px Char. Space)
+$h5-font-size: 1.5rem; // 24px, (All Caps, 33px Line Space, 1.7px Char. Space)
+$h6-font-size: 1.125rem; // 18px, (All Caps, 24px Line Space, 1.3px Char. Space)
+
+// Corps du texte
+$body-font-size: 0.9375rem; // 15px (25px Line Space)
+$base-font-size: 1rem; // 16px
+
+// Surlignage et sous-titre
+$overline-font-size: 0.875rem; // 14px (All Caps, 19px Line Space, 10px Char. Space)
+$subtitle-font-size: 0.8125rem; // 13px (All Caps, 25px Line Space, 1px Char. Space)
+
+// Réinitialisation
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  font-family: $font-family-base;
+  font-size: $body-font-size;
+  font-weight: $font-weight-normal;
+  line-height: 1.66; // 25px / 15px
+  color: vars.$black;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// Rubriques
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: $font-weight-bold;
+  text-transform: uppercase;
+  margin-bottom: vars.$spacing-md;
+}
+
+h1 {
+  font-size: $h1-font-size;
+  line-height: calc(58px / 56px);
+  letter-spacing: 2px;
+}
+
+h2 {
+  font-size: $h2-font-size;
+  line-height: calc(44px / 40px);
+  letter-spacing: 1.5px;
+}
+
+h3 {
+  font-size: $h3-font-size;
+  line-height: calc(36px / 32px);
+  letter-spacing: 1.15px;
+}
+
+h4 {
+  font-size: $h4-font-size;
+  line-height: calc(38px / 28px);
+  letter-spacing: 2px;
+}
+
+h5 {
+  font-size: $h5-font-size;
+  line-height: calc(33px / 24px);
+  letter-spacing: 1.7px;
+}
+
+h6 {
+  font-size: $h6-font-size;
+  line-height: calc(24px / 18px);
+  letter-spacing: 1.3px;
+}
+
+// Styles spéciaux
+.overline {
+  font-size: $overline-font-size;
+  line-height: calc(19px / 14px);
+  letter-spacing: 10px;
+  text-transform: uppercase;
+  color: vars.$primary;
+  font-weight: $font-weight-normal;
+}
+
+.subtitle {
+  font-size: $subtitle-font-size;
+  line-height: calc(25px / 13px);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-weight: $font-weight-bold;
+}
+
+// Typographie adaptée
+@media (max-width: vars.$breakpoint-md) {
+  h1 {
+    font-size: 2.8rem; // 45px
+  }
+
+  h2 {
+    font-size: 2.2rem; // 35px
+  }
+
+  h3 {
+    font-size: 1.75rem; // 28px
+  }
+}
+
+@media (max-width: vars.$breakpoint-sm) {
+  h1 {
+    font-size: 2.25rem; // 36px
+  }
+
+  h2 {
+    font-size: 2rem; // 32px
+  }
+
+  h3 {
+    font-size: 1.5rem; // 24px
+  }
+}

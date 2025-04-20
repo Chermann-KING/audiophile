@@ -1,0 +1,19 @@
+<section class="categories">
+  <div class="container">
+    <div class="category-grid">
+      <div class="category-item" *ngFor="let category of categories">
+        <div class="category-card">
+          <div class="category-image">
+            <img [src]="category.image" [alt]="category.label" class="img-fluid">
+          </div>
+
+          <h2 class="category-title">{{ category.label }}</h2>
+
+          <app-button variant="text" (buttonClick)="goToCategory(category.name)">
+            Shop
+          </app-button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

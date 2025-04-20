@@ -1,0 +1,215 @@
+@use "../../../../app/design-system/styles/variables" as vars;
+@use "../../../../app/design-system/styles/mixins" as mix;
+@use "../../../../app/design-system/styles/typography" as typo;
+
+.header {
+  // border: 3px solid red;
+
+  background-color: vars.$black;
+  color: vars.$white;
+  padding: 2rem 0;
+  position: relative;
+
+  .container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    position: relative;
+
+    &::before {
+      content: "";
+      height: 1px;
+      width: 100%;
+      max-width: 1160px;
+      background-color: vars.$white;
+      position: absolute;
+      top: 72px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+      opacity: 0.3;
+
+      @include mix.respond-to(md) {
+        width: 96%;
+      }
+      @include mix.respond-to(sm) {
+        width: 100%;
+      }
+    }
+  }
+
+  .header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .mobile-menu {
+      display: none; // Caché par défaut sur desktop
+
+      @include mix.respond-to(md) {
+        display: block; // Visible sur tablette/mobile
+        margin-right: 1rem;
+      }
+    }
+
+    app-navbar {
+      @include mix.respond-to(md) {
+        display: none; // Caché sur mobile par défaut
+
+        &.mobile-visible {
+          display: block;
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 55%;
+          height: 100vh;
+          background-color: vars.$black;
+          z-index: 90;
+          padding: 6rem 2rem 2rem;
+          overflow-y: auto;
+        }
+      }
+    }
+  }
+
+  // Overlay pour fermer le menu mobile
+  .mobile-menu-overlay {
+    display: none;
+    position: fixed;
+    top: 96px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 90;
+
+    &.active {
+      display: block;
+    }
+  }
+}
+
+// Style pour le body quand le menu est ouvert
+:host-context(body.menu-open) {
+  overflow: hidden;
+}
+
+// Nouveaux styles pour l'authentification
+.user-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.auth-status {
+  .auth-link {
+    color: vars.$white;
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 700;
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: vars.$primary;
+    }
+  }
+}
+
+// Styles pour le menu utilisateur
+.user-menu-container {
+  position: relative;
+}
+
+.user-icon-btn {
+  background: none;
+  border: none;
+  padding: 0.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: vars.$white;
+  transition: color 0.3s ease;
+
+  &:hover,
+  &.active {
+    color: vars.$primary;
+  }
+
+  app-user-icon {
+    display: block;
+  }
+}
+
+.user-dropdown {
+  position: absolute;
+  top: calc(100% + 4rem);
+  right: 0;
+  background-color: vars.$white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  min-width: 200px;
+  overflow: hidden;
+  z-index: 1000;
+  transform-origin: top right;
+  animation: dropdownEnter 0.2s ease forwards;
+
+  @keyframes dropdownEnter {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: -6px;
+    right: 10px;
+    width: 12px;
+    height: 12px;
+    background-color: vars.$white;
+    transform: rotate(45deg);
+    box-shadow: -2px -2px 4px rgba(0, 0, 0, 0.05);
+  }
+}
+
+.dropdown-content {
+  padding: 0.5rem 0;
+  background-color: vars.$white;
+  position: relative;
+}
+
+.user-name {
+  display: block;
+  padding: 0.75rem 1rem;
+  color: vars.$black;
+  font-weight: 700;
+  font-size: 0.875rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-item {
+  display: block;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  color: vars.$black;
+  text-decoration: none;
+  font-size: typo.$body-font-size;
+  font-weight: typo.$font-weight-bold;
+  text-align: left;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: rgba(vars.$primary, 0.1);
+    color: vars.$primary;
+  }
+}

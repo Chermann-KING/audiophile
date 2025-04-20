@@ -1,0 +1,169 @@
+/* Fichier principal de styles */
+
+@use "./app/design-system/styles/design-system" as ds;
+@use "./app/design-system/styles/mixins" as mix;
+
+// Styles globaux additionnels
+body {
+  background-color: ds.$light-gray;
+}
+
+body.menu-open {
+  overflow: hidden;
+}
+
+// Container
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 ds.$spacing-md;
+
+  @include mix.respond-to(sm) {
+    padding: 0 ds.$spacing-sm;
+  }
+}
+
+// Utilitaires
+.text-center {
+  text-align: center;
+}
+
+.text-primary {
+  color: ds.$primary;
+}
+
+.mb-1 {
+  margin-bottom: ds.$spacing-xs;
+}
+.mb-2 {
+  margin-bottom: ds.$spacing-sm;
+}
+.mb-3 {
+  margin-bottom: ds.$spacing-md;
+}
+.mb-4 {
+  margin-bottom: ds.$spacing-lg;
+}
+.mb-5 {
+  margin-bottom: ds.$spacing-xl;
+}
+
+.mt-1 {
+  margin-top: ds.$spacing-xs;
+}
+.mt-2 {
+  margin-top: ds.$spacing-sm;
+}
+.mt-3 {
+  margin-top: ds.$spacing-md;
+}
+.mt-4 {
+  margin-top: ds.$spacing-lg;
+}
+.mt-5 {
+  margin-top: ds.$spacing-xl;
+}
+
+// Grilles et mise en page
+.row {
+  @include mix.flex(row, flex-start, stretch, wrap);
+  margin: 0 -#{ds.$spacing-sm};
+
+  .col {
+    padding: 0 ds.$spacing-sm;
+    flex: 1;
+
+    &.col-12 {
+      flex: 0 0 100%;
+      max-width: 100%;
+    }
+    &.col-6 {
+      flex: 0 0 50%;
+      max-width: 50%;
+    }
+    &.col-4 {
+      flex: 0 0 33.33%;
+      max-width: 33.33%;
+    }
+    &.col-3 {
+      flex: 0 0 25%;
+      max-width: 25%;
+    }
+
+    @include mix.respond-to(md) {
+      &.col-md-12 {
+        flex: 0 0 100%;
+        max-width: 100%;
+      }
+      &.col-md-6 {
+        flex: 0 0 50%;
+        max-width: 50%;
+      }
+    }
+
+    @include mix.respond-to(sm) {
+      &.col-sm-12 {
+        flex: 0 0 100%;
+        max-width: 100%;
+      }
+    }
+  }
+}
+
+.grid {
+  @include mix.grid(3, ds.$spacing-md);
+
+  @include mix.respond-to(md) {
+    @include mix.grid(2, ds.$spacing-sm);
+  }
+
+  @include mix.respond-to(sm) {
+    @include mix.grid(1, ds.$spacing-sm);
+  }
+}
+
+//
+.card {
+  background-color: ds.$pure-white;
+  border-radius: ds.$border-radius-md;
+  overflow: hidden;
+  @include mix.box-shadow(1);
+
+  .card-img {
+    width: 100%;
+    height: auto;
+  }
+
+  .card-body {
+    padding: ds.$spacing-md;
+  }
+
+  .card-title {
+    margin-bottom: ds.$spacing-sm;
+  }
+
+  .card-text {
+    margin-bottom: ds.$spacing-md;
+  }
+}
+
+// Images
+.img-fluid {
+  max-width: 100%;
+  height: auto;
+}
+
+// Animations
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.fade-in {
+  animation: fadeIn ds.$transition-normal;
+}

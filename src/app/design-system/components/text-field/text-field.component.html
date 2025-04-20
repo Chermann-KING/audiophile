@@ -1,0 +1,17 @@
+<div class="form-group" [ngClass]="{'error': isInvalid}">
+  <label *ngIf="label" class="form-label" [for]="id">{{ label }}</label>
+  <input [type]="type" [id]="id" [formControl]="control" class="form-control" [placeholder]="placeholder"
+    [attr.aria-invalid]="isInvalid" [attr.aria-describedby]="errorId" (blur)="onBlur()" />
+  <div *ngIf="isInvalid" class="error-message" [id]="errorId">
+    <span *ngIf="control.errors?.['required']">Ce champ est obligatoire</span>
+    <span *ngIf="control.errors?.['email']">Veuillez entrer une adresse email valide</span>
+    <span *ngIf="control.errors?.['minlength']">
+      Doit contenir au moins {{ control.errors?.['minlength'].requiredLength }} caractères
+    </span>
+    <span *ngIf="control.errors?.['maxlength']">
+      Doit contenir au maximum {{ control.errors?.['maxlength'].requiredLength }} caractères
+    </span>
+    <span *ngIf="control.errors?.['pattern']">Format invalide</span>
+    <span *ngIf="errorMessage">{{ errorMessage }}</span>
+  </div>
+</div>

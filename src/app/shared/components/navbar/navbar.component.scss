@@ -1,0 +1,64 @@
+@use "../../../../app/design-system/styles/variables" as vars;
+@use "../../../../app/design-system/styles/mixins" as mix;
+@use "../../../../app/design-system/styles/typography" as typo;
+
+.navbar {
+  .nav-list {
+    display: flex;
+    list-style: none;
+    gap: vars.$spacing-lg;
+    padding: 0;
+    margin: 0;
+
+    @include mix.respond-to(md) {
+      flex-direction: column;
+      justify-content: flex-start;
+      gap: vars.$spacing-md;
+    }
+  }
+
+  .nav-item {
+    a {
+      color: vars.$white;
+      text-decoration: none;
+      font-size: 0.8125rem;
+      font-weight: typo.$font-weight-normal;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      transition: color vars.$transition-normal;
+
+      &:hover,
+      &.active {
+        color: vars.$primary;
+        font-weight: typo.$font-weight-bold;
+      }
+
+      @include mix.respond-to(md) {
+        font-size: typo.$base-font-size;
+      }
+
+      @include mix.respond-to(sm) {
+        font-size: typo.$h6-font-size;
+      }
+    }
+  }
+}
+
+// Styles spécifiques pour le footer
+:host-context(app-footer) {
+  .navbar {
+    .nav-list {
+      @include mix.respond-to(md) {
+        flex-direction: row;
+        align-items: flex-start;
+        gap: vars.$spacing-sm;
+      }
+
+      @include mix.respond-to(sm) {
+        flex-direction: column;
+        align-items: center;
+        gap: vars.$spacing-sm;
+      }
+    }
+  }
+}
