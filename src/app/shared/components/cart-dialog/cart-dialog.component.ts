@@ -2,7 +2,7 @@ import { Component, OnInit, Output, EventEmitter, inject } from '@angular/core';
 import { CartService, CartItem } from '../../../core/services/cart.service';
 import { Product } from '../../../models/product';
 import { Router } from '@angular/router';
-import { NgIf, NgFor } from '@angular/common';
+
 import { ButtonComponent } from '../../../design-system/components/button/button.component';
 import { NumberInputComponent } from '../../../design-system/components/number-input/number-input.component';
 
@@ -11,11 +11,9 @@ import { NumberInputComponent } from '../../../design-system/components/number-i
     templateUrl: './cart-dialog.component.html',
     styleUrl: './cart-dialog.component.scss',
     imports: [
-        NgIf,
-        ButtonComponent,
-        NgFor,
-        NumberInputComponent,
-    ],
+    ButtonComponent,
+    NumberInputComponent
+],
 })
 export class CartDialogComponent implements OnInit {
   private _cartService = inject(CartService);

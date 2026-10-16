@@ -7,7 +7,7 @@ import { UserService } from '../../../../core/services/user.service';
 import { take } from 'rxjs/operators';
 import { OrderConfirmationModalService } from '../../services/order-confirmation-modal.service';
 import { Order, OrderResponse } from '../../../../core/models/order.model';
-import { NgIf } from '@angular/common';
+
 import { CheckoutSummaryComponent } from '../../components/checkout-summary/checkout-summary.component';
 import { OrderConfirmationComponent } from '../../components/order-confirmation/order-confirmation.component';
 
@@ -16,12 +16,11 @@ import { OrderConfirmationComponent } from '../../components/order-confirmation/
     templateUrl: './checkout.component.html',
     styleUrls: ['./checkout.component.scss'],
     imports: [
-        FormsModule,
-        ReactiveFormsModule,
-        NgIf,
-        CheckoutSummaryComponent,
-        OrderConfirmationComponent,
-    ],
+    FormsModule,
+    ReactiveFormsModule,
+    CheckoutSummaryComponent,
+    OrderConfirmationComponent
+],
 })
 export class CheckoutComponent implements OnInit {
   private _fb = inject(FormBuilder);

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NgFor } from '@angular/common';
+
 import { RouterLinkActive, RouterLink } from '@angular/router';
 
 @Component({
@@ -7,10 +7,9 @@ import { RouterLinkActive, RouterLink } from '@angular/router';
     templateUrl: './navbar.component.html',
     styleUrls: ['./navbar.component.scss'],
     imports: [
-        NgFor,
-        RouterLinkActive,
-        RouterLink,
-    ],
+    RouterLinkActive,
+    RouterLink
+],
 })
 export class NavbarComponent {
   navItems = [

@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy, Renderer2, ElementRef, AfterViewInit, inj
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ProductService } from '../../../../core/services/product.service';
-import { NgIf, NgFor } from '@angular/common';
+
 import { ButtonComponent } from '../../../../design-system/components/button/button.component';
 
 @Component({
@@ -10,10 +10,8 @@ import { ButtonComponent } from '../../../../design-system/components/button/but
     templateUrl: './hero.component.html',
     styleUrls: ['./hero.component.scss'],
     imports: [
-        NgIf,
-        ButtonComponent,
-        NgFor,
-    ],
+    ButtonComponent
+],
 })
 export class HeroComponent implements OnInit, OnDestroy, AfterViewInit {
   private _productService = inject(ProductService);

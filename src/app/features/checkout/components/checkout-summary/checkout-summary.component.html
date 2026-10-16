@@ -3,22 +3,26 @@
 
   <!-- Liste des articles du panier -->
   <div class="cart-items">
-    <div class="cart-item" *ngFor="let item of cartItems">
-      <div class="item-image">
-        <img [src]="getProductImageUrl(item)" [alt]="item.product.name">
+    @for (item of cartItems; track item) {
+      <div class="cart-item">
+        <div class="item-image">
+          <img [src]="getProductImageUrl(item)" [alt]="item.product.name">
+        </div>
+        <div class="item-details">
+          <h3 class="item-name">{{ getShortProductName(item) }}</h3>
+          <p class="item-price">$ {{ item.product.price | number: '1.0-0' }}</p>
+        </div>
+        <div class="item-quantity">x{{ item.quantity }}</div>
       </div>
-      <div class="item-details">
-        <h3 class="item-name">{{ getShortProductName(item) }}</h3>
-        <p class="item-price">$ {{ item.product.price | number: '1.0-0' }}</p>
-      </div>
-      <div class="item-quantity">x{{ item.quantity }}</div>
-    </div>
+    }
   </div>
 
   <!-- Message panier vide -->
-  <div class="empty-cart" *ngIf="cartItems.length === 0">
-    <p>Your cart is empty</p>
-  </div>
+  @if (cartItems.length === 0) {
+    <div class="empty-cart">
+      <p>Your cart is empty</p>
+    </div>
+  }
 
   <!-- Informations de prix -->
   <div class="price-summary">

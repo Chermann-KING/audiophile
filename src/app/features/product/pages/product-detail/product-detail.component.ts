@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Product } from '../../../../models/product';
 import { ProductService } from '../../../../core/services/product.service';
 import { CartService } from '../../../../core/services/cart.service';
-import { NgIf, NgFor, CurrencyPipe } from '@angular/common';
+import { CurrencyPipe } from '@angular/common';
 import { CategoryListComponent } from '../../../categories/components/category-list/category-list.component';
 import { AboutComponent } from '../../../../shared/components/about/about.component';
 
@@ -12,12 +12,10 @@ import { AboutComponent } from '../../../../shared/components/about/about.compon
     templateUrl: './product-detail.component.html',
     styleUrls: ['./product-detail.component.scss'],
     imports: [
-        NgIf,
-        NgFor,
-        CategoryListComponent,
-        AboutComponent,
-        CurrencyPipe,
-    ],
+    CategoryListComponent,
+    AboutComponent,
+    CurrencyPipe
+],
 })
 export class ProductDetailComponent implements OnInit {
   private _route = inject(ActivatedRoute);

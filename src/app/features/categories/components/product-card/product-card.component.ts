@@ -1,13 +1,13 @@
 import { Component, Input, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { Product } from '../../../../models/product';
-import { NgIf } from '@angular/common';
+
 
 @Component({
     selector: 'app-product-card',
     templateUrl: './product-card.component.html',
     styleUrls: ['./product-card.component.scss'],
-    imports: [NgIf],
+    imports: [],
 })
 export class ProductCardComponent {
   private _router = inject(Router);
