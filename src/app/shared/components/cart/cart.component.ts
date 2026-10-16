@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, inject, DestroyRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject, DestroyRef, ChangeDetectionStrategy } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CartService } from '../../../core/services/cart.service';
 import { Subscription } from 'rxjs';
@@ -9,6 +9,7 @@ import { CartDialogComponent } from '../cart-dialog/cart-dialog.component';
     selector: 'app-cart',
     templateUrl: './cart.component.html',
     styleUrl: './cart.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [CartDialogComponent],
 })
 export class CartComponent implements OnInit, OnDestroy {

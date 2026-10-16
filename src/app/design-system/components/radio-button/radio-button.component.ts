@@ -3,7 +3,8 @@ import {
   Input,
   ViewEncapsulation,
   output,
-  input
+  input,
+  ChangeDetectionStrategy
 } from '@angular/core';
 
 @Component({
@@ -26,6 +27,7 @@ import {
     </div>
   `,
     styleUrls: ['./radio-button.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     encapsulation: ViewEncapsulation.None,
 })
 export class RadioButtonComponent {

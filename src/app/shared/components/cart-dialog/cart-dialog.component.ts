@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, inject, DestroyRef } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, inject, DestroyRef, ChangeDetectionStrategy } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CartService, CartItem } from '../../../core/services/cart.service';
 import { Product } from '../../../models/product';
@@ -11,6 +11,7 @@ import { NumberInputComponent } from '../../../design-system/components/number-i
     selector: 'app-cart-dialog',
     templateUrl: './cart-dialog.component.html',
     styleUrl: './cart-dialog.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
     ButtonComponent,
     NumberInputComponent

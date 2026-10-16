@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 import {
   CategoryService,
@@ -11,6 +11,7 @@ import { ButtonComponent } from '../../../../design-system/components/button/but
     selector: 'app-category-list',
     templateUrl: './category-list.component.html',
     styleUrls: ['./category-list.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ButtonComponent],
 })
 export class CategoryListComponent implements OnInit {

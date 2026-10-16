@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Renderer2, ElementRef, AfterViewInit, inject } from '@angular/core';
+import { Component, OnInit, OnDestroy, Renderer2, ElementRef, AfterViewInit, inject, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ProductService } from '../../../../core/services/product.service';
@@ -9,6 +9,7 @@ import { ButtonComponent } from '../../../../design-system/components/button/but
     selector: 'app-hero',
     templateUrl: './hero.component.html',
     styleUrls: ['./hero.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
     ButtonComponent
 ],

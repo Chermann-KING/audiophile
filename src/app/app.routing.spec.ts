@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { Router, provideRouter } from '@angular/router';
 import { RouterTestingHarness } from '@angular/router/testing';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { Type } from '@angular/core';
 
@@ -19,7 +19,7 @@ import { DesignShowcaseComponent } from './design-showcase/design-showcase.compo
 describe('Routage (caractérisation)', () => {
   const setup = () => {
     TestBed.configureTestingModule({
-      providers: [provideRouter(routes), provideHttpClient(), provideHttpClientTesting()],
+      providers: [provideRouter(routes), provideHttpClient(withXhr()), provideHttpClientTesting()],
     });
     return RouterTestingHarness.create();
   };

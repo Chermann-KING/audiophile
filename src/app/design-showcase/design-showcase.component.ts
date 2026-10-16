@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ButtonComponent } from '../design-system/components/button/button.component';
 import { TextFieldComponent } from '../design-system/components/text-field/text-field.component';
@@ -9,6 +9,7 @@ import { NumberInputComponent } from '../design-system/components/number-input/n
     selector: 'app-design-showcase',
     templateUrl: './design-showcase.component.html',
     styleUrls: ['./design-showcase.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
         ButtonComponent,
         FormsModule,

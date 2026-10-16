@@ -1,4 +1,4 @@
-import { Component, Input, ViewEncapsulation, forwardRef, input, DestroyRef, inject } from '@angular/core';
+import { Component, Input, ViewEncapsulation, forwardRef, input, DestroyRef, inject, ChangeDetectionStrategy } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
   ControlValueAccessor,
@@ -36,6 +36,7 @@ import {
             multi: true,
         },
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [],
 })
 export class TextFieldComponent implements ControlValueAccessor {
