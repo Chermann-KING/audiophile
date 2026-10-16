@@ -61,3 +61,11 @@ Source de vérité vivante. Étiquettes : `FACT`, `DECISION`, `ASSUMPTION`, `OPE
 - `DECISION` `OrderConfirmationStore` est fourni au niveau de la route `checkout` (portée = la visite de la page), `PlaceOrder`/`ListOrders` à la racine (utilisés aussi par le profil).
 - `OPEN` Un échec de commande n'est que journalisé : aucun message n'est affiché à l'utilisateur (comportement historique conservé).
 - `OPEN` Les paiements e-Money sont simulés : numéro et PIN sont transmis et stockés tels quels dans `db.json` (à ne jamais brancher sur de vrais moyens de paiement).
+
+## Coque, UI partagée et garde-fous
+- `DECISION` Éléments de la règle de dépendance : `kernel`, `ui` (design system, composants et directives partagés), `shell` (`layout/`, assemble compte et panier), et les quatre couches de chaque tranche.
+- `DECISION` `ui` ne dépend que de `ui` et `kernel` : le design system ne connaît aucune fonctionnalité. `shell` peut dépendre de la présentation et de l'application des tranches.
+- `DECISION` Les racines de composition (`*.routes.ts`, `infrastructure/*.providers.ts`, `app.*.ts`, `main.ts`) et les tests sont exemptés de la règle : ils câblent.
+- `FACT` Vérifié par violations volontaires : domaine → Angular/RxJS/application, présentation → infrastructure, ui → fonctionnalité sont refusés par `pnpm lint`.
+- `DECISION` CI GitHub (`.github/workflows/ci.yml`) : lint, tests et build à chaque pull request.
+- `DEFERRED` Messages d'erreur utilisateur sur les échecs réseau (commande, catalogue) ; authentification réelle ; nettoyage du bruit d'indentation hérité des migrations de schematics.

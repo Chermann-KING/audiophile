@@ -7,7 +7,7 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "json-server": "pnpm dlx json-server --watch server/db.json",
+    "json-server": "json-server --watch server/db.json",
     "test": "ng test",
     "lint": "ng lint"
   },

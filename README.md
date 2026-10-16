@@ -1,59 +1,64 @@
-# AngularAudioEcommerceApp
+# Audiophile
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.1.3.
+Boutique en ligne de matériel audio (casques, enceintes, écouteurs) : catalogue, panier, commande et compte.
+Application Angular 22, standalone, sans zone.js (zoneless), composants OnPush, état en signaux.
 
-## Development server
+## Démarrer
 
-To start a local development server, run:
-
-```bash
-ng serve
-```
-
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+Prérequis : Node 22 et [pnpm](https://pnpm.io) 12 (npm et yarn sont refusés par le script `preinstall`).
 
 ```bash
-ng generate component component-name
+pnpm install
+pnpm json-server   # API de développement sur http://localhost:3000 (server/db.json)
+pnpm start         # http://localhost:4200
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+| Commande | Rôle |
+| --- | --- |
+| `pnpm start` | serveur de développement |
+| `pnpm test` | tests unitaires (Vitest, jsdom) |
+| `pnpm lint` | ESLint, y compris la règle de dépendance entre couches |
+| `pnpm build` | build de production dans `dist/` |
 
-```bash
-ng generate --help
+En production, l'API est servie par les fonctions Vercel du dossier `api/` (`/api/products`, `/api/orders`).
+
+## Architecture
+
+Clean Architecture par fonctionnalité : chaque tranche verticale a quatre couches.
+
+```
+src/app/
+├── catalog/    produits, catégories, accueil
+├── cart/       panier persistant (localStorage)
+├── account/    session simulée, connexion, profil
+├── checkout/   commande, confirmation, historique
+│   └── <tranche>/
+│       ├── domain/          entités, règles, erreurs, ports (abstract class) — TypeScript pur
+│       ├── application/     use cases (@angular/core seulement)
+│       ├── infrastructure/  adaptateurs HTTP / localStorage, DTO zod, mappers, <tranche>.providers.ts
+│       ├── presentation/    composants, pages, stores à signaux, guards
+│       └── testing/         doublures et fixtures de test
+├── layout/     coque applicative (en-tête)
+├── shared/     kernel/ (Result) et composants UI génériques
+├── design-system/  composants du design system
+└── core/       configuration technique (URL de l'API)
 ```
 
-## Building
+Règle de dépendance, vérifiée par `pnpm lint` (`eslint.boundaries.cjs`) :
+`presentation → application → domain ← infrastructure`, tout vers `shared/kernel`.
+Le domaine n'importe ni Angular, ni RxJS, ni zod ; la présentation n'importe pas l'infrastructure ;
+le design system ne connaît aucune fonctionnalité.
 
-To build the project run:
+Les décisions et les points ouverts sont consignés dans
+[docs/audiophile-architecture-context-v0.1.md](docs/audiophile-architecture-context-v0.1.md).
 
-```bash
-ng build
-```
+## Tests
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+- Domaine et use cases : sans TestBed, avec des doublures en mémoire.
+- Adaptateurs : `HttpTestingController` et `localStorage` de jsdom.
+- Composants : rendu sans zone.js (réponses HTTP, signaux).
+- Routage : tests de caractérisation de toutes les routes, gardes comprises.
 
-## Running unit tests
+## Intégration continue
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+`.github/workflows/ci.yml` exécute lint, tests et build à chaque pull request.
