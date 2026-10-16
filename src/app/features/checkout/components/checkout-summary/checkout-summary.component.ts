@@ -1,4 +1,4 @@
-import { Component, output, input } from '@angular/core';
+import { Component, output, input, ChangeDetectionStrategy } from '@angular/core';
 import { CartItem } from '../../../../core/services/cart.service';
 import { DecimalPipe } from '@angular/common';
 
@@ -6,6 +6,7 @@ import { DecimalPipe } from '@angular/common';
     selector: 'app-checkout-summary',
     templateUrl: './checkout-summary.component.html',
     styleUrls: ['./checkout-summary.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
     DecimalPipe
 ],

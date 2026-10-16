@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, DestroyRef } from '@angular/core';
+import { Component, OnInit, inject, DestroyRef, ChangeDetectionStrategy } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Product } from '../../../../models/product';
@@ -12,6 +12,7 @@ import { AboutComponent } from '../../../../shared/components/about/about.compon
     selector: 'app-product-detail',
     templateUrl: './product-detail.component.html',
     styleUrls: ['./product-detail.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
     CategoryListComponent,
     AboutComponent,
