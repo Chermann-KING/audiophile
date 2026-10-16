@@ -1,12 +1,14 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CartService } from '../../../core/services/cart.service';
 import { Subscription } from 'rxjs';
+import { NgIf } from '@angular/common';
+import { CartDialogComponent } from '../cart-dialog/cart-dialog.component';
 
 @Component({
-  selector: 'app-cart',
-  standalone: false,
-  templateUrl: './cart.component.html',
-  styleUrl: './cart.component.scss',
+    selector: 'app-cart',
+    templateUrl: './cart.component.html',
+    styleUrl: './cart.component.scss',
+    imports: [NgIf, CartDialogComponent],
 })
 export class CartComponent implements OnInit, OnDestroy {
   itemCount = 0;

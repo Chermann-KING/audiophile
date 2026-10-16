@@ -9,12 +9,18 @@ import {
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ProductService } from '../../../../core/services/product.service';
+import { NgIf, NgFor } from '@angular/common';
+import { ButtonComponent } from '../../../../design-system/components/button/button.component';
 
 @Component({
-  selector: 'app-hero',
-  standalone: false,
-  templateUrl: './hero.component.html',
-  styleUrls: ['./hero.component.scss'],
+    selector: 'app-hero',
+    templateUrl: './hero.component.html',
+    styleUrls: ['./hero.component.scss'],
+    imports: [
+        NgIf,
+        ButtonComponent,
+        NgFor,
+    ],
 })
 export class HeroComponent implements OnInit, OnDestroy, AfterViewInit {
   newProducts: any[] = [];

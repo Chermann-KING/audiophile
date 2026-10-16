@@ -7,9 +7,8 @@ import {
 } from '@angular/core';
 
 @Component({
-  selector: 'app-radio-button',
-  standalone: false,
-  template: `
+    selector: 'app-radio-button',
+    template: `
     <div class="radio-container" [class.active]="checked">
       <input
         type="radio"
@@ -26,8 +25,8 @@ import {
       </label>
     </div>
   `,
-  styleUrls: ['./radio-button.component.scss'],
-  encapsulation: ViewEncapsulation.None,
+    styleUrls: ['./radio-button.component.scss'],
+    encapsulation: ViewEncapsulation.None,
 })
 export class RadioButtonComponent {
   @Input() label = '';

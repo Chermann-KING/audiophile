@@ -4,12 +4,14 @@ import {
   CategoryService,
   Category,
 } from '../../../../core/services/category.service';
+import { NgFor } from '@angular/common';
+import { ButtonComponent } from '../../../../design-system/components/button/button.component';
 
 @Component({
-  selector: 'app-category-list',
-  standalone: false,
-  templateUrl: './category-list.component.html',
-  styleUrls: ['./category-list.component.scss'],
+    selector: 'app-category-list',
+    templateUrl: './category-list.component.html',
+    styleUrls: ['./category-list.component.scss'],
+    imports: [NgFor, ButtonComponent],
 })
 export class CategoryListComponent implements OnInit {
   categories: Category[] = [];

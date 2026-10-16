@@ -3,12 +3,29 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AuthService } from '../../../core/services/auth.service';
 import { User } from '../../../core/models/user.model';
+import { MobileMenuComponent } from '../mobile-menu/mobile-menu.component';
+import { LogoComponent } from '../logo/logo.component';
+import { NavbarComponent } from '../navbar/navbar.component';
+import { ClickOutsideDirective } from '../../directives/click-outside.directive';
+import { UserIconComponent } from '../icons/user-icon.component';
+import { RouterLink } from '@angular/router';
+import { CartComponent } from '../cart/cart.component';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss'],
-  standalone: false,
+    selector: 'app-header',
+    templateUrl: './header.component.html',
+    styleUrls: ['./header.component.scss'],
+    imports: [
+        MobileMenuComponent,
+        LogoComponent,
+        NavbarComponent,
+        ClickOutsideDirective,
+        UserIconComponent,
+        RouterLink,
+        CartComponent,
+        AsyncPipe,
+    ],
 })
 export class HeaderComponent implements OnInit {
   isUserMenuOpen = false;

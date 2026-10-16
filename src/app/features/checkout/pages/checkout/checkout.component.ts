@@ -1,10 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  Validators,
-  AbstractControl,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, AbstractControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CartService, CartItem } from '../../../../core/services/cart.service';
 import { OrderService } from '../../../../core/services/order.service';
@@ -12,12 +7,21 @@ import { UserService } from '../../../../core/services/user.service';
 import { take } from 'rxjs/operators';
 import { OrderConfirmationModalService } from '../../services/order-confirmation-modal.service';
 import { Order, OrderResponse } from '../../../../core/models/order.model';
+import { NgIf } from '@angular/common';
+import { CheckoutSummaryComponent } from '../../components/checkout-summary/checkout-summary.component';
+import { OrderConfirmationComponent } from '../../components/order-confirmation/order-confirmation.component';
 
 @Component({
-  selector: 'app-checkout',
-  standalone: false,
-  templateUrl: './checkout.component.html',
-  styleUrls: ['./checkout.component.scss'],
+    selector: 'app-checkout',
+    templateUrl: './checkout.component.html',
+    styleUrls: ['./checkout.component.scss'],
+    imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        NgIf,
+        CheckoutSummaryComponent,
+        OrderConfirmationComponent,
+    ],
 })
 export class CheckoutComponent implements OnInit {
   checkoutForm!: FormGroup;

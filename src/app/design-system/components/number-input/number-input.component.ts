@@ -7,9 +7,8 @@ import {
 } from '@angular/core';
 
 @Component({
-  selector: 'app-number-input',
-  standalone: false,
-  template: `
+    selector: 'app-number-input',
+    template: `
     <div class="number-input">
       <button
         type="button"
@@ -30,8 +29,8 @@ import {
       </button>
     </div>
   `,
-  styleUrls: ['./number-input.component.scss'],
-  encapsulation: ViewEncapsulation.None,
+    styleUrls: ['./number-input.component.scss'],
+    encapsulation: ViewEncapsulation.None,
 })
 export class NumberInputComponent {
   @Input() value = 0;

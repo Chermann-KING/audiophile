@@ -1,16 +1,22 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  Validators,
-  FormControl,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ButtonComponent } from '../design-system/components/button/button.component';
+import { TextFieldComponent } from '../design-system/components/text-field/text-field.component';
+import { RadioButtonComponent } from '../design-system/components/radio-button/radio-button.component';
+import { NumberInputComponent } from '../design-system/components/number-input/number-input.component';
 
 @Component({
-  selector: 'app-design-showcase',
-  standalone: false,
-  templateUrl: './design-showcase.component.html',
-  styleUrls: ['./design-showcase.component.scss'],
+    selector: 'app-design-showcase',
+    templateUrl: './design-showcase.component.html',
+    styleUrls: ['./design-showcase.component.scss'],
+    imports: [
+        ButtonComponent,
+        FormsModule,
+        ReactiveFormsModule,
+        TextFieldComponent,
+        RadioButtonComponent,
+        NumberInputComponent,
+    ],
 })
 export class DesignShowcaseComponent implements OnInit {
   // Pour démontrer les boutons

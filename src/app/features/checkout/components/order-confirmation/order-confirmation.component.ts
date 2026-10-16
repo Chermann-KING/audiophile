@@ -8,13 +8,19 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Order, OrderResponse } from '../../../../core/models/order.model';
 import { OrderConfirmationModalService } from '../../services/order-confirmation-modal.service';
+import { NgIf, NgFor, AsyncPipe, DecimalPipe } from '@angular/common';
 
 @Component({
-  selector: 'app-order-confirmation',
-  standalone: false,
-  templateUrl: './order-confirmation.component.html',
-  styleUrls: ['./order-confirmation.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-order-confirmation',
+    templateUrl: './order-confirmation.component.html',
+    styleUrls: ['./order-confirmation.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [
+        NgIf,
+        NgFor,
+        AsyncPipe,
+        DecimalPipe,
+    ],
 })
 export class OrderConfirmationComponent implements OnInit {
   order: Order | null = null;
