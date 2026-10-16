@@ -1,14 +1,13 @@
-import { Component, output, input } from '@angular/core';
-import type { CartLine } from '../../../../cart/domain/cart';
+import { Component, input, output } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
 
+import type { CartLine } from '../../../cart/domain/cart';
+
 @Component({
-    selector: 'app-checkout-summary',
-    templateUrl: './checkout-summary.component.html',
-    styleUrls: ['./checkout-summary.component.scss'],
-    imports: [
-    DecimalPipe
-],
+  selector: 'app-checkout-summary',
+  templateUrl: './checkout-summary.component.html',
+  styleUrls: ['./checkout-summary.component.scss'],
+  imports: [DecimalPipe],
 })
 export class CheckoutSummaryComponent {
   readonly cartItems = input<readonly CartLine[]>([]);
@@ -21,11 +20,7 @@ export class CheckoutSummaryComponent {
   readonly submitted = output<void>();
 
   submitOrder(): void {
-    console.log('1. Bouton CONTINUE cliqué');
-    console.log('formValid:', this.formValid());
-    console.log('cartItems:', this.cartItems());
     this.submitted.emit();
-    console.log('2. Événement submitted émis');
   }
 
   // Nom court affiché : le nom court du produit, sinon les deux premiers mots du nom.

@@ -122,7 +122,7 @@
                 <span class="order-status">{{ order.status }}</span>
               </div>
               <div class="order-items">
-                @for (item of order.items; track item.id) {
+                @for (item of order.items; track $index) {
                 <div class="order-item">
                   <img [src]="item.image" [alt]="item.name" class="item-image">
                   <div class="item-details">
@@ -157,7 +157,7 @@
                 <span class="order-status">{{ order.status }}</span>
               </div>
               <div class="order-items">
-                @for (item of order.items; track item.id) {
+                @for (item of order.items; track $index) {
                 <div class="order-item">
                   <img [src]="item.image" [alt]="item.name" class="item-image">
                   <div class="item-details">

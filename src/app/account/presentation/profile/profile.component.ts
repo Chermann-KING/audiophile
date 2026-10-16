@@ -2,8 +2,8 @@ import { Component, OnInit, inject, signal } from '@angular/core';
 import { CurrencyPipe, DatePipe } from '@angular/common';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 
-import { Order } from '../../../core/models/order.model';
-import { OrderService } from '../../../core/services/order.service';
+import { ListOrders } from '../../../checkout/application/list-orders.use-case';
+import type { Order } from '../../../checkout/domain/order';
 import { AccountStore } from '../account.store';
 
 @Component({
@@ -15,7 +15,7 @@ import { AccountStore } from '../account.store';
 export class ProfileComponent implements OnInit {
   private readonly fb = inject(FormBuilder);
   private readonly account = inject(AccountStore);
-  private readonly orderService = inject(OrderService);
+  private readonly listOrders = inject(ListOrders);
 
   readonly profileForm = this.fb.group({
     firstName: ['', Validators.required],
@@ -26,8 +26,8 @@ export class ProfileComponent implements OnInit {
     confirmPassword: [''],
   });
   readonly activeTab = signal<'profile' | 'orders'>('profile');
-  readonly currentOrders = signal<Order[]>([]);
-  readonly orderHistory = signal<Order[]>([]);
+  readonly currentOrders = signal<readonly Order[]>([]);
+  readonly orderHistory = signal<readonly Order[]>([]);
   readonly loading = signal(false);
   readonly error = signal('');
   readonly success = signal('');
@@ -42,7 +42,7 @@ export class ProfileComponent implements OnInit {
   onTabChange(tab: 'profile' | 'orders'): void {
     this.activeTab.set(tab);
     if (tab === 'orders') {
-      this.loadOrders();
+      void this.loadOrders();
     }
   }
 
@@ -82,23 +82,23 @@ export class ProfileComponent implements OnInit {
     this.succeed('Profile updated successfully');
   }
 
-  private loadOrders(): void {
+  private async loadOrders(): Promise<void> {
+    const user = this.account.user();
+    if (!user) return;
+
     this.loading.set(true);
     this.error.set('');
-    const userId = 1; // TODO: remplacer par l'identifiant de l'utilisateur connecté (tranche « checkout »).
 
-    this.orderService.getCurrentOrders(userId).subscribe({
-      next: (orders) => {
-        this.currentOrders.set(orders);
-        this.loading.set(false);
-      },
-      error: () => this.fail('Error loading current orders'),
-    });
+    const [current, history] = await Promise.all([
+      this.listOrders.execute(user.id, 'pending'),
+      this.listOrders.execute(user.id, 'completed'),
+    ]);
 
-    this.orderService.getOrderHistory(userId).subscribe({
-      next: (orders) => this.orderHistory.set(orders),
-      error: () => this.fail('Error loading order history'),
-    });
+    if (current.ok) this.currentOrders.set(current.value);
+    if (history.ok) this.orderHistory.set(history.value);
+    if (!current.ok) return this.fail('Error loading current orders');
+    if (!history.ok) return this.fail('Error loading order history');
+    this.loading.set(false);
   }
 
   private succeed(message: string): void {
