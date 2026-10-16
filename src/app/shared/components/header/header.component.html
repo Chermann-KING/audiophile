@@ -23,8 +23,8 @@
           @if (isUserMenuOpen) {
           <div class="user-dropdown">
             <div class="dropdown-content">
-              @if (isLoggedIn$ | async) {
-              <span class="user-name">{{ (currentUser$ | async)?.email }}</span>
+              @if (account.isLoggedIn()) {
+              <span class="user-name">{{ account.user()?.email }}</span>
               <a routerLink="/profile" class="dropdown-item" (click)="closeUserMenu()">MY PROFILE</a>
               <button class="dropdown-item" (click)="logout()">LOGOUT</button>
               } @else {

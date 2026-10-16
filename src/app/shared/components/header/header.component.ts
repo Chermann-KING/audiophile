@@ -1,8 +1,6 @@
 // src/app/shared/components/header/header.component.ts
 import { Component, inject } from '@angular/core';
-import { Observable } from 'rxjs';
-import { AuthService } from '../../../core/services/auth.service';
-import { User } from '../../../core/models/user.model';
+import { AccountStore } from '../../../account/presentation/account.store';
 import { MobileMenuComponent } from '../mobile-menu/mobile-menu.component';
 import { LogoComponent } from '../logo/logo.component';
 import { NavbarComponent } from '../navbar/navbar.component';
@@ -10,7 +8,6 @@ import { ClickOutsideDirective } from '../../directives/click-outside.directive'
 import { UserIconComponent } from '../icons/user-icon.component';
 import { RouterLink } from '@angular/router';
 import { CartComponent } from '../../../cart/presentation/cart/cart.component';
-import { AsyncPipe } from '@angular/common';
 
 @Component({
     selector: 'app-header',
@@ -24,21 +21,13 @@ import { AsyncPipe } from '@angular/common';
         UserIconComponent,
         RouterLink,
         CartComponent,
-        AsyncPipe,
     ],
 })
 export class HeaderComponent {
-  private authService = inject(AuthService);
+  protected readonly account = inject(AccountStore);
 
   isUserMenuOpen = false;
   isMobileMenuOpen = false;
-  isLoggedIn$: Observable<boolean>;
-  currentUser$: Observable<User | null>;
-
-  constructor() {
-    this.isLoggedIn$ = this.authService.isLoggedIn$;
-    this.currentUser$ = this.authService.currentUser$;
-  }
 
   toggleUserMenu(event: Event): void {
     event.stopPropagation();
@@ -56,7 +45,7 @@ export class HeaderComponent {
   }
 
   logout(): void {
-    this.authService.logout();
+    this.account.signOut();
     this.closeUserMenu();
   }
 }

@@ -6,15 +6,16 @@ import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { Type } from '@angular/core';
 
 import { API_BASE_URL } from './core/api-base-url';
+import { provideAccount } from './account/infrastructure/account.providers';
 import { provideCart } from './cart/infrastructure/cart.providers';
 import { routes } from './app.routes';
 import { HomeComponent } from './catalog/presentation/home/home.component';
 import { CategoryListComponent } from './catalog/presentation/category-list/category-list.component';
 import { CategoryDetailComponent } from './catalog/presentation/category-detail/category-detail.component';
 import { ProductDetailComponent } from './catalog/presentation/product-detail/product-detail.component';
-import { LoginComponent } from './features/auth/pages/login/login.component';
+import { LoginComponent } from './account/presentation/login/login.component';
 import { CheckoutComponent } from './features/checkout/pages/checkout/checkout.component';
-import { ProfileComponent } from './features/profile/pages/profile/profile.component';
+import { ProfileComponent } from './account/presentation/profile/profile.component';
 import { DesignShowcaseComponent } from './design-showcase/design-showcase.component';
 
 // Tests de caractérisation : figent le comportement du routage avant la migration standalone.
@@ -26,6 +27,7 @@ describe('Routage (caractérisation)', () => {
         provideHttpClient(withXhr()),
         provideHttpClientTesting(),
         ...provideCart(),
+        ...provideAccount(),
         { provide: API_BASE_URL, useValue: 'http://api.test' },
       ],
     });

@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { authGuard } from './core/guards/auth.guard';
+import { authGuard } from './account/presentation/auth.guard';
 import { provideCatalog } from './catalog/infrastructure/catalog.providers';
 
 export const routes: Routes = [
@@ -26,12 +26,12 @@ export const routes: Routes = [
   },
   {
     path: 'auth',
-    loadChildren: () => import('./features/auth/auth.routes').then((m) => m.AUTH_ROUTES),
+    loadChildren: () => import('./account/account.routes').then((m) => m.AUTH_ROUTES),
   },
   {
     path: 'profile',
     loadChildren: () =>
-      import('./features/profile/profile.routes').then((m) => m.PROFILE_ROUTES),
+      import('./account/account.routes').then((m) => m.PROFILE_ROUTES),
     canActivate: [authGuard],
   },
   {
