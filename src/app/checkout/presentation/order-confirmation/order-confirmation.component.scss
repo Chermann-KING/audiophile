@@ -1,6 +1,6 @@
-@use "../../../../design-system/styles/variables" as vars;
-@use "../../../../design-system/styles/mixins" as mix;
-@use "../../../../design-system/styles/typography" as typo;
+@use "../../../design-system/styles/variables" as vars;
+@use "../../../design-system/styles/mixins" as mix;
+@use "../../../design-system/styles/typography" as typo;
 
 .modal-overlay {
   position: fixed;

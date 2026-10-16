@@ -1,5 +1,5 @@
-@use "../../../../design-system/styles/variables" as vars;
-@use "../../../../design-system/styles/mixins" as mix;
+@use "../../../design-system/styles/variables" as vars;
+@use "../../../design-system/styles/mixins" as mix;
 
 .checkout-page {
   background-color: vars.$white;

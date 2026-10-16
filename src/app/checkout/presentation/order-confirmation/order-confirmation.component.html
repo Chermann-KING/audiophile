@@ -1,17 +1,17 @@
-@if (isVisible$ | async) {
+@if (store.visible()) {
   <div class="modal-overlay">
-    <div class="modal-content" [class.loading]="loading">
+    <div class="modal-content">
       <div class="confirmation-content">
         <div class="success-icon">
           <img src="assets/images/checkout/icon-order-confirmation.svg" alt="Order confirmed">
         </div>
         <h2>THANK YOU<br>FOR YOUR ORDER</h2>
         <p class="confirmation-message">You will receive an email confirmation shortly.</p>
-        @if (order) {
+        @if (store.order(); as order) {
           <div class="order-summary">
             <div class="items-preview">
               <div class="visible-items">
-                @for (item of visibleItems; track item) {
+                @for (item of visibleItems(); track $index) {
                   <div class="item">
                     <img [src]="item.image" [alt]="item.name">
                     <div class="item-details">
@@ -22,9 +22,9 @@
                   </div>
                 }
               </div>
-              @if (remainingItems > 0) {
+              @if (remainingItems() > 0) {
                 <button class="view-more" (click)="toggleItemsVisibility()">
-                  {{ showAllItems ? 'View less' : 'and ' + remainingItems + ' other item(s)' }}
+                  {{ showAllItems() ? 'View less' : 'and ' + remainingItems() + ' other item(s)' }}
                 </button>
               }
             </div>

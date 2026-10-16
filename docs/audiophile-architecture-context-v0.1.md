@@ -23,7 +23,7 @@ Source de vérité vivante. Étiquettes : `FACT`, `DECISION`, `ASSUMPTION`, `OPE
 | `catalog` | produits, catégories, accueil | fait (v0.1) |
 | `cart` | panier persistant (localStorage) | fait |
 | `account` | session simulée, profil | fait |
-| `checkout` | commande, confirmation | à faire |
+| `checkout` | commande, confirmation, historique | fait |
 
 ## Catalogue
 - `FACT` Les catégories sont dérivées des produits ; l'API ne fournit que la liste complète des produits.
@@ -51,3 +51,13 @@ Source de vérité vivante. Étiquettes : `FACT`, `DECISION`, `ASSUMPTION`, `OPE
 - `FACT` Correction au passage : le formulaire de profil envoyait les champs de mot de passe dans le corps du `PUT /users/:id`. Seuls prénom, nom et email sont désormais envoyés ; le changement de mot de passe n'est déclenché que si l'un des champs de mot de passe est rempli (conforme au texte de l'interface).
 - `OPEN` Les endpoints `PUT /users/:id` et `POST /users/change-password` n'existent pas dans `api/` : la mise à jour du profil échoue en production.
 - `OPEN` L'onglet « commandes » du profil utilise encore l'identifiant utilisateur codé en dur `1` (traité dans la tranche `checkout`).
+
+## Commande
+- `FACT` L'API Vercel (`api/orders.js`) calcule les totaux côté serveur : sous-total = somme des lignes, port 50, TVA 20 % arrondie (informative, déjà incluse), total = sous-total + port. Le client applique la même règle (`computeTotals`) ; le serveur fait foi.
+- `FACT` La réponse de création est une commande seule (json-server) ou une enveloppe `{ success, message, order }` (Vercel) : l'adaptateur accepte les deux.
+- `FACT` `GET /orders` ignore les paramètres `userId` et `status` côté Vercel (renvoie toutes les commandes) ; json-server les filtre. Les commandes n'ont pas d'identifiant utilisateur.
+- `DECISION` Règles du domaine : panier non vide, nom d'au moins 3 caractères, email, téléphone, adresse, code postal à 5 chiffres, ville, pays ; e-Money : numéro à 9 chiffres et PIN à 4 chiffres, absents pour un paiement en espèces.
+- `DECISION` Les validateurs du formulaire restent pour l'expérience de saisie ; le domaine revérifie dans `PlaceOrder` (défense en profondeur).
+- `DECISION` `OrderConfirmationStore` est fourni au niveau de la route `checkout` (portée = la visite de la page), `PlaceOrder`/`ListOrders` à la racine (utilisés aussi par le profil).
+- `OPEN` Un échec de commande n'est que journalisé : aucun message n'est affiché à l'utilisateur (comportement historique conservé).
+- `OPEN` Les paiements e-Money sont simulés : numéro et PIN sont transmis et stockés tels quels dans `db.json` (à ne jamais brancher sur de vrais moyens de paiement).

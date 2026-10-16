@@ -8,13 +8,14 @@ import { Type } from '@angular/core';
 import { API_BASE_URL } from './core/api-base-url';
 import { provideAccount } from './account/infrastructure/account.providers';
 import { provideCart } from './cart/infrastructure/cart.providers';
+import { provideCheckout } from './checkout/infrastructure/checkout.providers';
 import { routes } from './app.routes';
 import { HomeComponent } from './catalog/presentation/home/home.component';
 import { CategoryListComponent } from './catalog/presentation/category-list/category-list.component';
 import { CategoryDetailComponent } from './catalog/presentation/category-detail/category-detail.component';
 import { ProductDetailComponent } from './catalog/presentation/product-detail/product-detail.component';
 import { LoginComponent } from './account/presentation/login/login.component';
-import { CheckoutComponent } from './features/checkout/pages/checkout/checkout.component';
+import { CheckoutComponent } from './checkout/presentation/checkout/checkout.component';
 import { ProfileComponent } from './account/presentation/profile/profile.component';
 import { DesignShowcaseComponent } from './design-showcase/design-showcase.component';
 
@@ -28,6 +29,7 @@ describe('Routage (caractérisation)', () => {
         provideHttpClientTesting(),
         ...provideCart(),
         ...provideAccount(),
+        ...provideCheckout(),
         { provide: API_BASE_URL, useValue: 'http://api.test' },
       ],
     });
