@@ -1,5 +1,5 @@
 // src/app/shared/components/header/header.component.ts
-import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AuthService } from '../../../core/services/auth.service';
 import { User } from '../../../core/models/user.model';
@@ -16,7 +16,6 @@ import { AsyncPipe } from '@angular/common';
     selector: 'app-header',
     templateUrl: './header.component.html',
     styleUrls: ['./header.component.scss'],
-    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
         MobileMenuComponent,
         LogoComponent,

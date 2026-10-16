@@ -1,4 +1,4 @@
-@if (!isLoading && activeProduct) {
+@if (!isLoading() && activeProduct(); as activeProduct) {
   <section class="hero" [attr.data-product]="activeProduct.slug">
     <div class="container">
       <div class="hero-content">
@@ -17,12 +17,12 @@
         </div>
       </div>
       <!-- Contrôles du slider -->
-      @if (newProducts.length > 1) {
+      @if (newProducts().length > 1) {
         <div class="hero-slider-controls">
           <div class="slider-dots">
-            @for (product of newProducts; track product; let i = $index) {
+            @for (product of newProducts(); track product; let i = $index) {
               <button class="slider-dot"
-                [class.active]="i === currentProductIndex" (click)="goToSlide(i)"
+                [class.active]="i === currentProductIndex()" (click)="goToSlide(i)"
                 [attr.aria-label]="'Go to slide ' + (i + 1)">
               </button>
             }
@@ -45,7 +45,7 @@
 </section>
 }
 
-@if (isLoading) {
+@if (isLoading()) {
   <div class="hero-loading">
     <div class="container">
       <p>Loading featured products...</p>

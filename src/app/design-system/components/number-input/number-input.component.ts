@@ -2,8 +2,7 @@ import {
   Component,
   ViewEncapsulation,
   input,
-  model,
-  ChangeDetectionStrategy
+  model
 } from '@angular/core';
 
 @Component({
@@ -30,7 +29,6 @@ import {
     </div>
   `,
     styleUrls: ['./number-input.component.scss'],
-    changeDetection: ChangeDetectionStrategy.Eager,
     encapsulation: ViewEncapsulation.None,
 })
 export class NumberInputComponent {

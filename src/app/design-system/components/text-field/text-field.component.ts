@@ -1,4 +1,4 @@
-import { Component, Input, ViewEncapsulation, forwardRef, input, DestroyRef, inject, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, ViewEncapsulation, forwardRef, input, DestroyRef, inject, signal, model } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
   ControlValueAccessor,
@@ -10,7 +10,7 @@ import {
 @Component({
     selector: 'app-text-field',
     template: `
-    <div class="form-group" [class.error]="hasError">
+    <div class="form-group" [class.error]="hasError()">
       @if (label) {
         <label class="form-label" [for]="inputId">{{ label }}</label>
       }
@@ -19,12 +19,12 @@ import {
         [type]="type()"
         class="form-control"
         [placeholder]="placeholder()"
-        [value]="value"
+        [value]="value()"
         (input)="onInput($event)"
         (blur)="onBlur()"
         />
-        @if (hasError) {
-          <div class="error-message">{{ errorMessage }}</div>
+        @if (hasError()) {
+          <div class="error-message">{{ errorMessage() }}</div>
         }
       </div>
     `,
@@ -37,7 +37,6 @@ import {
             multi: true,
         },
     ],
-    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [],
 })
 export class TextFieldComponent implements ControlValueAccessor {
@@ -47,15 +46,16 @@ export class TextFieldComponent implements ControlValueAccessor {
   @Input() label = '';
   readonly placeholder = input('');
   readonly type = input('text');
-  @Input() errorMessage = '';
+  // model() : saisie du parent, mais aussi renseigné en interne (champ requis).
+  readonly errorMessage = model('');
   @Input() set formControl(control: FormControl) {
     if (control) {
       this._formControl = control;
 
       this._formControl.valueChanges.pipe(takeUntilDestroyed(this._destroyRef)).subscribe(() => {
-        this.hasError = this._formControl.invalid && this._formControl.touched;
+        this.hasError.set(this._formControl.invalid && this._formControl.touched);
         if (this._formControl.errors?.['required']) {
-          this.errorMessage = 'Ce champ est requis';
+          this.errorMessage.set('Ce champ est requis');
         }
       });
     }
@@ -66,15 +66,15 @@ export class TextFieldComponent implements ControlValueAccessor {
   }
 
   private _formControl!: FormControl;
-  value = '';
-  hasError = false;
+  readonly value = signal('');
+  readonly hasError = signal(false);
   touched = false;
   // Implémentations vides tant que le formulaire n'a pas enregistré ses callbacks.
   onChange: (value: string) => void = () => undefined;
   onTouch: () => void = () => undefined;
 
   writeValue(value: string | null): void {
-    this.value = value || '';
+    this.value.set(value || '');
   }
 
   registerOnChange(fn: (value: string) => void): void {
@@ -87,7 +87,7 @@ export class TextFieldComponent implements ControlValueAccessor {
 
   onInput(event: Event): void {
     const value = (event.target as HTMLInputElement).value;
-    this.value = value;
+    this.value.set(value);
     this.onChange(value);
   }
 

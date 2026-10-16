@@ -11,13 +11,13 @@
             d="M17.6301 19.5436C18.6197 19.5436 19.4266 18.7367 19.4266 17.7471C19.4266 16.7575 18.6197 15.9506 17.6301 15.9506C16.6405 15.9506 15.8336 16.7575 15.8336 17.7471C15.8336 18.7367 16.6405 19.5436 17.6301 19.5436Z"
             fill="white" />
           </svg>
-          @if (itemCount > 0) {
-            <span class="cart-count">{{ itemCount }}</span>
+          @if (itemCount() > 0) {
+            <span class="cart-count">{{ itemCount() }}</span>
           }
         </button>
 
-        <!-- Cart Dialog - s'affiche lorsque isCartOpen est true -->
-        @if (isCartOpen) {
-          <app-cart-dialog (closeCart)="isCartOpen = false"></app-cart-dialog>
+        <!-- Cart Dialog - s'affiche lorsque isCartOpen() est true -->
+        @if (isCartOpen()) {
+          <app-cart-dialog></app-cart-dialog>
         }
       </div>

@@ -6,26 +6,26 @@
   <div class="main-container">
     <div class="profile-container">
       <div class="tabs">
-        <button class="tab-button" [class.active]="activeTab === 'profile'" (click)="onTabChange('profile')">
+        <button class="tab-button" [class.active]="activeTab() === 'profile'" (click)="onTabChange('profile')">
           PERSONAL INFORMATION
         </button>
-        <button class="tab-button" [class.active]="activeTab === 'orders'" (click)="onTabChange('orders')">
+        <button class="tab-button" [class.active]="activeTab() === 'orders'" (click)="onTabChange('orders')">
           MY ORDERS
         </button>
       </div>
 
       <!-- Profile Tab -->
-      @if (activeTab === 'profile') {
+      @if (activeTab() === 'profile') {
       <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="profile-form">
         <!-- Messages -->
-        @if (success) {
+        @if (success()) {
         <div class="alert alert-success">
-          {{ success }}
+          {{ success() }}
         </div>
         }
-        @if (error) {
+        @if (error()) {
         <div class="alert alert-error">
-          {{ error }}
+          {{ error() }}
         </div>
         }
 
@@ -84,8 +84,8 @@
 
         <!-- Action Buttons -->
         <div class="form-actions">
-          <button type="submit" class="btn btn-primary" [disabled]="!profileForm.valid || loading">
-            @if (loading) {
+          <button type="submit" class="btn btn-primary" [disabled]="!profileForm.valid || loading()">
+            @if (loading()) {
             <span>Updating...</span>
             } @else {
             <span>Update Profile</span>
@@ -96,25 +96,25 @@
       }
 
       <!-- Orders Tab -->
-      @if (activeTab === 'orders') {
+      @if (activeTab() === 'orders') {
       <div class="orders-container">
-        @if (error) {
+        @if (error()) {
         <div class="alert alert-error">
-          {{ error }}
+          {{ error() }}
         </div>
         }
 
-        @if (loading) {
+        @if (loading()) {
         <div class="loading-message">Loading orders...</div>
         } @else {
         <!-- Current Orders -->
         <div class="form-section">
           <h2>CURRENT ORDERS</h2>
-          @if (currentOrders.length === 0) {
+          @if (currentOrders().length === 0) {
           <p class="empty-message">No current orders</p>
           } @else {
           <div class="orders-list">
-            @for (order of currentOrders; track order.id) {
+            @for (order of currentOrders(); track order.id) {
             <div class="order-card">
               <div class="order-header">
                 <span class="order-number">Order #{{ order.id }}</span>
@@ -145,11 +145,11 @@
         <!-- Order History -->
         <div class="form-section">
           <h2>ORDER HISTORY</h2>
-          @if (orderHistory.length === 0) {
+          @if (orderHistory().length === 0) {
           <p class="empty-message">No past orders</p>
           } @else {
           <div class="orders-list">
-            @for (order of orderHistory; track order.id) {
+            @for (order of orderHistory(); track order.id) {
             <div class="order-card">
               <div class="order-header">
                 <span class="order-number">Order #{{ order.id }}</span>

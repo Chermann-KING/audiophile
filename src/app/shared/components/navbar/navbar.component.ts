@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { RouterLinkActive, RouterLink } from '@angular/router';
 
@@ -6,7 +6,6 @@ import { RouterLinkActive, RouterLink } from '@angular/router';
     selector: 'app-navbar',
     templateUrl: './navbar.component.html',
     styleUrls: ['./navbar.component.scss'],
-    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
     RouterLinkActive,
     RouterLink

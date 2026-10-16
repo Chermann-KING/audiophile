@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, DestroyRef, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, inject, DestroyRef, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Product } from '../../../../models/product';
@@ -12,7 +12,6 @@ import { AboutComponent } from '../../../../shared/components/about/about.compon
     selector: 'app-product-detail',
     templateUrl: './product-detail.component.html',
     styleUrls: ['./product-detail.component.scss'],
-    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
     CategoryListComponent,
     AboutComponent,
@@ -26,10 +25,10 @@ export class ProductDetailComponent implements OnInit {
   private _productService = inject(ProductService);
   private _cartService = inject(CartService);
 
-  product: Product | null = null;
-  relatedProducts: Product[] = [];
-  loading = true;
-  quantity = 1;
+  readonly product = signal<Product | null>(null);
+  readonly relatedProducts = signal<Product[]>([]);
+  readonly loading = signal(true);
+  readonly quantity = signal(1);
 
   ngOnInit(): void {
     this._route.params.pipe(takeUntilDestroyed(this._destroyRef)).subscribe((params) => {
@@ -39,13 +38,13 @@ export class ProductDetailComponent implements OnInit {
   }
 
   loadProduct(slug: string): void {
-    this.loading = true;
+    this.loading.set(true);
     this._productService.getProductBySlug(slug).subscribe({
       next: (product) => {
         // Ne pas rediriger si la catégorie ne correspond pas
         // car cela peut arriver avec les produits suggérés
-        this.product = product;
-        this.loading = false;
+        this.product.set(product);
+        this.loading.set(false);
 
         // Charger les produits suggérés
         if (product.others && product.others.length > 0) {
@@ -55,7 +54,7 @@ export class ProductDetailComponent implements OnInit {
       },
       error: (error) => {
         console.error('Erreur lors de la récupération du produit:', error);
-        this.loading = false;
+        this.loading.set(false);
         // Rediriger vers la page d'accueil en cas d'erreur
         this._router.navigate(['/']);
       },
@@ -63,15 +62,16 @@ export class ProductDetailComponent implements OnInit {
   }
 
   navigateToProduct(slug: string): void {
-    if (this.product) {
-      this._router.navigate(['/products', this.product.category, slug]);
+    const product = this.product();
+    if (product) {
+      this._router.navigate(['/products', product.category, slug]);
     }
   }
 
   loadRelatedProducts(slugs: string[]): void {
     this._productService.getProductsBySlugs(slugs).subscribe({
       next: (products) => {
-        this.relatedProducts = products;
+        this.relatedProducts.set(products);
       },
       error: (error) => {
         console.error(
@@ -83,22 +83,23 @@ export class ProductDetailComponent implements OnInit {
   }
 
   decreaseQuantity(): void {
-    if (this.quantity > 1) {
-      this.quantity--;
+    if (this.quantity() > 1) {
+      this.quantity.update((quantity) => quantity - 1);
     }
   }
 
   increaseQuantity(): void {
-    this.quantity++;
+    this.quantity.update((quantity) => quantity + 1);
   }
 
   addToCart(): void {
-    if (this.product) {
-      this._cartService.addToCart(this.product, this.quantity);
+    const product = this.product();
+    if (product) {
+      this._cartService.addToCart(product, this.quantity());
       // TODO: Feedback visuel (un toast/notification)
-      console.log(`Ajout de ${this.quantity} ${this.product.name} au panier`);
+      console.log(`Ajout de ${this.quantity()} ${product.name} au panier`);
       // Réinitialiser la quantité
-      this.quantity = 1;
+      this.quantity.set(1);
     }
   }
 

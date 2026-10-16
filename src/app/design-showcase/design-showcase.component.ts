@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ButtonComponent } from '../design-system/components/button/button.component';
 import { TextFieldComponent } from '../design-system/components/text-field/text-field.component';
@@ -9,7 +9,6 @@ import { NumberInputComponent } from '../design-system/components/number-input/n
     selector: 'app-design-showcase',
     templateUrl: './design-showcase.component.html',
     styleUrls: ['./design-showcase.component.scss'],
-    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
         ButtonComponent,
         FormsModule,
@@ -23,10 +22,10 @@ export class DesignShowcaseComponent implements OnInit {
   private fb = inject(FormBuilder);
 
   // Pour démontrer les boutons
-  primaryButtonClicked = false;
-  secondaryButtonClicked = false;
-  textButtonClicked = false;
-  darkButtonClicked = false;
+  readonly primaryButtonClicked = signal(false);
+  readonly secondaryButtonClicked = signal(false);
+  readonly textButtonClicked = signal(false);
+  readonly darkButtonClicked = signal(false);
 
   // Pour démontrer les radio buttons
   selectedPaymentMethod = 'card';
@@ -57,23 +56,23 @@ export class DesignShowcaseComponent implements OnInit {
 
   // Méthodes pour démontrer les boutons
   onPrimaryButtonClick(): void {
-    this.primaryButtonClicked = true;
-    setTimeout(() => (this.primaryButtonClicked = false), 1000);
+    this.primaryButtonClicked.set(true);
+    setTimeout(() => this.primaryButtonClicked.set(false), 1000);
   }
 
   onSecondaryButtonClick(): void {
-    this.secondaryButtonClicked = true;
-    setTimeout(() => (this.secondaryButtonClicked = false), 1000);
+    this.secondaryButtonClicked.set(true);
+    setTimeout(() => this.secondaryButtonClicked.set(false), 1000);
   }
 
   onTextButtonClick(): void {
-    this.textButtonClicked = true;
-    setTimeout(() => (this.textButtonClicked = false), 1000);
+    this.textButtonClicked.set(true);
+    setTimeout(() => this.textButtonClicked.set(false), 1000);
   }
 
   onDarkButtonClick(): void {
-    this.darkButtonClicked = true;
-    setTimeout(() => (this.darkButtonClicked = false), 1000);
+    this.darkButtonClicked.set(true);
+    setTimeout(() => this.darkButtonClicked.set(false), 1000);
   }
 
   // Méthode pour démontrer les radio buttons

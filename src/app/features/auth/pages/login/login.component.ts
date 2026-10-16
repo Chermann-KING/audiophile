@@ -1,4 +1,4 @@
-import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../../core/services/auth.service';
@@ -8,7 +8,6 @@ import { AuthService } from '../../../../core/services/auth.service';
     selector: 'app-login',
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.scss'],
-    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
     FormsModule,
     ReactiveFormsModule,
@@ -21,8 +20,8 @@ export class LoginComponent {
   private router = inject(Router);
 
   loginForm: FormGroup;
-  isLoading = false;
-  error: string | null = null;
+  readonly isLoading = signal(false);
+  readonly error = signal<string | null>(null);
 
   constructor() {
     this.loginForm = this.fb.group({
@@ -33,8 +32,8 @@ export class LoginComponent {
 
   onSubmit(): void {
     if (this.loginForm.valid) {
-      this.isLoading = true;
-      this.error = null;
+      this.isLoading.set(true);
+      this.error.set(null);
 
       const { email, password } = this.loginForm.value;
       this.authService.login(email, password).subscribe({
@@ -42,8 +41,8 @@ export class LoginComponent {
           this.router.navigate(['/']);
         },
         error: (error) => {
-          this.error = error.message;
-          this.isLoading = false;
+          this.error.set(error.message);
+          this.isLoading.set(false);
         },
       });
     }

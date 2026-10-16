@@ -1,4 +1,4 @@
-import { Component, input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, input } from '@angular/core';
 
 @Component({
     selector: 'app-user-icon',
@@ -17,7 +17,6 @@ import { Component, input, ChangeDetectionStrategy } from '@angular/core';
       <circle cx="12" cy="7" r="4" />
     </svg>
   `,
-    changeDetection: ChangeDetectionStrategy.Eager,
     styles: [
         `
       :host {
