@@ -1,8 +1,8 @@
 import {
   Component,
-  Input,
   ViewEncapsulation,
-  output
+  output,
+  input
 } from '@angular/core';
 import { NgClass } from '@angular/common';
 
@@ -14,13 +14,13 @@ import { NgClass } from '@angular/common';
     imports: [NgClass],
 })
 export class ButtonComponent {
-  @Input() variant: 'primary' | 'secondary' | 'text' | 'dark' = 'primary';
-  @Input() type: 'button' | 'submit' | 'reset' = 'button';
-  @Input() disabled = false;
+  readonly variant = input<'primary' | 'secondary' | 'text' | 'dark'>('primary');
+  readonly type = input<'button' | 'submit' | 'reset'>('button');
+  readonly disabled = input(false);
   readonly buttonClick = output<Event>();
 
   get buttonClass(): string {
-    return `btn-${this.variant}`;
+    return `btn-${this.variant()}`;
   }
 
   onClick(event: Event): void {

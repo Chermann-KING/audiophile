@@ -1,11 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 
 @Component({
     selector: 'app-user-icon',
     template: `
     <svg
-      [attr.width]="size"
-      [attr.height]="size"
+      [attr.width]="size()"
+      [attr.height]="size()"
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
@@ -31,5 +31,5 @@ import { Component, Input } from '@angular/core';
     ],
 })
 export class UserIconComponent {
-  @Input() size: string = '24';
+  readonly size = input<string>('24');
 }

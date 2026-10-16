@@ -1,8 +1,8 @@
 import {
   Component,
-  Input,
   ViewEncapsulation,
-  output
+  input,
+  model,
 } from '@angular/core';
 
 @Component({
@@ -12,16 +12,16 @@ import {
       <button
         type="button"
         class="number-btn"
-        [disabled]="value <= min"
+        [disabled]="value() <= min()"
         (click)="decrement()"
       >
         -
       </button>
-      <div class="number-value">{{ value }}</div>
+      <div class="number-value">{{ value() }}</div>
       <button
         type="button"
         class="number-btn"
-        [disabled]="value >= max"
+        [disabled]="value() >= max()"
         (click)="increment()"
       >
         +
@@ -32,22 +32,20 @@ import {
     encapsulation: ViewEncapsulation.None,
 })
 export class NumberInputComponent {
-  @Input() value = 0;
-  @Input() min = 0;
-  @Input() max = 100;
-  readonly valueChange = output<number>();
+  // model() conserve le comportement d'origine : la valeur est modifiée localement et `valueChange` est émis.
+  readonly value = model(0);
+  readonly min = input(0);
+  readonly max = input(100);
 
   increment(): void {
-    if (this.value < this.max) {
-      this.value++;
-      this.valueChange.emit(this.value);
+    if (this.value() < this.max()) {
+      this.value.update((current) => current + 1);
     }
   }
 
   decrement(): void {
-    if (this.value > this.min) {
-      this.value--;
-      this.valueChange.emit(this.value);
+    if (this.value() > this.min()) {
+      this.value.update((current) => current - 1);
     }
   }
 }

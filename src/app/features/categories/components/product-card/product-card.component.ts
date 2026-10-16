@@ -1,4 +1,4 @@
-import { Component, Input, inject } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import { Router } from '@angular/router';
 import { Product } from '../../../../models/product';
 
@@ -12,36 +12,39 @@ import { Product } from '../../../../models/product';
 export class ProductCardComponent {
   private _router = inject(Router);
 
-  @Input() product!: Product;
+  readonly product = input.required<Product>();
 
   getMobileImagePath(): string {
     // !Pour les earphones, utilise le chemin d'origine de la base de données
-    if (this.product.category === 'earphones') {
-      return this.product.categoryImage.mobile;
+    const product = this.product();
+    if (product.category === 'earphones') {
+      return product.categoryImage.mobile;
     }
     // !Pour les autres catégories (headphones et speakers), utilise le format qui fonctionne
-    return `/assets/images/shared/mobile/image-${this.product.slug}.jpg`;
+    return `/assets/images/shared/mobile/image-${product.slug}.jpg`;
   }
 
   getTabletImagePath(): string {
-    if (this.product.category === 'earphones') {
-      return this.product.categoryImage.tablet;
+    const product = this.product();
+    if (product.category === 'earphones') {
+      return product.categoryImage.tablet;
     }
-    return `/assets/images/shared/tablet/image-${this.product.slug}.jpg`;
+    return `/assets/images/shared/tablet/image-${product.slug}.jpg`;
   }
 
   getDesktopImagePath(): string {
-    if (this.product.category === 'earphones') {
-      return this.product.categoryImage.desktop;
+    const product = this.product();
+    if (product.category === 'earphones') {
+      return product.categoryImage.desktop;
     }
-    return `/assets/images/shared/desktop/image-${this.product.slug}.jpg`;
+    return `/assets/images/shared/desktop/image-${product.slug}.jpg`;
   }
 
   navigateToProductDetail(): void {
     this._router.navigate([
       '/products',
-      this.product.category,
-      this.product.slug,
+      this.product().category,
+      this.product().slug,
     ]);
   }
 }
