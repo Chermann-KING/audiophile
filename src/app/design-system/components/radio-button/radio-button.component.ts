@@ -35,7 +35,7 @@ export class RadioButtonComponent {
   readonly value = input('');
   readonly name = input('');
   @Input() checked = false;
-  readonly change = output<string>();
+  readonly selected = output<string>();
 
   get id(): string {
     return `radio-${this.name()}-${this.value()}`;
@@ -44,7 +44,7 @@ export class RadioButtonComponent {
   onRadioChange(event: Event): void {
     this.checked = (event.target as HTMLInputElement).checked;
     if (this.checked) {
-      this.change.emit(this.value());
+      this.selected.emit(this.value());
     }
   }
 }

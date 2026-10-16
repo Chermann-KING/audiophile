@@ -90,7 +90,7 @@ export class ProfileComponent implements OnInit {
         this.currentOrders = orders;
         this.loading = false;
       },
-      error: (err: Error) => {
+      error: () => {
         this.error = 'Error loading current orders';
         this.loading = false;
       },
@@ -100,7 +100,7 @@ export class ProfileComponent implements OnInit {
       next: (orders: Order[]) => {
         this.orderHistory = orders;
       },
-      error: (err: Error) => {
+      error: () => {
         this.error = 'Error loading order history';
         this.loading = false;
       },
@@ -126,7 +126,7 @@ export class ProfileComponent implements OnInit {
           this.success = 'Profile updated successfully';
           this.loading = false;
         },
-        error: (err: Error) => {
+        error: () => {
           this.error = 'Error updating profile';
           this.loading = false;
         },
@@ -144,7 +144,7 @@ export class ProfileComponent implements OnInit {
           this.passwordForm.reset();
           this.loading = false;
         },
-        error: (err: Error) => {
+        error: () => {
           this.error = 'Error updating password';
           this.loading = false;
         },

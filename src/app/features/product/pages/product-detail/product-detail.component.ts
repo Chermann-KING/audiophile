@@ -28,18 +28,17 @@ export class ProductDetailComponent implements OnInit {
 
   product: Product | null = null;
   relatedProducts: Product[] = [];
-  loading: boolean = true;
-  quantity: number = 1;
+  loading = true;
+  quantity = 1;
 
   ngOnInit(): void {
     this._route.params.pipe(takeUntilDestroyed(this._destroyRef)).subscribe((params) => {
       const slug = params['slug'];
-      const category = params['category'];
-      this.loadProduct(slug, category);
+      this.loadProduct(slug);
     });
   }
 
-  loadProduct(slug: string, category: string): void {
+  loadProduct(slug: string): void {
     this.loading = true;
     this._productService.getProductBySlug(slug).subscribe({
       next: (product) => {

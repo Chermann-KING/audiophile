@@ -1,6 +1,6 @@
-<div class="cart-dialog-overlay" (click)="closeDialog()">
+<div class="cart-dialog-overlay" role="presentation" (click)="closeDialog()">
   <div class="container">
-    <div class="cart-dialog" (click)="$event.stopPropagation()">
+    <div class="cart-dialog" role="presentation" (click)="$event.stopPropagation()">
       <div class="cart-header">
         <h6>CART ({{ cartItems.length }})</h6>
         @if (cartItems.length > 0) {

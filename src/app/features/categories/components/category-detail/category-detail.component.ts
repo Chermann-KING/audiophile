@@ -29,9 +29,9 @@ export class CategoryDetailComponent implements OnInit {
   private _route = inject(ActivatedRoute);
   private _categoryService = inject(CategoryService);
 
-  category: string = '';
+  category = '';
   products: Product[] = [];
-  loading: boolean = true;
+  loading = true;
 
   ngOnInit(): void {
     this._route.params.pipe(takeUntilDestroyed(this._destroyRef)).subscribe((params) => {

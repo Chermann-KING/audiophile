@@ -175,7 +175,7 @@
 
                         <!-- Récapitulatif de commande -->
                         <app-checkout-summary [cartItems]="cartItems" [total]="total" [shipping]="shipping" [vat]="vat"
-                        [grandTotal]="grandTotal" [formValid]="checkoutForm.valid" (onSubmit)="onSubmit()"></app-checkout-summary>
+                        [grandTotal]="grandTotal" [formValid]="checkoutForm.valid" (submitted)="onSubmit()"></app-checkout-summary>
                       </div>
                     </div>
                   </div>

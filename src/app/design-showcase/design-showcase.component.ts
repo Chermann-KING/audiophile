@@ -56,22 +56,22 @@ export class DesignShowcaseComponent implements OnInit {
   }
 
   // Méthodes pour démontrer les boutons
-  onPrimaryButtonClick(event: Event): void {
+  onPrimaryButtonClick(): void {
     this.primaryButtonClicked = true;
     setTimeout(() => (this.primaryButtonClicked = false), 1000);
   }
 
-  onSecondaryButtonClick(event: Event): void {
+  onSecondaryButtonClick(): void {
     this.secondaryButtonClicked = true;
     setTimeout(() => (this.secondaryButtonClicked = false), 1000);
   }
 
-  onTextButtonClick(event: Event): void {
+  onTextButtonClick(): void {
     this.textButtonClicked = true;
     setTimeout(() => (this.textButtonClicked = false), 1000);
   }
 
-  onDarkButtonClick(event: Event): void {
+  onDarkButtonClick(): void {
     this.darkButtonClicked = true;
     setTimeout(() => (this.darkButtonClicked = false), 1000);
   }

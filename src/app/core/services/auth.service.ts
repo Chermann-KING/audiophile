@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
-import { delay, tap } from 'rxjs/operators';
+import { BehaviorSubject, Observable, of } from 'rxjs';
+import { delay } from 'rxjs/operators';
 import { User } from '../models/user.model';
 
 export interface LoginRequest {
@@ -38,7 +38,7 @@ export class AuthService {
     }
   }
 
-  login(email: string, password: string): Observable<AuthResponse> {
+  login(email: string, _password: string): Observable<AuthResponse> {
     const mockUser: User = {
       id: '1',
       email: email,

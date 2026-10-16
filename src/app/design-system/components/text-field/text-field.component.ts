@@ -12,9 +12,10 @@ import {
     template: `
     <div class="form-group" [class.error]="hasError">
       @if (label) {
-        <label class="form-label">{{ label }}</label>
+        <label class="form-label" [for]="inputId">{{ label }}</label>
       }
       <input
+        [id]="inputId"
         [type]="type()"
         class="form-control"
         [placeholder]="placeholder()"
@@ -40,6 +41,8 @@ import {
     imports: [],
 })
 export class TextFieldComponent implements ControlValueAccessor {
+  private static nextId = 0;
+  readonly inputId = `text-field-${TextFieldComponent.nextId++}`;
   private _destroyRef = inject(DestroyRef);
   @Input() label = '';
   readonly placeholder = input('');
@@ -66,8 +69,9 @@ export class TextFieldComponent implements ControlValueAccessor {
   value = '';
   hasError = false;
   touched = false;
-  onChange: (value: string) => void = () => {};
-  onTouch = () => {};
+  // Implémentations vides tant que le formulaire n'a pas enregistré ses callbacks.
+  onChange: (value: string) => void = () => undefined;
+  onTouch: () => void = () => undefined;
 
   writeValue(value: string | null): void {
     this.value = value || '';
