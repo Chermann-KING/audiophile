@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { ProductService } from '../../../../core/services/product.service';
 
 import { ButtonComponent } from '../../../../design-system/components/button/button.component';
+import { Product } from '../../../../models/product';
 
 @Component({
     selector: 'app-hero',
@@ -20,13 +21,13 @@ export class HeroComponent implements OnInit, OnDestroy, AfterViewInit {
   private _renderer = inject(Renderer2);
   private _el = inject(ElementRef);
 
-  newProducts: any[] = [];
+  newProducts: Product[] = [];
   currentProductIndex = 0;
-  activeProduct: any;
+  activeProduct: Product | undefined;
   isLoading = true;
   private _productsSubscription: Subscription | null = null;
-  private _slideChangeTimer: any;
-  private _animationTimer: any;
+  private _slideChangeTimer: ReturnType<typeof setTimeout> | undefined;
+  private _animationTimer: ReturnType<typeof setTimeout> | undefined;
 
   ngOnInit(): void {
     this._loadFeaturedProducts();

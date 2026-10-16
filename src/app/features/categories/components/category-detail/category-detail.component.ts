@@ -7,6 +7,7 @@ import { ButtonComponent } from '../../../../design-system/components/button/but
 import { ProductCardComponent } from '../product-card/product-card.component';
 import { CategoryListComponent } from '../category-list/category-list.component';
 import { AboutComponent } from '../../../../shared/components/about/about.component';
+import { Product } from '../../../../models/product';
 
 @Component({
     selector: 'app-category-detail',
@@ -29,7 +30,7 @@ export class CategoryDetailComponent implements OnInit {
   private _categoryService = inject(CategoryService);
 
   category: string = '';
-  products: any[] = [];
+  products: Product[] = [];
   loading: boolean = true;
 
   ngOnInit(): void {
