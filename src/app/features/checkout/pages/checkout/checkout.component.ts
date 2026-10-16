@@ -4,8 +4,7 @@ import { FormBuilder, FormGroup, Validators, ValidationErrors, FormsModule, Reac
 import { Router } from '@angular/router';
 import { CartStore } from '../../../../cart/presentation/cart.store';
 import { OrderService } from '../../../../core/services/order.service';
-import { UserService } from '../../../../core/services/user.service';
-import { take } from 'rxjs/operators';
+import { AccountStore } from '../../../../account/presentation/account.store';
 import { OrderConfirmationModalService } from '../../services/order-confirmation-modal.service';
 import { Order, OrderResponse } from '../../../../core/models/order.model';
 
@@ -28,7 +27,7 @@ export class CheckoutComponent implements OnInit {
   private _fb = inject(FormBuilder);
   private _cart = inject(CartStore);
   private _orderService = inject(OrderService);
-  private _userService = inject(UserService);
+  private _account = inject(AccountStore);
   private _router = inject(Router);
   private _modalService = inject(OrderConfirmationModalService);
 
@@ -97,31 +96,20 @@ export class CheckoutComponent implements OnInit {
     });
 
     // Pre-fill form with user data if available
-    this._userService
-      .getCurrentUser()
-      .pipe(take(1))
-      .subscribe((user) => {
-        if (user) {
-          this.checkoutForm.patchValue({
-            name: `${user.firstName} ${user.lastName}`,
-            email: user.email,
-          });
-
-          // Marquer les champs pré-remplis comme touchés
-          const nameControl = this.checkoutForm.get('name');
-          const emailControl = this.checkoutForm.get('email');
-
-          if (nameControl) {
-            nameControl.markAsTouched();
-            nameControl.updateValueAndValidity();
-          }
-
-          if (emailControl) {
-            emailControl.markAsTouched();
-            emailControl.updateValueAndValidity();
-          }
-        }
+    const user = this._account.user();
+    if (user) {
+      this.checkoutForm.patchValue({
+        name: `${user.firstName} ${user.lastName}`,
+        email: user.email,
       });
+
+      // Marquer les champs pré-remplis comme touchés
+      for (const field of ['name', 'email']) {
+        const control = this.checkoutForm.get(field);
+        control?.markAsTouched();
+        control?.updateValueAndValidity();
+      }
+    }
   }
 
   onSubmit(): void {

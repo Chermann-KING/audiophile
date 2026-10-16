@@ -22,7 +22,7 @@ Source de vérité vivante. Étiquettes : `FACT`, `DECISION`, `ASSUMPTION`, `OPE
 | --- | --- | --- |
 | `catalog` | produits, catégories, accueil | fait (v0.1) |
 | `cart` | panier persistant (localStorage) | fait |
-| `account` | session simulée, profil | à faire |
+| `account` | session simulée, profil | fait |
 | `checkout` | commande, confirmation | à faire |
 
 ## Catalogue
@@ -41,3 +41,13 @@ Source de vérité vivante. Étiquettes : `FACT`, `DECISION`, `ASSUMPTION`, `OPE
 - `DECISION` `CartStore` (signaux, présentation) est l'API publique de la tranche pour les autres tranches ; les use cases restent purs et synchrones (port `CartRepository` synchrone, état local).
 - `FACT` Compatibilité : la clé `localStorage` `cart` est conservée ; l'ancien format `{ product, quantity }` est relu et converti. Un contenu illisible donne un panier vide.
 - `ASSUMPTION` Les prix du panier ne sont pas revalidés côté serveur (le serveur recalcule les totaux à la commande, voir `api/orders.js`).
+
+## Compte
+- `FACT` L'authentification est une démonstration : `MockAuthenticator` ouvre une session pour tout couple email valide / mot de passe d'au moins 6 caractères, après 800 ms simulées. Aucun mot de passe n'est vérifié.
+- `DECISION` La session est un état global (`provideAccount()` à la racine) ; `AccountStore` (signaux) est l'API publique de la tranche (en-tête, commande, guard).
+- `DECISION` Règles du domaine : email valide, prénom et nom non vides ; mot de passe d'au moins 6 caractères à la connexion ; nouveau mot de passe d'au moins 8 caractères, confirmé, avec mot de passe actuel renseigné.
+- `FACT` Les clés `localStorage` `currentUser` et `token` sont conservées : les sessions existantes survivent à la migration.
+- `DECISION` `authGuard` est une aide de navigation uniquement ; toute autorisation réelle doit être faite côté serveur (aucun backend d'authentification aujourd'hui).
+- `FACT` Correction au passage : le formulaire de profil envoyait les champs de mot de passe dans le corps du `PUT /users/:id`. Seuls prénom, nom et email sont désormais envoyés ; le changement de mot de passe n'est déclenché que si l'un des champs de mot de passe est rempli (conforme au texte de l'interface).
+- `OPEN` Les endpoints `PUT /users/:id` et `POST /users/change-password` n'existent pas dans `api/` : la mise à jour du profil échoue en production.
+- `OPEN` L'onglet « commandes » du profil utilise encore l'identifiant utilisateur codé en dur `1` (traité dans la tranche `checkout`).
