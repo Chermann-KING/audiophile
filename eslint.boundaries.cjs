@@ -19,6 +19,10 @@ module.exports = [
       'import/resolver': { typescript: { alwaysTryTypes: true } },
       'boundaries/elements': [
         { type: 'kernel', pattern: 'src/app/shared/kernel/**', partialMatch: false },
+        // UI générique, sans connaissance du métier : design system, composants et directives partagés.
+        { type: 'ui', pattern: ['src/app/design-system/**', 'src/app/design-showcase/**', 'src/app/shared/components/**', 'src/app/shared/directives/**'], partialMatch: false },
+        // Coque applicative : assemble les fonctionnalités (en-tête avec compte et panier).
+        { type: 'shell', pattern: 'src/app/layout/**', partialMatch: false },
         layer('domain'),
         layer('application'),
         layer('infrastructure'),
@@ -39,7 +43,9 @@ module.exports = [
             { from: { element: { type: 'domain' } }, allow: { to: { element: { types: { anyOf: ['domain', 'kernel'] } } } } },
             { from: { element: { type: 'application' } }, allow: { to: { element: { types: { anyOf: ['application', 'domain', 'kernel'] } } } } },
             { from: { element: { type: 'infrastructure' } }, allow: { to: { element: { types: { anyOf: ['infrastructure', 'domain', 'kernel', 'core'] } } } } },
-            { from: { element: { type: 'presentation' } }, allow: { to: { element: { types: { anyOf: ['presentation', 'application', 'domain', 'kernel', 'core'] } } } } },
+            { from: { element: { type: 'presentation' } }, allow: { to: { element: { types: { anyOf: ['presentation', 'application', 'domain', 'kernel', 'core', 'ui'] } } } } },
+            { from: { element: { type: 'ui' } }, allow: { to: { element: { types: { anyOf: ['ui', 'kernel'] } } } } },
+            { from: { element: { type: 'shell' } }, allow: { to: { element: { types: { anyOf: ['shell', 'presentation', 'application', 'domain', 'kernel', 'core', 'ui'] } } } } },
             // Domaine et noyau purs : aucun paquet externe.
             { from: { element: { types: { anyOf: ['domain', 'kernel'] } } }, disallow: { to: external('**') } },
             // Application : @angular/core seulement (injection), ni RxJS ni zod ni HTTP.
