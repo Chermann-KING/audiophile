@@ -16,9 +16,6 @@ module.exports = defineConfig([
     processor: angular.processInlineTemplates,
     rules: {
       "@typescript-eslint/no-unused-vars": ["error", { argsIgnorePattern: "^_" }],
-      // reason: les composants sont encore en ChangeDetectionStrategy.Eager (migration v22) ;
-      // la règle sera réactivée avec la migration OnPush/zoneless.
-      "@angular-eslint/prefer-on-push-component-change-detection": "off",
       "@angular-eslint/directive-selector": [
         "error",
         {

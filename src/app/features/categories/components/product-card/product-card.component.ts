@@ -1,4 +1,4 @@
-import { Component, inject, input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import { Router } from '@angular/router';
 import { Product } from '../../../../models/product';
 
@@ -7,7 +7,6 @@ import { Product } from '../../../../models/product';
     selector: 'app-product-card',
     templateUrl: './product-card.component.html',
     styleUrls: ['./product-card.component.scss'],
-    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [],
 })
 export class ProductCardComponent {

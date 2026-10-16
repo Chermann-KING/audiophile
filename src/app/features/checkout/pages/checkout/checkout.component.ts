@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, DestroyRef, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, inject, DestroyRef, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder, FormGroup, Validators, ValidationErrors, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -16,7 +16,6 @@ import { OrderConfirmationComponent } from '../../components/order-confirmation/
     selector: 'app-checkout',
     templateUrl: './checkout.component.html',
     styleUrls: ['./checkout.component.scss'],
-    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
     FormsModule,
     ReactiveFormsModule,
@@ -34,13 +33,13 @@ export class CheckoutComponent implements OnInit {
   private _modalService = inject(OrderConfirmationModalService);
 
   checkoutForm!: FormGroup;
-  cartItems: CartItem[] = [];
-  total = 0;
+  readonly cartItems = signal<CartItem[]>([]);
+  readonly total = signal(0);
   shipping = 50; // Frais de livraison fixes
-  vat = 0; // TVA
-  grandTotal = 0;
-  selectedPaymentMethod = 'cash';
-  showEMoneyDetails = false;
+  readonly vat = signal(0); // TVA
+  readonly grandTotal = signal(0);
+  readonly selectedPaymentMethod = signal('cash');
+  readonly showEMoneyDetails = signal(false);
   loading = false;
 
   ngOnInit(): void {
@@ -49,8 +48,8 @@ export class CheckoutComponent implements OnInit {
 
     // Observer les changements de méthode de paiement
     this.checkoutForm.get('paymentMethod')?.valueChanges.pipe(takeUntilDestroyed(this._destroyRef)).subscribe((method) => {
-      this.selectedPaymentMethod = method;
-      this.showEMoneyDetails = method === 'emoney';
+      this.selectedPaymentMethod.set(method);
+      this.showEMoneyDetails.set(method === 'emoney');
 
       // Ajuster les validateurs selon la méthode de paiement
       if (method === 'emoney') {
@@ -128,15 +127,16 @@ export class CheckoutComponent implements OnInit {
 
   private _loadCartData(): void {
     this._cartService.getCart().pipe(takeUntilDestroyed(this._destroyRef)).subscribe((items) => {
-      this.cartItems = items;
+      this.cartItems.set(items);
       this._calculateTotals();
     });
   }
 
   private _calculateTotals(): void {
-    this.total = this._cartService.getTotal();
-    this.vat = Math.round(this.total * 0.2); // 20% de TVA
-    this.grandTotal = this.total + this.shipping;
+    const total = this._cartService.getTotal();
+    this.total.set(total);
+    this.vat.set(Math.round(total * 0.2)); // 20% de TVA
+    this.grandTotal.set(total + this.shipping);
   }
 
   onSubmit(): void {
@@ -151,17 +151,17 @@ export class CheckoutComponent implements OnInit {
 
       const orderData = {
         ...this.checkoutForm.value,
-        items: this.cartItems.map((item) => ({
+        items: this.cartItems().map((item) => ({
           name: item.product.name,
           price: item.product.price,
           quantity: item.quantity,
           image: item.product.image.desktop,
           productId: item.product.id,
         })),
-        total: this.grandTotal,
+        total: this.grandTotal(),
         shipping: this.shipping,
-        vat: this.vat,
-        subtotal: this.total,
+        vat: this.vat(),
+        subtotal: this.total(),
       };
 
       console.log('5. Données de la commande:', orderData);

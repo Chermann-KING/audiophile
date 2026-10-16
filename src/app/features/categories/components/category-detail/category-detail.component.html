@@ -1,11 +1,11 @@
 <div class="category-header">
-  <h1>{{ category | titlecase }}</h1>
+  <h1>{{ category() | titlecase }}</h1>
 </div>
 
 <div class="wrapper">
   <div class="category-detail">
     <!-- État de chargement élégant -->
-    @if (loading) {
+    @if (loading()) {
       <div class="loading-container fade-in">
         <div class="loader">
           <svg class="progress-ring" viewBox="0 0 100 100">
@@ -19,7 +19,7 @@
     }
 
     <!-- Notification aucun produit -->
-    @if (!loading && products.length === 0) {
+    @if (!loading() && products().length === 0) {
       <div class="notification">
         <div class="notification-icon">&#9888;</div>
         <h3 class="notification-title">Aucun produit disponible</h3>
@@ -31,9 +31,9 @@
     }
 
     <!-- Liste de produits -->
-    @if (!loading && products.length > 0) {
+    @if (!loading() && products().length > 0) {
       <div class="product-list">
-        @for (product of products; track product; let i = $index) {
+        @for (product of products(); track product; let i = $index) {
           <app-product-card [product]="product"
             [ngClass]="{'even': i % 2 === 1, 'odd': i % 2 === 0}">
           </app-product-card>

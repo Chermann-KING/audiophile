@@ -107,28 +107,28 @@
       <div class="button-item">
         <div class="button-label">Button 1 - Primary (Default)</div>
         <app-button variant="primary" (buttonClick)="onPrimaryButtonClick()">
-          {{ primaryButtonClicked ? 'Cliqué !' : 'Voir produit' }}
+          {{ primaryButtonClicked() ? 'Cliqué !' : 'Voir produit' }}
         </app-button>
       </div>
 
       <div class="button-item">
         <div class="button-label">Button 2 - Secondary (Default)</div>
         <app-button variant="secondary" (buttonClick)="onSecondaryButtonClick()">
-          {{ secondaryButtonClicked ? 'Cliqué !' : 'Voir produit' }}
+          {{ secondaryButtonClicked() ? 'Cliqué !' : 'Voir produit' }}
         </app-button>
       </div>
 
       <div class="button-item">
         <div class="button-label">Button 3 - Tertiaire (Default)</div>
         <app-button variant="dark" (buttonClick)="onDarkButtonClick()">
-          {{ darkButtonClicked ? 'Cliqué !' : 'SEE PRODUCT' }}
+          {{ darkButtonClicked() ? 'Cliqué !' : 'SEE PRODUCT' }}
         </app-button>
       </div>
 
       <div class="button-item">
         <div class="button-label">Button 4 - Text (Default)</div>
         <app-button variant="text" (buttonClick)="onTextButtonClick()">
-          {{ textButtonClicked ? 'Cliqué !' : 'Shop' }}
+          {{ textButtonClicked() ? 'Cliqué !' : 'Shop' }}
         </app-button>
       </div>
     </div>

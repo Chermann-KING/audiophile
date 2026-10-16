@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserService } from '../../../../core/services/user.service';
 import { OrderService } from '../../../../core/services/order.service';
@@ -12,7 +12,6 @@ import { CurrencyPipe, DatePipe } from '@angular/common';
     selector: 'app-profile',
     templateUrl: './profile.component.html',
     styleUrls: ['./profile.component.scss'],
-    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
         FormsModule,
         ReactiveFormsModule,
@@ -27,12 +26,12 @@ export class ProfileComponent implements OnInit {
 
   profileForm: FormGroup;
   passwordForm: FormGroup;
-  activeTab: 'profile' | 'orders' = 'profile';
-  currentOrders: Order[] = [];
-  orderHistory: Order[] = [];
-  loading = false;
-  error = '';
-  success = '';
+  readonly activeTab = signal<'profile' | 'orders'>('profile');
+  readonly currentOrders = signal<Order[]>([]);
+  readonly orderHistory = signal<Order[]>([]);
+  readonly loading = signal(false);
+  readonly error = signal('');
+  readonly success = signal('');
   currentUser: User | null = null;
 
   constructor() {
@@ -60,7 +59,7 @@ export class ProfileComponent implements OnInit {
   }
 
   loadUserData(): void {
-    this.loading = true;
+    this.loading.set(true);
     // ?Simuler la récupération des données utilisateur
     of({
       id: '1',
@@ -76,33 +75,33 @@ export class ProfileComponent implements OnInit {
           firstName: user.firstName,
           lastName: user.lastName,
         });
-        this.loading = false;
+        this.loading.set(false);
       });
   }
 
   loadOrders(): void {
-    this.loading = true;
-    this.error = ''; // Réinitialiser les erreurs
+    this.loading.set(true);
+    this.error.set(''); // Réinitialiser les erreurs
     const userId = 1; // TODO: À remplacer par l'ID de l'utilisateur connecté
 
     this._orderService.getCurrentOrders(userId).subscribe({
       next: (orders: Order[]) => {
-        this.currentOrders = orders;
-        this.loading = false;
+        this.currentOrders.set(orders);
+        this.loading.set(false);
       },
       error: () => {
-        this.error = 'Error loading current orders';
-        this.loading = false;
+        this.error.set('Error loading current orders');
+        this.loading.set(false);
       },
     });
 
     this._orderService.getOrderHistory(userId).subscribe({
       next: (orders: Order[]) => {
-        this.orderHistory = orders;
+        this.orderHistory.set(orders);
       },
       error: () => {
-        this.error = 'Error loading order history';
-        this.loading = false;
+        this.error.set('Error loading order history');
+        this.loading.set(false);
       },
     });
   }
@@ -115,7 +114,7 @@ export class ProfileComponent implements OnInit {
 
   onSubmit(): void {
     if (this.profileForm.valid && this.currentUser) {
-      this.loading = true;
+      this.loading.set(true);
       const updatedUser: User = {
         ...this.currentUser,
         ...this.profileForm.value,
@@ -123,12 +122,12 @@ export class ProfileComponent implements OnInit {
 
       this._userService.updateUser(updatedUser).subscribe({
         next: () => {
-          this.success = 'Profile updated successfully';
-          this.loading = false;
+          this.success.set('Profile updated successfully');
+          this.loading.set(false);
         },
         error: () => {
-          this.error = 'Error updating profile';
-          this.loading = false;
+          this.error.set('Error updating profile');
+          this.loading.set(false);
         },
       });
     }
@@ -136,24 +135,24 @@ export class ProfileComponent implements OnInit {
 
   onPasswordSubmit(): void {
     if (this.passwordForm.valid) {
-      this.loading = true;
+      this.loading.set(true);
       const { currentPassword, newPassword } = this.passwordForm.value;
       this._userService.updatePassword(currentPassword, newPassword).subscribe({
         next: () => {
-          this.success = 'Password updated successfully';
+          this.success.set('Password updated successfully');
           this.passwordForm.reset();
-          this.loading = false;
+          this.loading.set(false);
         },
         error: () => {
-          this.error = 'Error updating password';
-          this.loading = false;
+          this.error.set('Error updating password');
+          this.loading.set(false);
         },
       });
     }
   }
 
   onTabChange(tab: 'profile' | 'orders') {
-    this.activeTab = tab;
+    this.activeTab.set(tab);
     if (tab === 'orders') {
       this.loadOrders();
     }

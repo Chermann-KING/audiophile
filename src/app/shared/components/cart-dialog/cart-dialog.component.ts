@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, DestroyRef, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, inject, DestroyRef, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CartService, CartItem } from '../../../core/services/cart.service';
 import { Product } from '../../../models/product';
@@ -11,7 +11,6 @@ import { NumberInputComponent } from '../../../design-system/components/number-i
     selector: 'app-cart-dialog',
     templateUrl: './cart-dialog.component.html',
     styleUrl: './cart-dialog.component.scss',
-    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
     ButtonComponent,
     NumberInputComponent
@@ -22,13 +21,13 @@ export class CartDialogComponent implements OnInit {
   private _cartService = inject(CartService);
   private _router = inject(Router);
 
-  cartItems: CartItem[] = [];
-  total = 0;
+  readonly cartItems = signal<CartItem[]>([]);
+  readonly total = signal(0);
 
   ngOnInit(): void {
     this._cartService.getCart().pipe(takeUntilDestroyed(this._destroyRef)).subscribe((items) => {
-      this.cartItems = items;
-      this.total = this._cartService.getTotal();
+      this.cartItems.set(items);
+      this.total.set(this._cartService.getTotal());
     });
   }
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Renderer2, ElementRef, AfterViewInit, inject, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Renderer2, ElementRef, AfterViewInit, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ProductService } from '../../../../core/services/product.service';
@@ -10,7 +10,6 @@ import { Product } from '../../../../models/product';
     selector: 'app-hero',
     templateUrl: './hero.component.html',
     styleUrls: ['./hero.component.scss'],
-    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
     ButtonComponent
 ],
@@ -21,10 +20,10 @@ export class HeroComponent implements OnInit, OnDestroy, AfterViewInit {
   private _renderer = inject(Renderer2);
   private _el = inject(ElementRef);
 
-  newProducts: Product[] = [];
-  currentProductIndex = 0;
-  activeProduct: Product | undefined;
-  isLoading = true;
+  readonly newProducts = signal<Product[]>([]);
+  readonly currentProductIndex = signal(0);
+  readonly activeProduct = signal<Product | undefined>(undefined);
+  readonly isLoading = signal(true);
   private _productsSubscription: Subscription | null = null;
   private _slideChangeTimer: ReturnType<typeof setTimeout> | undefined;
   private _animationTimer: ReturnType<typeof setTimeout> | undefined;
@@ -53,37 +52,37 @@ export class HeroComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   private _loadFeaturedProducts(): void {
-    this.isLoading = true;
+    this.isLoading.set(true);
     this._productsSubscription = this._productService
       .getNewProducts()
       .subscribe({
         next: (products) => {
-          this.newProducts = products;
-          if (this.newProducts.length > 0) {
-            this.currentProductIndex = 0;
-            this.activeProduct = this.newProducts[0];
+          this.newProducts.set(products);
+          if (this.newProducts().length > 0) {
+            this.currentProductIndex.set(0);
+            this.activeProduct.set(this.newProducts()[0]);
 
             // Précharge les images pour éviter les flashs
             this._preloadProductImages();
           }
-          this.isLoading = false;
+          this.isLoading.set(false);
         },
         error: (err) => {
           console.error(
             'Erreur lors du chargement des produits mis en avant',
             err
           );
-          this.isLoading = false;
+          this.isLoading.set(false);
         },
       });
   }
 
   // Préchargement des images des produits pour éviter les flashs
   private _preloadProductImages(): void {
-    if (!this.newProducts || this.newProducts.length === 0) return;
+    if (!this.newProducts() || this.newProducts().length === 0) return;
 
     // Crée des objets Image pour précharger les images
-    this.newProducts.forEach((product) => {
+    this.newProducts().forEach((product) => {
       const desktopImg = new Image();
       const tabletImg = new Image();
       const mobileImg = new Image();
@@ -102,20 +101,17 @@ export class HeroComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   onSeeProduct(): void {
-    if (this.activeProduct) {
-      this._router.navigate([
-        '/products',
-        this.activeProduct.category,
-        this.activeProduct.slug,
-      ]);
+    const active = this.activeProduct();
+    if (active) {
+      this._router.navigate(['/products', active.category, active.slug]);
     }
   }
 
   goToSlide(index: number): void {
     if (
-      index !== this.currentProductIndex &&
+      index !== this.currentProductIndex() &&
       index >= 0 &&
-      index < this.newProducts.length
+      index < this.newProducts().length
     ) {
       // Réinitialise le timer automatique
       this._resetAutoSlideTimer();
@@ -128,13 +124,13 @@ export class HeroComponent implements OnInit, OnDestroy, AfterViewInit {
 
         // Change de produit après un court délai pour permettre à l'animation de sortie de se terminer
         setTimeout(() => {
-          this.currentProductIndex = index;
-          this.activeProduct = this.newProducts[index];
+          this.currentProductIndex.set(index);
+          this.activeProduct.set(this.newProducts()[index]);
         }, 400); // Ajusté pour correspondre à la durée de l'animation de sortie
       } else {
         // Fallback si l'élément n'est pas trouvé
-        this.currentProductIndex = index;
-        this.activeProduct = this.newProducts[index];
+        this.currentProductIndex.set(index);
+        this.activeProduct.set(this.newProducts()[index]);
       }
     }
   }
@@ -142,14 +138,14 @@ export class HeroComponent implements OnInit, OnDestroy, AfterViewInit {
   previousSlide(): void {
     // Calcule l'index précédent (avec gestion circulaire)
     const newIndex =
-      (this.currentProductIndex - 1 + this.newProducts.length) %
-      this.newProducts.length;
+      (this.currentProductIndex() - 1 + this.newProducts().length) %
+      this.newProducts().length;
     this.goToSlide(newIndex);
   }
 
   nextSlide(): void {
     // Calcule l'index suivant (avec gestion circulaire)
-    const newIndex = (this.currentProductIndex + 1) % this.newProducts.length;
+    const newIndex = (this.currentProductIndex() + 1) % this.newProducts().length;
     this.goToSlide(newIndex);
   }
 

@@ -112,7 +112,7 @@
                           <p class="payment-label">Payment Method</p>
 
                           <div class="payment-options">
-                            <div class="radio-option" [class.active]="selectedPaymentMethod === 'emoney'">
+                            <div class="radio-option" [class.active]="selectedPaymentMethod() === 'emoney'">
                               <input type="radio" id="emoney" formControlName="paymentMethod" value="emoney">
                               <label for="emoney">
                                 <span class="radio-custom"></span>
@@ -120,7 +120,7 @@
                               </label>
                             </div>
 
-                            <div class="radio-option" [class.active]="selectedPaymentMethod === 'cash'">
+                            <div class="radio-option" [class.active]="selectedPaymentMethod() === 'cash'">
                               <input type="radio" id="cash" formControlName="paymentMethod" value="cash">
                               <label for="cash">
                                 <span class="radio-custom"></span>
@@ -131,7 +131,7 @@
                         </div>
 
                         <!-- Champs e-Money (conditionnels) -->
-                        @if (showEMoneyDetails) {
+                        @if (showEMoneyDetails()) {
                           <div>
                             <div class="form-row">
                               <div class="form-group">
@@ -159,7 +159,7 @@
                             }
 
                             <!-- Message Cash on Delivery -->
-                            @if (selectedPaymentMethod === 'cash') {
+                            @if (selectedPaymentMethod() === 'cash') {
                               <div class="cash-delivery-info">
                                 <div class="cash-icon">
                                   <img src="assets/images/checkout/icon-cash-on-delivery.svg" alt="Paiement à la livraison">
@@ -174,8 +174,8 @@
                         </form>
 
                         <!-- Récapitulatif de commande -->
-                        <app-checkout-summary [cartItems]="cartItems" [total]="total" [shipping]="shipping" [vat]="vat"
-                        [grandTotal]="grandTotal" [formValid]="checkoutForm.valid" (submitted)="onSubmit()"></app-checkout-summary>
+                        <app-checkout-summary [cartItems]="cartItems()" [total]="total()" [shipping]="shipping" [vat]="vat()"
+                        [grandTotal]="grandTotal()" [formValid]="checkoutForm.valid" (submitted)="onSubmit()"></app-checkout-summary>
                       </div>
                     </div>
                   </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import {
   CategoryService,
@@ -11,20 +11,19 @@ import { ButtonComponent } from '../../../../design-system/components/button/but
     selector: 'app-category-list',
     templateUrl: './category-list.component.html',
     styleUrls: ['./category-list.component.scss'],
-    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ButtonComponent],
 })
 export class CategoryListComponent implements OnInit {
   private _categoryService = inject(CategoryService);
   private router = inject(Router);
 
-  categories: Category[] = [];
+  readonly categories = signal<Category[]>([]);
 
   ngOnInit(): void {
     this._categoryService.getCategories().subscribe({
       next: (categories) => {
         console.log('Catégories récupérées:', categories);
-        this.categories = categories;
+        this.categories.set(categories);
       },
       error: (error) => {
         console.error('Erreur lors de la récupération des catégories:', error);

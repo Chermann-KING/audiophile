@@ -2,8 +2,7 @@ import {
   Component,
   ViewEncapsulation,
   output,
-  input,
-  ChangeDetectionStrategy
+  input
 } from '@angular/core';
 import { NgClass } from '@angular/common';
 
@@ -12,7 +11,6 @@ import { NgClass } from '@angular/common';
     templateUrl: './button.component.html',
     styleUrls: ['./button.component.scss'],
     encapsulation: ViewEncapsulation.None,
-    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [NgClass],
 })
 export class ButtonComponent {

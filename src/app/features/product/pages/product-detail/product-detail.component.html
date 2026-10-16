@@ -1,4 +1,4 @@
-@if (!loading && product) {
+@if (!loading() && product(); as product) {
   <div class="product-detail-page">
     <div class="container">
       <!-- Bouton retour -->
@@ -22,7 +22,7 @@
           <div class="product-actions">
             <div class="quantity-selector">
               <button class="quantity-btn" (click)="decreaseQuantity()">-</button>
-              <span class="quantity">{{ quantity }}</span>
+              <span class="quantity">{{ quantity() }}</span>
               <button class="quantity-btn" (click)="increaseQuantity()">+</button>
             </div>
             <button class="btn-primary" (click)="addToCart()">ADD TO CART</button>
@@ -102,7 +102,7 @@
 }
 
 <!-- État de chargement -->
-@if (loading) {
+@if (loading()) {
   <div class="loading-container">
     <p>Loading product information...</p>
   </div>
