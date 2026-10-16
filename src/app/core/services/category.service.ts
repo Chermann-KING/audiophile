@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
+import { Product } from '../../models/product';
 
 export interface Category {
   name: string; // Identifiant de la catégorie (pour le routage)
@@ -20,7 +21,7 @@ export class CategoryService {
 
   // Obtenir toutes les catégories uniques et formatées
   getCategories(): Observable<Category[]> {
-    return this._http.get<any[]>(this._apiUrl).pipe(
+    return this._http.get<Product[]>(this._apiUrl).pipe(
       map((products) => {
         // Extraire les catégories uniques
         const categoryNames = [
@@ -41,9 +42,9 @@ export class CategoryService {
   }
 
   // Obtenir tous les produits d'une catégorie spécifique
-  getProductsByCategory(category: string): Observable<any[]> {
+  getProductsByCategory(category: string): Observable<Product[]> {
     return this._http
-      .get<any[]>(this._apiUrl)
+      .get<Product[]>(this._apiUrl)
       .pipe(
         map((products) =>
           products.filter((product) => product.category === category)

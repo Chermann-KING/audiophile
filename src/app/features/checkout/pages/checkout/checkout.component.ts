@@ -1,6 +1,6 @@
 import { Component, OnInit, inject, DestroyRef, ChangeDetectionStrategy } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { FormBuilder, FormGroup, Validators, AbstractControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CartService, CartItem } from '../../../../core/services/cart.service';
 import { OrderService } from '../../../../core/services/order.service';
@@ -187,8 +187,8 @@ export class CheckoutComponent implements OnInit {
   }
 
   // Nouvelle méthode pour obtenir les erreurs détaillées
-  private getFormValidationErrors(): any {
-    const errors: any = {};
+  private getFormValidationErrors(): Record<string, ValidationErrors> {
+    const errors: Record<string, ValidationErrors> = {};
     Object.keys(this.checkoutForm.controls).forEach((key) => {
       const control = this.checkoutForm.get(key);
       if (control?.errors) {

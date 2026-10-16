@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, inject, DestroyRef, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, inject, DestroyRef, ChangeDetectionStrategy } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CartService, CartItem } from '../../../core/services/cart.service';
 import { Product } from '../../../models/product';
