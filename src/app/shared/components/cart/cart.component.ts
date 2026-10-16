@@ -1,4 +1,5 @@
-import { Component, OnInit, OnDestroy, inject } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject, DestroyRef } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CartService } from '../../../core/services/cart.service';
 import { Subscription } from 'rxjs';
 
@@ -11,6 +12,7 @@ import { CartDialogComponent } from '../cart-dialog/cart-dialog.component';
     imports: [CartDialogComponent],
 })
 export class CartComponent implements OnInit, OnDestroy {
+  private _destroyRef = inject(DestroyRef);
   private _cartService = inject(CartService);
 
   itemCount = 0;
@@ -18,7 +20,7 @@ export class CartComponent implements OnInit, OnDestroy {
   private _subscription: Subscription = new Subscription();
 
   constructor() {
-    this._cartService.cartDialogState.subscribe((isOpen) => {
+    this._cartService.cartDialogState.pipe(takeUntilDestroyed(this._destroyRef)).subscribe((isOpen) => {
       this.isCartOpen = isOpen;
     });
   }

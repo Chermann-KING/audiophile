@@ -1,4 +1,5 @@
-import { Component, Input, ViewEncapsulation, forwardRef, input } from '@angular/core';
+import { Component, Input, ViewEncapsulation, forwardRef, input, DestroyRef, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
   ControlValueAccessor,
   NG_VALUE_ACCESSOR,
@@ -38,6 +39,7 @@ import {
     imports: [],
 })
 export class TextFieldComponent implements ControlValueAccessor {
+  private _destroyRef = inject(DestroyRef);
   @Input() label = '';
   readonly placeholder = input('');
   readonly type = input('text');
@@ -46,7 +48,7 @@ export class TextFieldComponent implements ControlValueAccessor {
     if (control) {
       this._formControl = control;
 
-      this._formControl.valueChanges.subscribe(() => {
+      this._formControl.valueChanges.pipe(takeUntilDestroyed(this._destroyRef)).subscribe(() => {
         this.hasError = this._formControl.invalid && this._formControl.touched;
         if (this._formControl.errors?.['required']) {
           this.errorMessage = 'Ce champ est requis';

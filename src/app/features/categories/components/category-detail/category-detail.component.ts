@@ -1,4 +1,5 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, DestroyRef } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CategoryService } from '../../../../core/services/category.service';
 import { NgClass, TitleCasePipe } from '@angular/common';
@@ -21,6 +22,7 @@ import { AboutComponent } from '../../../../shared/components/about/about.compon
 ],
 })
 export class CategoryDetailComponent implements OnInit {
+  private _destroyRef = inject(DestroyRef);
   private _router = inject(Router);
   private _route = inject(ActivatedRoute);
   private _categoryService = inject(CategoryService);
@@ -30,7 +32,7 @@ export class CategoryDetailComponent implements OnInit {
   loading: boolean = true;
 
   ngOnInit(): void {
-    this._route.params.subscribe((params) => {
+    this._route.params.pipe(takeUntilDestroyed(this._destroyRef)).subscribe((params) => {
       this.category = params['category'];
       this.loadProducts();
     });
