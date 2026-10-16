@@ -6,6 +6,7 @@ import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { Type } from '@angular/core';
 
 import { API_BASE_URL } from './core/api-base-url';
+import { provideCart } from './cart/infrastructure/cart.providers';
 import { routes } from './app.routes';
 import { HomeComponent } from './catalog/presentation/home/home.component';
 import { CategoryListComponent } from './catalog/presentation/category-list/category-list.component';
@@ -24,6 +25,7 @@ describe('Routage (caractérisation)', () => {
         provideRouter(routes),
         provideHttpClient(withXhr()),
         provideHttpClientTesting(),
+        ...provideCart(),
         { provide: API_BASE_URL, useValue: 'http://api.test' },
       ],
     });

@@ -3,7 +3,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CurrencyPipe } from '@angular/common';
 
-import { CartService } from '../../../core/services/cart.service';
+import { CartStore } from '../../../cart/presentation/cart.store';
 import { AboutComponent } from '../../../shared/components/about/about.component';
 import { GetProductBySlug } from '../../application/get-product-by-slug.use-case';
 import type { Product } from '../../domain/product';
@@ -20,7 +20,7 @@ export class ProductDetailComponent implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
   private readonly getProductBySlug = inject(GetProductBySlug);
-  private readonly cartService = inject(CartService);
+  private readonly cart = inject(CartStore);
 
   readonly product = signal<Product | null>(null);
   readonly loading = signal(true);
@@ -52,7 +52,16 @@ export class ProductDetailComponent implements OnInit {
   addToCart(): void {
     const product = this.product();
     if (product) {
-      this.cartService.addToCart(product, this.quantity());
+      this.cart.add(
+        {
+          productId: product.id,
+          name: product.name,
+          shortName: product.shortName,
+          unitPrice: product.price,
+          imageUrl: product.image.desktop,
+        },
+        this.quantity()
+      );
       this.quantity.set(1);
     }
   }

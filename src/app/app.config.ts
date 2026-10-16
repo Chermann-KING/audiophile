@@ -4,6 +4,7 @@ import { provideHttpClient } from '@angular/common/http';
 
 import { environment } from '../environments/environment';
 import { API_BASE_URL } from './core/api-base-url';
+import { provideCart } from './cart/infrastructure/cart.providers';
 import { routes } from './app.routes';
 
 export const appConfig: ApplicationConfig = {
@@ -11,6 +12,7 @@ export const appConfig: ApplicationConfig = {
     provideZonelessChangeDetection(),
     provideRouter(routes),
     provideHttpClient(),
+    ...provideCart(),
     { provide: API_BASE_URL, useValue: environment.apiUrl },
   ],
 };

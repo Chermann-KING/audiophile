@@ -7,8 +7,10 @@ import { BehaviorSubject } from 'rxjs';
 import { CategoryListComponent } from './catalog/presentation/category-list/category-list.component';
 import { CategoryDetailComponent } from './catalog/presentation/category-detail/category-detail.component';
 import { ProductDetailComponent } from './catalog/presentation/product-detail/product-detail.component';
-import { CartComponent } from './shared/components/cart/cart.component';
-import { CartService } from './core/services/cart.service';
+import { provideCart } from './cart/infrastructure/cart.providers';
+import { CartStore } from './cart/presentation/cart.store';
+import { CartComponent } from './cart/presentation/cart/cart.component';
+import { aCartProduct } from './cart/testing/cart.fixture';
 import { API_BASE_URL } from './core/api-base-url';
 import { provideCatalog } from './catalog/infrastructure/catalog.providers';
 import { aProduct } from './catalog/testing/product.fixture';
@@ -30,6 +32,7 @@ describe('Rendu asynchrone sans zone.js', () => {
         provideHttpClientTesting(),
         { provide: API_BASE_URL, useValue: 'http://api.test' },
         provideCatalog(),
+        ...provideCart(),
         { provide: ActivatedRoute, useValue: { params: new BehaviorSubject(params) } },
       ],
     });
@@ -90,7 +93,7 @@ describe('Rendu asynchrone sans zone.js', () => {
     await fixture.whenStable();
     expect(fixture.nativeElement.querySelector('.cart-count')).toBeNull();
 
-    TestBed.inject(CartService).addToCart(PRODUCTS[0], 2);
+    TestBed.inject(CartStore).add(aCartProduct(), 2);
     await fixture.whenStable();
 
     expect(fixture.nativeElement.querySelector('.cart-count')?.textContent).toContain('2');
@@ -102,7 +105,7 @@ describe('Rendu asynchrone sans zone.js', () => {
     await fixture.whenStable();
     expect(fixture.nativeElement.querySelector('app-cart-dialog')).toBeNull();
 
-    TestBed.inject(CartService).toggleCartDialog(true);
+    TestBed.inject(CartStore).openDialog();
     await fixture.whenStable();
 
     expect(fixture.nativeElement.querySelector('app-cart-dialog')).not.toBeNull();
