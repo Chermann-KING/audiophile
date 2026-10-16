@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserService } from '../../../../core/services/user.service';
 import { OrderService } from '../../../../core/services/order.service';
@@ -20,6 +20,10 @@ import { CurrencyPipe, DatePipe } from '@angular/common';
     ],
 })
 export class ProfileComponent implements OnInit {
+  private _fb = inject(FormBuilder);
+  private _userService = inject(UserService);
+  private _orderService = inject(OrderService);
+
   profileForm: FormGroup;
   passwordForm: FormGroup;
   activeTab: 'profile' | 'orders' = 'profile';
@@ -30,11 +34,7 @@ export class ProfileComponent implements OnInit {
   success = '';
   currentUser: User | null = null;
 
-  constructor(
-    private _fb: FormBuilder,
-    private _userService: UserService,
-    private _orderService: OrderService
-  ) {
+  constructor() {
     this.profileForm = this._fb.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],

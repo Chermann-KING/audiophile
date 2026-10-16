@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Product } from '../../../../models/product';
 import { ProductService } from '../../../../core/services/product.service';
@@ -20,17 +20,15 @@ import { AboutComponent } from '../../../../shared/components/about/about.compon
     ],
 })
 export class ProductDetailComponent implements OnInit {
+  private _route = inject(ActivatedRoute);
+  private _router = inject(Router);
+  private _productService = inject(ProductService);
+  private _cartService = inject(CartService);
+
   product: Product | null = null;
   relatedProducts: Product[] = [];
   loading: boolean = true;
   quantity: number = 1;
-
-  constructor(
-    private _route: ActivatedRoute,
-    private _router: Router,
-    private _productService: ProductService,
-    private _cartService: CartService
-  ) {}
 
   ngOnInit(): void {
     this._route.params.subscribe((params) => {

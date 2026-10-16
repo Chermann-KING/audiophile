@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ButtonComponent } from '../design-system/components/button/button.component';
 import { TextFieldComponent } from '../design-system/components/text-field/text-field.component';
@@ -19,6 +19,8 @@ import { NumberInputComponent } from '../design-system/components/number-input/n
     ],
 })
 export class DesignShowcaseComponent implements OnInit {
+  private fb = inject(FormBuilder);
+
   // Pour démontrer les boutons
   primaryButtonClicked = false;
   secondaryButtonClicked = false;
@@ -42,8 +44,6 @@ export class DesignShowcaseComponent implements OnInit {
     Validators.required,
     Validators.minLength(8),
   ]);
-
-  constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {
     // Initialiser le formulaire de démonstration

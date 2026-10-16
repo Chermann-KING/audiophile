@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -9,9 +9,9 @@ import { environment } from '../../../environments/environment';
   providedIn: 'root',
 })
 export class ProductService {
-  private apiUrl = `${environment.apiUrl}/products`;
+  private _http = inject(HttpClient);
 
-  constructor(private _http: HttpClient) {}
+  private apiUrl = `${environment.apiUrl}/products`;
 
   // Récupère un produit par son slug
   getProductBySlug(slug: string): Observable<Product> {

@@ -1,5 +1,5 @@
 // src/app/shared/components/header/header.component.ts
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AuthService } from '../../../core/services/auth.service';
 import { User } from '../../../core/models/user.model';
@@ -28,12 +28,14 @@ import { AsyncPipe } from '@angular/common';
     ],
 })
 export class HeaderComponent implements OnInit {
+  private authService = inject(AuthService);
+
   isUserMenuOpen = false;
   isMobileMenuOpen = false;
   isLoggedIn$: Observable<boolean>;
   currentUser$: Observable<User | null>;
 
-  constructor(private authService: AuthService) {
+  constructor() {
     this.isLoggedIn$ = this.authService.isLoggedIn$;
     this.currentUser$ = this.authService.currentUser$;
   }
