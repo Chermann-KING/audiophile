@@ -1,0 +1,6 @@
+# Scripts de build refusés explicitement : ces paquets livrent leurs binaires précompilés (dépendances optionnelles).
+allowBuilds:
+  "@parcel/watcher": false
+  esbuild: false
+  lmdb: false
+  msgpackr-extract: false
