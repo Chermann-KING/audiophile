@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
-import { DesignSystemModule } from '../design-system/design-system.module';
+
 import { DesignShowcaseComponent } from './design-showcase.component';
 
 const routes: Routes = [
@@ -15,12 +15,11 @@ const routes: Routes = [
 
 @NgModule({
     imports: [
-        CommonModule,
-        ReactiveFormsModule,
-        FormsModule,
-        DesignSystemModule,
-        RouterModule.forChild(routes),
-        DesignShowcaseComponent,
-    ],
+    CommonModule,
+    ReactiveFormsModule,
+    FormsModule,
+    RouterModule.forChild(routes),
+    DesignShowcaseComponent,
+],
 })
 export class DesignShowcaseModule {}

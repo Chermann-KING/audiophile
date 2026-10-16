@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 
-import { SharedModule } from '../../shared/shared.module';
-import { DesignSystemModule } from '../../design-system/design-system.module';
+
+
 
 import { CheckoutComponent } from './pages/checkout/checkout.component';
 import { OrderConfirmationComponent } from './components/order-confirmation/order-confirmation.component';
@@ -20,15 +20,13 @@ const routes: Routes = [
 
 @NgModule({
     imports: [
-        CommonModule,
-        ReactiveFormsModule,
-        SharedModule,
-        DesignSystemModule,
-        RouterModule.forChild(routes),
-        CheckoutComponent,
-        CheckoutSummaryComponent,
-        OrderConfirmationComponent,
-    ],
+    CommonModule,
+    ReactiveFormsModule,
+    RouterModule.forChild(routes),
+    CheckoutComponent,
+    CheckoutSummaryComponent,
+    OrderConfirmationComponent,
+],
     providers: [OrderConfirmationModalService],
 })
 export class CheckoutModule {}
