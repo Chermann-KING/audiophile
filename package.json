@@ -2,15 +2,17 @@
   "name": "angular-audio-ecommerce-app",
   "version": "0.0.0",
   "scripts": {
+    "preinstall": "node scripts/only-pnpm.cjs",
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "json-server": "npx json-server --watch server/db.json",
+    "json-server": "pnpm dlx json-server --watch server/db.json",
     "test": "ng test",
     "lint": "ng lint"
   },
   "private": true,
+  "packageManager": "pnpm@12.11.2",
   "engines": {
     "node": "22.x"
   },
