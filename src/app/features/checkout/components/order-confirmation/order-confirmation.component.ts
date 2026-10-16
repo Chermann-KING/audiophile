@@ -1,4 +1,5 @@
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, inject, DestroyRef } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Order, OrderResponse } from '../../../../core/models/order.model';
@@ -16,6 +17,7 @@ import { AsyncPipe, DecimalPipe } from '@angular/common';
 ],
 })
 export class OrderConfirmationComponent implements OnInit {
+  private _destroyRef = inject(DestroyRef);
   private _router = inject(Router);
   private _modalService = inject(OrderConfirmationModalService);
   private _cdr = inject(ChangeDetectorRef);
@@ -28,7 +30,7 @@ export class OrderConfirmationComponent implements OnInit {
 
   constructor() {
     this.isVisible$ = this._modalService.isVisible$;
-    this._modalService.orderData$.subscribe(
+    this._modalService.orderData$.pipe(takeUntilDestroyed(this._destroyRef)).subscribe(
       (orderData: Order | OrderResponse | null) => {
         if (orderData) {
           this.order = 'order' in orderData ? orderData.order : orderData;
@@ -40,7 +42,7 @@ export class OrderConfirmationComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.isVisible$.subscribe((visible) => {
+    this.isVisible$.pipe(takeUntilDestroyed(this._destroyRef)).subscribe((visible) => {
       console.log('État de visibilité de la modal:', visible);
       this._cdr.markForCheck();
     });

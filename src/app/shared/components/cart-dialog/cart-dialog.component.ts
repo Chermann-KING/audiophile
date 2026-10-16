@@ -1,4 +1,5 @@
-import { Component, OnInit, Output, EventEmitter, inject } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, inject, DestroyRef } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CartService, CartItem } from '../../../core/services/cart.service';
 import { Product } from '../../../models/product';
 import { Router } from '@angular/router';
@@ -16,6 +17,7 @@ import { NumberInputComponent } from '../../../design-system/components/number-i
 ],
 })
 export class CartDialogComponent implements OnInit {
+  private _destroyRef = inject(DestroyRef);
   private _cartService = inject(CartService);
   private _router = inject(Router);
 
@@ -23,7 +25,7 @@ export class CartDialogComponent implements OnInit {
   total = 0;
 
   ngOnInit(): void {
-    this._cartService.getCart().subscribe((items) => {
+    this._cartService.getCart().pipe(takeUntilDestroyed(this._destroyRef)).subscribe((items) => {
       this.cartItems = items;
       this.total = this._cartService.getTotal();
     });

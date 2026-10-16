@@ -1,4 +1,5 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, DestroyRef } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder, FormGroup, Validators, AbstractControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CartService, CartItem } from '../../../../core/services/cart.service';
@@ -23,6 +24,7 @@ import { OrderConfirmationComponent } from '../../components/order-confirmation/
 ],
 })
 export class CheckoutComponent implements OnInit {
+  private _destroyRef = inject(DestroyRef);
   private _fb = inject(FormBuilder);
   private _cartService = inject(CartService);
   private _orderService = inject(OrderService);
@@ -45,7 +47,7 @@ export class CheckoutComponent implements OnInit {
     this._loadCartData();
 
     // Observer les changements de méthode de paiement
-    this.checkoutForm.get('paymentMethod')?.valueChanges.subscribe((method) => {
+    this.checkoutForm.get('paymentMethod')?.valueChanges.pipe(takeUntilDestroyed(this._destroyRef)).subscribe((method) => {
       this.selectedPaymentMethod = method;
       this.showEMoneyDetails = method === 'emoney';
 
@@ -124,7 +126,7 @@ export class CheckoutComponent implements OnInit {
   }
 
   private _loadCartData(): void {
-    this._cartService.getCart().subscribe((items) => {
+    this._cartService.getCart().pipe(takeUntilDestroyed(this._destroyRef)).subscribe((items) => {
       this.cartItems = items;
       this._calculateTotals();
     });
