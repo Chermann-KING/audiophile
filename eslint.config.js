@@ -3,8 +3,10 @@ const eslint = require("@eslint/js");
 const { defineConfig } = require("eslint/config");
 const tseslint = require("typescript-eslint");
 const angular = require("angular-eslint");
+const boundariesConfig = require("./eslint.boundaries.cjs");
 
 module.exports = defineConfig([
+  ...boundariesConfig,
   {
     files: ["**/*.ts"],
     extends: [

@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './core/guards/auth.guard';
+import { provideCatalog } from './catalog/infrastructure/catalog.providers';
 
 export const routes: Routes = [
   {
@@ -9,12 +10,13 @@ export const routes: Routes = [
   },
   {
     path: 'categories',
-    loadChildren: () =>
-      import('./features/categories/categories.routes').then((m) => m.CATEGORIES_ROUTES),
+    providers: provideCatalog(),
+    loadChildren: () => import('./catalog/catalog.routes').then((m) => m.CATEGORIES_ROUTES),
   },
   {
     path: 'products',
-    loadChildren: () => import('./features/product/product.routes').then((m) => m.PRODUCT_ROUTES),
+    providers: provideCatalog(),
+    loadChildren: () => import('./catalog/catalog.routes').then((m) => m.PRODUCT_ROUTES),
   },
   {
     path: 'checkout',
@@ -34,7 +36,8 @@ export const routes: Routes = [
   },
   {
     path: '',
-    loadChildren: () => import('./features/home/home.routes').then((m) => m.HOME_ROUTES),
+    providers: provideCatalog(),
+    loadChildren: () => import('./catalog/catalog.routes').then((m) => m.HOME_ROUTES),
   },
   {
     path: '**',

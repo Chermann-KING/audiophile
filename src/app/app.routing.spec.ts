@@ -5,11 +5,12 @@ import { provideHttpClient, withXhr } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { Type } from '@angular/core';
 
+import { API_BASE_URL } from './core/api-base-url';
 import { routes } from './app.routes';
-import { HomeComponent } from './features/home/pages/home/home.component';
-import { CategoryListComponent } from './features/categories/components/category-list/category-list.component';
-import { CategoryDetailComponent } from './features/categories/components/category-detail/category-detail.component';
-import { ProductDetailComponent } from './features/product/pages/product-detail/product-detail.component';
+import { HomeComponent } from './catalog/presentation/home/home.component';
+import { CategoryListComponent } from './catalog/presentation/category-list/category-list.component';
+import { CategoryDetailComponent } from './catalog/presentation/category-detail/category-detail.component';
+import { ProductDetailComponent } from './catalog/presentation/product-detail/product-detail.component';
 import { LoginComponent } from './features/auth/pages/login/login.component';
 import { CheckoutComponent } from './features/checkout/pages/checkout/checkout.component';
 import { ProfileComponent } from './features/profile/pages/profile/profile.component';
@@ -19,7 +20,12 @@ import { DesignShowcaseComponent } from './design-showcase/design-showcase.compo
 describe('Routage (caractérisation)', () => {
   const setup = () => {
     TestBed.configureTestingModule({
-      providers: [provideRouter(routes), provideHttpClient(withXhr()), provideHttpClientTesting()],
+      providers: [
+        provideRouter(routes),
+        provideHttpClient(withXhr()),
+        provideHttpClientTesting(),
+        { provide: API_BASE_URL, useValue: 'http://api.test' },
+      ],
     });
     return RouterTestingHarness.create();
   };
