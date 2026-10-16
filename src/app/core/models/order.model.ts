@@ -44,6 +44,9 @@ export interface Order {
   date?: string;
 }
 
+// Commande telle qu'envoyée à l'API : l'identifiant, le statut et la date sont attribués côté serveur.
+export type NewOrder = Omit<Order, 'id' | 'status' | 'date'>;
+
 export interface OrderResponse {
   success: boolean;
   message: string;
