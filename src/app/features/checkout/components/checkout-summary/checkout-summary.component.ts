@@ -1,16 +1,14 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CartItem } from '../../../../core/services/cart.service';
-import { NgFor, NgIf, DecimalPipe } from '@angular/common';
+import { DecimalPipe } from '@angular/common';
 
 @Component({
     selector: 'app-checkout-summary',
     templateUrl: './checkout-summary.component.html',
     styleUrls: ['./checkout-summary.component.scss'],
     imports: [
-        NgFor,
-        NgIf,
-        DecimalPipe,
-    ],
+    DecimalPipe
+],
 })
 export class CheckoutSummaryComponent {
   @Input() cartItems: CartItem[] = [];

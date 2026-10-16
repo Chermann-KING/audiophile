@@ -2,18 +2,17 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../../core/services/auth.service';
-import { NgIf } from '@angular/common';
+
 
 @Component({
     selector: 'app-login',
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.scss'],
     imports: [
-        FormsModule,
-        ReactiveFormsModule,
-        NgIf,
-        RouterLink,
-    ],
+    FormsModule,
+    ReactiveFormsModule,
+    RouterLink
+],
 })
 export class LoginComponent {
   private fb = inject(FormBuilder);

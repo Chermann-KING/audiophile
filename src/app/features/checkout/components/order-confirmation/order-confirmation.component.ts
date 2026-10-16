@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Order, OrderResponse } from '../../../../core/models/order.model';
 import { OrderConfirmationModalService } from '../../services/order-confirmation-modal.service';
-import { NgIf, NgFor, AsyncPipe, DecimalPipe } from '@angular/common';
+import { AsyncPipe, DecimalPipe } from '@angular/common';
 
 @Component({
     selector: 'app-order-confirmation',
@@ -11,11 +11,9 @@ import { NgIf, NgFor, AsyncPipe, DecimalPipe } from '@angular/common';
     styleUrls: ['./order-confirmation.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [
-        NgIf,
-        NgFor,
-        AsyncPipe,
-        DecimalPipe,
-    ],
+    AsyncPipe,
+    DecimalPipe
+],
 })
 export class OrderConfirmationComponent implements OnInit {
   private _router = inject(Router);

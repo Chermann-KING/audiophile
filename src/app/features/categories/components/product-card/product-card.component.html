@@ -8,7 +8,9 @@
   </div>
 
   <div class="product-content">
-    <div *ngIf="product.new" class="product-badge">NEW PRODUCT</div>
+    @if (product.new) {
+      <div class="product-badge">NEW PRODUCT</div>
+    }
     <h3 class="product-title">{{ product.name }}</h3>
     <p class="product-description">{{ product.description }}</p>
     <button class="btn-primary" (click)="navigateToProductDetail()">SEE PRODUCT</button>

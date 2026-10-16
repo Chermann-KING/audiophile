@@ -4,13 +4,15 @@ import {
   NG_VALUE_ACCESSOR,
   FormControl,
 } from '@angular/forms';
-import { NgIf } from '@angular/common';
+
 
 @Component({
     selector: 'app-text-field',
     template: `
     <div class="form-group" [class.error]="hasError">
-      <label *ngIf="label" class="form-label">{{ label }}</label>
+      @if (label) {
+        <label class="form-label">{{ label }}</label>
+      }
       <input
         [type]="type"
         class="form-control"
@@ -18,10 +20,12 @@ import { NgIf } from '@angular/common';
         [value]="value"
         (input)="onInput($event)"
         (blur)="onBlur()"
-      />
-      <div *ngIf="hasError" class="error-message">{{ errorMessage }}</div>
-    </div>
-  `,
+        />
+        @if (hasError) {
+          <div class="error-message">{{ errorMessage }}</div>
+        }
+      </div>
+    `,
     styleUrls: ['./text-field.component.scss'],
     encapsulation: ViewEncapsulation.None,
     providers: [
@@ -31,7 +35,7 @@ import { NgIf } from '@angular/common';
             multi: true,
         },
     ],
-    imports: [NgIf],
+    imports: [],
 })
 export class TextFieldComponent implements ControlValueAccessor {
   @Input() label = '';

@@ -1,7 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CategoryService } from '../../../../core/services/category.service';
-import { NgIf, NgFor, NgClass, TitleCasePipe } from '@angular/common';
+import { NgClass, TitleCasePipe } from '@angular/common';
 import { ButtonComponent } from '../../../../design-system/components/button/button.component';
 import { ProductCardComponent } from '../product-card/product-card.component';
 import { CategoryListComponent } from '../category-list/category-list.component';
@@ -12,15 +12,13 @@ import { AboutComponent } from '../../../../shared/components/about/about.compon
     templateUrl: './category-detail.component.html',
     styleUrl: './category-detail.component.scss',
     imports: [
-        NgIf,
-        ButtonComponent,
-        NgFor,
-        ProductCardComponent,
-        NgClass,
-        CategoryListComponent,
-        AboutComponent,
-        TitleCasePipe,
-    ],
+    ButtonComponent,
+    ProductCardComponent,
+    NgClass,
+    CategoryListComponent,
+    AboutComponent,
+    TitleCasePipe
+],
 })
 export class CategoryDetailComponent implements OnInit {
   private _router = inject(Router);
