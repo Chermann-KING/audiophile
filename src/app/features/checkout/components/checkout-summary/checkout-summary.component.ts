@@ -1,5 +1,5 @@
 import { Component, output, input } from '@angular/core';
-import { CartItem } from '../../../../core/services/cart.service';
+import type { CartLine } from '../../../../cart/domain/cart';
 import { DecimalPipe } from '@angular/common';
 
 @Component({
@@ -11,7 +11,7 @@ import { DecimalPipe } from '@angular/common';
 ],
 })
 export class CheckoutSummaryComponent {
-  readonly cartItems = input<CartItem[]>([]);
+  readonly cartItems = input<readonly CartLine[]>([]);
   readonly total = input<number>(0);
   readonly shipping = input<number>(0);
   readonly vat = input<number>(0);
@@ -28,21 +28,8 @@ export class CheckoutSummaryComponent {
     console.log('2. Événement submitted émis');
   }
 
-  // Obtenient l'URL de l'image du produit
-  getProductImageUrl(item: CartItem): string {
-    if (item.product.image && item.product.image.desktop) {
-      return item.product.image.desktop;
-    } else if (item.product.slug) {
-      return `/assets/images/product-${item.product.slug}/desktop/image-product.jpg`;
-    }
-    return '';
-  }
-
-  // Obtenient le nom court du produit
-  getShortProductName(item: CartItem): string {
-    return (
-      item.product.shortName ||
-      item.product.name.split(' ').slice(0, 2).join(' ')
-    );
+  // Nom court affiché : le nom court du produit, sinon les deux premiers mots du nom.
+  getShortProductName(item: CartLine): string {
+    return item.shortName || item.name.split(' ').slice(0, 2).join(' ');
   }
 }

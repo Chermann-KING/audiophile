@@ -3,14 +3,14 @@
 
   <!-- Liste des articles du panier -->
   <div class="cart-items">
-    @for (item of cartItems(); track item) {
+    @for (item of cartItems(); track item.productId) {
       <div class="cart-item">
         <div class="item-image">
-          <img [src]="getProductImageUrl(item)" [alt]="item.product.name">
+          <img [src]="item.imageUrl" [alt]="item.name">
         </div>
         <div class="item-details">
           <h3 class="item-name">{{ getShortProductName(item) }}</h3>
-          <p class="item-price">$ {{ item.product.price | number: '1.0-0' }}</p>
+          <p class="item-price">$ {{ item.unitPrice | number: '1.0-0' }}</p>
         </div>
         <div class="item-quantity">x{{ item.quantity }}</div>
       </div>

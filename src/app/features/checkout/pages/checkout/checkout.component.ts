@@ -1,8 +1,8 @@
-import { Component, OnInit, inject, DestroyRef, signal } from '@angular/core';
+import { Component, OnInit, inject, DestroyRef, signal, computed } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder, FormGroup, Validators, ValidationErrors, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { CartService, CartItem } from '../../../../core/services/cart.service';
+import { CartStore } from '../../../../cart/presentation/cart.store';
 import { OrderService } from '../../../../core/services/order.service';
 import { UserService } from '../../../../core/services/user.service';
 import { take } from 'rxjs/operators';
@@ -26,25 +26,24 @@ import { OrderConfirmationComponent } from '../../components/order-confirmation/
 export class CheckoutComponent implements OnInit {
   private _destroyRef = inject(DestroyRef);
   private _fb = inject(FormBuilder);
-  private _cartService = inject(CartService);
+  private _cart = inject(CartStore);
   private _orderService = inject(OrderService);
   private _userService = inject(UserService);
   private _router = inject(Router);
   private _modalService = inject(OrderConfirmationModalService);
 
   checkoutForm!: FormGroup;
-  readonly cartItems = signal<CartItem[]>([]);
-  readonly total = signal(0);
-  shipping = 50; // Frais de livraison fixes
-  readonly vat = signal(0); // TVA
-  readonly grandTotal = signal(0);
+  readonly cartItems = this._cart.lines;
+  readonly total = this._cart.total;
+  readonly shipping = 50; // Frais de livraison fixes
+  readonly vat = computed(() => Math.round(this._cart.total() * 0.2)); // 20% de TVA
+  readonly grandTotal = computed(() => this._cart.total() + this.shipping);
   readonly selectedPaymentMethod = signal('cash');
   readonly showEMoneyDetails = signal(false);
   loading = false;
 
   ngOnInit(): void {
     this._initForm();
-    this._loadCartData();
 
     // Observer les changements de méthode de paiement
     this.checkoutForm.get('paymentMethod')?.valueChanges.pipe(takeUntilDestroyed(this._destroyRef)).subscribe((method) => {
@@ -125,20 +124,6 @@ export class CheckoutComponent implements OnInit {
       });
   }
 
-  private _loadCartData(): void {
-    this._cartService.getCart().pipe(takeUntilDestroyed(this._destroyRef)).subscribe((items) => {
-      this.cartItems.set(items);
-      this._calculateTotals();
-    });
-  }
-
-  private _calculateTotals(): void {
-    const total = this._cartService.getTotal();
-    this.total.set(total);
-    this.vat.set(Math.round(total * 0.2)); // 20% de TVA
-    this.grandTotal.set(total + this.shipping);
-  }
-
   onSubmit(): void {
     console.log('3. Méthode onSubmit appelée dans CheckoutComponent');
     console.log('Form valide:', this.checkoutForm.valid);
@@ -152,11 +137,11 @@ export class CheckoutComponent implements OnInit {
       const orderData = {
         ...this.checkoutForm.value,
         items: this.cartItems().map((item) => ({
-          name: item.product.name,
-          price: item.product.price,
+          name: item.name,
+          price: item.unitPrice,
           quantity: item.quantity,
-          image: item.product.image.desktop,
-          productId: item.product.id,
+          image: item.imageUrl,
+          productId: item.productId,
         })),
         total: this.grandTotal(),
         shipping: this.shipping,
@@ -171,7 +156,7 @@ export class CheckoutComponent implements OnInit {
           console.log('6. Commande créée avec succès:', response);
           const order = 'order' in response ? response.order : response;
           this._modalService.showModal(order);
-          this._cartService.clearCart();
+          this._cart.clear();
           this.loading = false;
         },
         error: (error) => {

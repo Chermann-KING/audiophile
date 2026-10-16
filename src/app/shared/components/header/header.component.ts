@@ -9,7 +9,7 @@ import { NavbarComponent } from '../navbar/navbar.component';
 import { ClickOutsideDirective } from '../../directives/click-outside.directive';
 import { UserIconComponent } from '../icons/user-icon.component';
 import { RouterLink } from '@angular/router';
-import { CartComponent } from '../cart/cart.component';
+import { CartComponent } from '../../../cart/presentation/cart/cart.component';
 import { AsyncPipe } from '@angular/common';
 
 @Component({

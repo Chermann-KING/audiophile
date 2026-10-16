@@ -21,7 +21,7 @@ Source de vérité vivante. Étiquettes : `FACT`, `DECISION`, `ASSUMPTION`, `OPE
 | Tranche | Contenu | État |
 | --- | --- | --- |
 | `catalog` | produits, catégories, accueil | fait (v0.1) |
-| `cart` | panier persistant (localStorage) | à faire |
+| `cart` | panier persistant (localStorage) | fait |
 | `account` | session simulée, profil | à faire |
 | `checkout` | commande, confirmation | à faire |
 
@@ -33,3 +33,11 @@ Source de vérité vivante. Étiquettes : `FACT`, `DECISION`, `ASSUMPTION`, `OPE
 
 ## Tests
 - `DECISION` Domaine et use cases : test-first, sans TestBed (`Injector.create`) ; adaptateurs : `HttpTestingController` ; composants : rendu asynchrone sans zone.js.
+
+## Panier
+- `FACT` Le panier est un état global : badge de l'en-tête, fiche produit et commande le partagent ; il est donc fourni à la racine (`provideCart()` dans `app.config.ts`).
+- `DECISION` Le panier ne dépend pas du catalogue : une ligne est un instantané du produit (`CartProduct` : id, nom, nom court, prix, image) pris à l'ajout.
+- `DECISION` Règles du domaine : quantité entière strictement positive à l'ajout, entière ≥ 0 pour une mise à jour (0 retire la ligne), cumul des quantités d'un même produit.
+- `DECISION` `CartStore` (signaux, présentation) est l'API publique de la tranche pour les autres tranches ; les use cases restent purs et synchrones (port `CartRepository` synchrone, état local).
+- `FACT` Compatibilité : la clé `localStorage` `cart` est conservée ; l'ancien format `{ product, quantity }` est relu et converti. Un contenu illisible donne un panier vide.
+- `ASSUMPTION` Les prix du panier ne sont pas revalidés côté serveur (le serveur recalcule les totaux à la commande, voir `api/orders.js`).
