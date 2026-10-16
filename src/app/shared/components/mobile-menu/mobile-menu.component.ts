@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, output } from '@angular/core';
 
 @Component({
     selector: 'app-mobile-menu',
@@ -6,7 +6,7 @@ import { Component, Output, EventEmitter } from '@angular/core';
     styleUrl: './mobile-menu.component.scss',
 })
 export class MobileMenuComponent {
-  @Output() menuToggle = new EventEmitter<boolean>();
+  readonly menuToggle = output<boolean>();
 
   isOpen = false;
 

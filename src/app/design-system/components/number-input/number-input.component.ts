@@ -1,9 +1,8 @@
 import {
   Component,
-  EventEmitter,
   Input,
-  Output,
   ViewEncapsulation,
+  output
 } from '@angular/core';
 
 @Component({
@@ -36,7 +35,7 @@ export class NumberInputComponent {
   @Input() value = 0;
   @Input() min = 0;
   @Input() max = 100;
-  @Output() valueChange = new EventEmitter<number>();
+  readonly valueChange = output<number>();
 
   increment(): void {
     if (this.value < this.max) {

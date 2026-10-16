@@ -1,9 +1,8 @@
 import {
   Component,
-  EventEmitter,
   Input,
-  Output,
   ViewEncapsulation,
+  output
 } from '@angular/core';
 
 @Component({
@@ -33,7 +32,7 @@ export class RadioButtonComponent {
   @Input() value = '';
   @Input() name = '';
   @Input() checked = false;
-  @Output() change = new EventEmitter<string>();
+  readonly change = output<string>();
 
   get id(): string {
     return `radio-${this.name}-${this.value}`;

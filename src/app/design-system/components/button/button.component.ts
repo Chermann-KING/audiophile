@@ -1,9 +1,8 @@
 import {
   Component,
-  EventEmitter,
   Input,
-  Output,
   ViewEncapsulation,
+  output
 } from '@angular/core';
 import { NgClass } from '@angular/common';
 
@@ -18,7 +17,7 @@ export class ButtonComponent {
   @Input() variant: 'primary' | 'secondary' | 'text' | 'dark' = 'primary';
   @Input() type: 'button' | 'submit' | 'reset' = 'button';
   @Input() disabled = false;
-  @Output() buttonClick = new EventEmitter<Event>();
+  readonly buttonClick = output<Event>();
 
   get buttonClass(): string {
     return `btn-${this.variant}`;
