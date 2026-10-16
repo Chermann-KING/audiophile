@@ -1,10 +1,9 @@
 import { Component, Output, EventEmitter } from '@angular/core';
 
 @Component({
-  selector: 'app-mobile-menu',
-  standalone: false,
-  templateUrl: './mobile-menu.component.html',
-  styleUrl: './mobile-menu.component.scss',
+    selector: 'app-mobile-menu',
+    templateUrl: './mobile-menu.component.html',
+    styleUrl: './mobile-menu.component.scss',
 })
 export class MobileMenuComponent {
   @Output() menuToggle = new EventEmitter<boolean>();

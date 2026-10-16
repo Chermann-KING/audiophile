@@ -19,18 +19,16 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [
-    CheckoutComponent,
-    CheckoutSummaryComponent,
-    OrderConfirmationComponent,
-  ],
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    SharedModule,
-    DesignSystemModule,
-    RouterModule.forChild(routes),
-  ],
-  providers: [OrderConfirmationModalService],
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        SharedModule,
+        DesignSystemModule,
+        RouterModule.forChild(routes),
+        CheckoutComponent,
+        CheckoutSummaryComponent,
+        OrderConfirmationComponent,
+    ],
+    providers: [OrderConfirmationModalService],
 })
 export class CheckoutModule {}

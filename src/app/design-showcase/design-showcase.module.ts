@@ -14,13 +14,13 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [DesignShowcaseComponent],
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    FormsModule,
-    DesignSystemModule,
-    RouterModule.forChild(routes),
-  ],
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        FormsModule,
+        DesignSystemModule,
+        RouterModule.forChild(routes),
+        DesignShowcaseComponent,
+    ],
 })
 export class DesignShowcaseModule {}

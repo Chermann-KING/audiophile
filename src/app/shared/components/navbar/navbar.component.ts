@@ -1,10 +1,16 @@
 import { Component } from '@angular/core';
+import { NgFor } from '@angular/common';
+import { RouterLinkActive, RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'app-navbar',
-  standalone: false,
-  templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.scss'],
+    selector: 'app-navbar',
+    templateUrl: './navbar.component.html',
+    styleUrls: ['./navbar.component.scss'],
+    imports: [
+        NgFor,
+        RouterLinkActive,
+        RouterLink,
+    ],
 })
 export class NavbarComponent {
   navItems = [

@@ -1,17 +1,23 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserService } from '../../../../core/services/user.service';
 import { OrderService } from '../../../../core/services/order.service';
 import { User } from '../../../../core/models/user.model';
 import { Order } from '../../../../core/models/order.model';
 import { of } from 'rxjs';
 import { take } from 'rxjs/operators';
+import { CurrencyPipe, DatePipe } from '@angular/common';
 
 @Component({
-  selector: 'app-profile',
-  standalone: false,
-  templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.scss'],
+    selector: 'app-profile',
+    templateUrl: './profile.component.html',
+    styleUrls: ['./profile.component.scss'],
+    imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        CurrencyPipe,
+        DatePipe,
+    ],
 })
 export class ProfileComponent implements OnInit {
   profileForm: FormGroup;

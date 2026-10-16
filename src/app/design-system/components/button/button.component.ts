@@ -5,13 +5,14 @@ import {
   Output,
   ViewEncapsulation,
 } from '@angular/core';
+import { NgClass } from '@angular/common';
 
 @Component({
-  selector: 'app-button',
-  standalone: false,
-  templateUrl: './button.component.html',
-  styleUrls: ['./button.component.scss'],
-  encapsulation: ViewEncapsulation.None,
+    selector: 'app-button',
+    templateUrl: './button.component.html',
+    styleUrls: ['./button.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    imports: [NgClass],
 })
 export class ButtonComponent {
   @Input() variant: 'primary' | 'secondary' | 'text' | 'dark' = 'primary';

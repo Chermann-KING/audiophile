@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-user-icon',
-  template: `
+    selector: 'app-user-icon',
+    template: `
     <svg
       [attr.width]="size"
       [attr.height]="size"
@@ -17,8 +17,8 @@ import { Component, Input } from '@angular/core';
       <circle cx="12" cy="7" r="4" />
     </svg>
   `,
-  styles: [
-    `
+    styles: [
+        `
       :host {
         display: inline-flex;
         align-items: center;
@@ -28,8 +28,7 @@ import { Component, Input } from '@angular/core';
         transition: all 0.3s ease;
       }
     `,
-  ],
-  standalone: false,
+    ],
 })
 export class UserIconComponent {
   @Input() size: string = '24';

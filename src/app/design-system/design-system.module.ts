@@ -8,20 +8,17 @@ import { RadioButtonComponent } from './components/radio-button/radio-button.com
 import { NumberInputComponent } from './components/number-input/number-input.component';
 
 @NgModule({
-  declarations: [
-    ButtonComponent,
-    TextFieldComponent,
-    RadioButtonComponent,
-    NumberInputComponent,
-  ],
-  imports: [CommonModule, FormsModule, ReactiveFormsModule],
-  exports: [
-    ButtonComponent,
-    TextFieldComponent,
-    RadioButtonComponent,
-    NumberInputComponent,
-    FormsModule,
-    ReactiveFormsModule,
-  ],
+    imports: [CommonModule, FormsModule, ReactiveFormsModule, ButtonComponent,
+        TextFieldComponent,
+        RadioButtonComponent,
+        NumberInputComponent],
+    exports: [
+        ButtonComponent,
+        TextFieldComponent,
+        RadioButtonComponent,
+        NumberInputComponent,
+        FormsModule,
+        ReactiveFormsModule,
+    ],
 })
 export class DesignSystemModule {}

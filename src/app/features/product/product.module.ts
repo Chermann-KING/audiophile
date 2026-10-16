@@ -9,14 +9,14 @@ import { DesignSystemModule } from '../../design-system/design-system.module';
 import { CategoriesModule } from '../categories/categories.module';
 
 @NgModule({
-  declarations: [ProductDetailComponent],
-  imports: [
-    CommonModule,
-    RouterModule,
-    ProductRoutingModule,
-    SharedModule,
-    DesignSystemModule,
-    CategoriesModule,
-  ],
+    imports: [
+        CommonModule,
+        RouterModule,
+        ProductRoutingModule,
+        SharedModule,
+        DesignSystemModule,
+        CategoriesModule,
+        ProductDetailComponent,
+    ],
 })
 export class ProductModule {}

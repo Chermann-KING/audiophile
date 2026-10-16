@@ -17,13 +17,13 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [HomeComponent, HeroComponent],
-  imports: [
-    CommonModule,
-    SharedModule,
-    DesignSystemModule,
-    RouterModule.forChild(routes),
-    CategoriesModule,
-  ],
+    imports: [
+        CommonModule,
+        SharedModule,
+        DesignSystemModule,
+        RouterModule.forChild(routes),
+        CategoriesModule,
+        HomeComponent, HeroComponent,
+    ],
 })
 export class HomeModule {}

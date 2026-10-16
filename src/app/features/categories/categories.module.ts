@@ -10,18 +10,16 @@ import { SharedModule } from '../../shared/shared.module';
 import { DesignSystemModule } from '../../design-system/design-system.module';
 
 @NgModule({
-  declarations: [
-    CategoryListComponent,
-    CategoryDetailComponent,
-    ProductCardComponent,
-  ],
-  imports: [
-    CommonModule,
-    RouterModule,
-    CategoriesRoutingModule,
-    SharedModule,
-    DesignSystemModule,
-  ],
-  exports: [CategoryListComponent],
+    imports: [
+        CommonModule,
+        RouterModule,
+        CategoriesRoutingModule,
+        SharedModule,
+        DesignSystemModule,
+        CategoryListComponent,
+        CategoryDetailComponent,
+        ProductCardComponent,
+    ],
+    exports: [CategoryListComponent],
 })
 export class CategoriesModule {}

@@ -1,12 +1,13 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { Product } from '../../../../models/product';
+import { NgIf } from '@angular/common';
 
 @Component({
-  selector: 'app-product-card',
-  standalone: false,
-  templateUrl: './product-card.component.html',
-  styleUrls: ['./product-card.component.scss'],
+    selector: 'app-product-card',
+    templateUrl: './product-card.component.html',
+    styleUrls: ['./product-card.component.scss'],
+    imports: [NgIf],
 })
 export class ProductCardComponent {
   @Input() product!: Product;
