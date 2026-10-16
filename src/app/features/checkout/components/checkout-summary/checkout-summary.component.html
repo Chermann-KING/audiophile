@@ -3,7 +3,7 @@
 
   <!-- Liste des articles du panier -->
   <div class="cart-items">
-    @for (item of cartItems; track item) {
+    @for (item of cartItems(); track item) {
       <div class="cart-item">
         <div class="item-image">
           <img [src]="getProductImageUrl(item)" [alt]="item.product.name">
@@ -18,7 +18,7 @@
   </div>
 
   <!-- Message panier vide -->
-  @if (cartItems.length === 0) {
+  @if (cartItems().length === 0) {
     <div class="empty-cart">
       <p>Your cart is empty</p>
     </div>
@@ -28,27 +28,27 @@
   <div class="price-summary">
     <div class="price-row">
       <span class="price-label">TOTAL</span>
-      <span class="price-value">$ {{ total | number: '1.0-0' }}</span>
+      <span class="price-value">$ {{ total() | number: '1.0-0' }}</span>
     </div>
 
     <div class="price-row">
       <span class="price-label">SHIPPING</span>
-      <span class="price-value">$ {{ shipping | number: '1.0-0' }}</span>
+      <span class="price-value">$ {{ shipping() | number: '1.0-0' }}</span>
     </div>
 
     <div class="price-row">
       <span class="price-label">VAT (INCLUDED)</span>
-      <span class="price-value">$ {{ vat | number: '1.0-0' }}</span>
+      <span class="price-value">$ {{ vat() | number: '1.0-0' }}</span>
     </div>
 
     <div class="price-row grand-total">
       <span class="price-label">GRAND TOTAL</span>
-      <span class="price-value">$ {{ grandTotal | number: '1.0-0' }}</span>
+      <span class="price-value">$ {{ grandTotal() | number: '1.0-0' }}</span>
     </div>
   </div>
 
   <!-- Bouton de validation -->
-  <button class="btn-primary continue-btn" [disabled]="cartItems.length === 0 || !formValid" (click)="submitOrder()">
+  <button class="btn-primary continue-btn" [disabled]="cartItems().length === 0 || !formValid()" (click)="submitOrder()">
     CONTINUE
   </button>
 

@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, output, input } from '@angular/core';
 import { CartItem } from '../../../../core/services/cart.service';
 import { DecimalPipe } from '@angular/common';
 
@@ -11,19 +11,19 @@ import { DecimalPipe } from '@angular/common';
 ],
 })
 export class CheckoutSummaryComponent {
-  @Input() cartItems: CartItem[] = [];
-  @Input() total: number = 0;
-  @Input() shipping: number = 0;
-  @Input() vat: number = 0;
-  @Input() grandTotal: number = 0;
-  @Input() formValid: boolean = false;
+  readonly cartItems = input<CartItem[]>([]);
+  readonly total = input<number>(0);
+  readonly shipping = input<number>(0);
+  readonly vat = input<number>(0);
+  readonly grandTotal = input<number>(0);
+  readonly formValid = input<boolean>(false);
 
-  @Output() onSubmit = new EventEmitter<void>();
+  readonly onSubmit = output<void>();
 
   submitOrder(): void {
     console.log('1. Bouton CONTINUE cliqué');
-    console.log('formValid:', this.formValid);
-    console.log('cartItems:', this.cartItems);
+    console.log('formValid:', this.formValid());
+    console.log('cartItems:', this.cartItems());
     this.onSubmit.emit();
     console.log('2. Événement onSubmit émis');
   }

@@ -1,4 +1,4 @@
-import { Component, Input, ViewEncapsulation, forwardRef } from '@angular/core';
+import { Component, Input, ViewEncapsulation, forwardRef, input } from '@angular/core';
 import {
   ControlValueAccessor,
   NG_VALUE_ACCESSOR,
@@ -14,9 +14,9 @@ import {
         <label class="form-label">{{ label }}</label>
       }
       <input
-        [type]="type"
+        [type]="type()"
         class="form-control"
-        [placeholder]="placeholder"
+        [placeholder]="placeholder()"
         [value]="value"
         (input)="onInput($event)"
         (blur)="onBlur()"
@@ -39,8 +39,8 @@ import {
 })
 export class TextFieldComponent implements ControlValueAccessor {
   @Input() label = '';
-  @Input() placeholder = '';
-  @Input() type = 'text';
+  readonly placeholder = input('');
+  readonly type = input('text');
   @Input() errorMessage = '';
   @Input() set formControl(control: FormControl) {
     if (control) {
