@@ -106,28 +106,28 @@
     <div class="buttons-grid">
       <div class="button-item">
         <div class="button-label">Button 1 - Primary (Default)</div>
-        <app-button variant="primary" (buttonClick)="onPrimaryButtonClick($event)">
+        <app-button variant="primary" (buttonClick)="onPrimaryButtonClick()">
           {{ primaryButtonClicked ? 'Cliqué !' : 'Voir produit' }}
         </app-button>
       </div>
 
       <div class="button-item">
         <div class="button-label">Button 2 - Secondary (Default)</div>
-        <app-button variant="secondary" (buttonClick)="onSecondaryButtonClick($event)">
+        <app-button variant="secondary" (buttonClick)="onSecondaryButtonClick()">
           {{ secondaryButtonClicked ? 'Cliqué !' : 'Voir produit' }}
         </app-button>
       </div>
 
       <div class="button-item">
         <div class="button-label">Button 3 - Tertiaire (Default)</div>
-        <app-button variant="dark" (buttonClick)="onDarkButtonClick($event)">
+        <app-button variant="dark" (buttonClick)="onDarkButtonClick()">
           {{ darkButtonClicked ? 'Cliqué !' : 'SEE PRODUCT' }}
         </app-button>
       </div>
 
       <div class="button-item">
         <div class="button-label">Button 4 - Text (Default)</div>
-        <app-button variant="text" (buttonClick)="onTextButtonClick($event)">
+        <app-button variant="text" (buttonClick)="onTextButtonClick()">
           {{ textButtonClicked ? 'Cliqué !' : 'Shop' }}
         </app-button>
       </div>
@@ -170,14 +170,14 @@
           <div class="form-label-demo">Radio Buttons</div>
           <div class="radio-group-demo">
             <app-radio-button label="Carte de crédit" value="card" name="paymentMethod"
-              [checked]="selectedPaymentMethod === 'card'" (change)="onPaymentMethodChange($event)"></app-radio-button>
+              [checked]="selectedPaymentMethod === 'card'" (selected)="onPaymentMethodChange($event)"></app-radio-button>
 
             <app-radio-button label="e-Money" value="emoney" name="paymentMethod"
               [checked]="selectedPaymentMethod === 'emoney'"
-              (change)="onPaymentMethodChange($event)"></app-radio-button>
+              (selected)="onPaymentMethodChange($event)"></app-radio-button>
 
             <app-radio-button label="Paiement à la livraison" value="cash" name="paymentMethod"
-              [checked]="selectedPaymentMethod === 'cash'" (change)="onPaymentMethodChange($event)"></app-radio-button>
+              [checked]="selectedPaymentMethod === 'cash'" (selected)="onPaymentMethodChange($event)"></app-radio-button>
           </div>
         </div>
       </div>

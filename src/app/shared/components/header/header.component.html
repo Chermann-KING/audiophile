@@ -1,3 +1,5 @@
+<!-- reason: ferme le menu utilisateur sur clic souris ; <header> garde son rôle de repère (landmark). -->
+<!-- eslint-disable-next-line @angular-eslint/template/click-events-have-key-events, @angular-eslint/template/interactive-supports-focus -->
 <header class="header" (click)="closeUserMenu()">
   <div class="container">
     <div class="header-content">
@@ -13,7 +15,7 @@
       <!-- User Actions -->
       <div class="user-actions">
         <!-- User Menu -->
-        <div class="user-menu-container" clickOutside (clickOutside)="closeUserMenu()">
+        <div class="user-menu-container" appClickOutside (appClickOutside)="closeUserMenu()">
           <button class="user-icon-btn" [class.active]="isUserMenuOpen" (click)="toggleUserMenu($event)">
             <app-user-icon></app-user-icon>
           </button>
@@ -39,5 +41,5 @@
   </div>
 
   <!-- Overlay pour le menu mobile -->
-  <div class="mobile-menu-overlay" [class.active]="isMobileMenuOpen" (click)="onMenuToggle(false)"></div>
+  <div class="mobile-menu-overlay" role="presentation" [class.active]="isMobileMenuOpen" (click)="onMenuToggle(false)"></div>
 </header>

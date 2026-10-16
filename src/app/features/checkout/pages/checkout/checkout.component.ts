@@ -1,6 +1,6 @@
 import { Component, OnInit, inject, DestroyRef, ChangeDetectionStrategy } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ValidationErrors, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CartService, CartItem } from '../../../../core/services/cart.service';
 import { OrderService } from '../../../../core/services/order.service';
@@ -39,8 +39,8 @@ export class CheckoutComponent implements OnInit {
   shipping = 50; // Frais de livraison fixes
   vat = 0; // TVA
   grandTotal = 0;
-  selectedPaymentMethod: string = 'cash';
-  showEMoneyDetails: boolean = false;
+  selectedPaymentMethod = 'cash';
+  showEMoneyDetails = false;
   loading = false;
 
   ngOnInit(): void {

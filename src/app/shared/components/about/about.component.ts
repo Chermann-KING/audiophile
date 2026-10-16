@@ -6,8 +6,4 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
     changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './about.component.scss',
 })
-export class AboutComponent {
-  constructor() {}
-
-  ngOnInit(): void {}
-}
+export class AboutComponent {}

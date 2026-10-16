@@ -19,14 +19,14 @@ export class CheckoutSummaryComponent {
   readonly grandTotal = input<number>(0);
   readonly formValid = input<boolean>(false);
 
-  readonly onSubmit = output<void>();
+  readonly submitted = output<void>();
 
   submitOrder(): void {
     console.log('1. Bouton CONTINUE cliqué');
     console.log('formValid:', this.formValid());
     console.log('cartItems:', this.cartItems());
-    this.onSubmit.emit();
-    console.log('2. Événement onSubmit émis');
+    this.submitted.emit();
+    console.log('2. Événement submitted émis');
   }
 
   // Obtenient l'URL de l'image du produit

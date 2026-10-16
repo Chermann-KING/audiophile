@@ -1,5 +1,5 @@
 // src/app/shared/components/header/header.component.ts
-import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AuthService } from '../../../core/services/auth.service';
 import { User } from '../../../core/models/user.model';
@@ -28,7 +28,7 @@ import { AsyncPipe } from '@angular/common';
         AsyncPipe,
     ],
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
   private authService = inject(AuthService);
 
   isUserMenuOpen = false;
@@ -40,8 +40,6 @@ export class HeaderComponent implements OnInit {
     this.isLoggedIn$ = this.authService.isLoggedIn$;
     this.currentUser$ = this.authService.currentUser$;
   }
-
-  ngOnInit(): void {}
 
   toggleUserMenu(event: Event): void {
     event.stopPropagation();
