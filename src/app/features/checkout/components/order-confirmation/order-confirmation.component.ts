@@ -1,9 +1,4 @@
-import {
-  Component,
-  OnInit,
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-} from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Order, OrderResponse } from '../../../../core/models/order.model';
@@ -23,17 +18,17 @@ import { NgIf, NgFor, AsyncPipe, DecimalPipe } from '@angular/common';
     ],
 })
 export class OrderConfirmationComponent implements OnInit {
+  private _router = inject(Router);
+  private _modalService = inject(OrderConfirmationModalService);
+  private _cdr = inject(ChangeDetectorRef);
+
   order: Order | null = null;
   showAllItems = false;
   displayedItems = 1;
   loading = false;
   isVisible$: Observable<boolean>;
 
-  constructor(
-    private _router: Router,
-    private _modalService: OrderConfirmationModalService,
-    private _cdr: ChangeDetectorRef
-  ) {
+  constructor() {
     this.isVisible$ = this._modalService.isVisible$;
     this._modalService.orderData$.subscribe(
       (orderData: Order | OrderResponse | null) => {

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { Product } from '../../../../models/product';
 import { NgIf } from '@angular/common';
@@ -10,9 +10,9 @@ import { NgIf } from '@angular/common';
     imports: [NgIf],
 })
 export class ProductCardComponent {
-  @Input() product!: Product;
+  private _router = inject(Router);
 
-  constructor(private _router: Router) {}
+  @Input() product!: Product;
 
   getMobileImagePath(): string {
     // !Pour les earphones, utilise le chemin d'origine de la base de données

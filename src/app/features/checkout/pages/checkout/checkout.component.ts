@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CartService, CartItem } from '../../../../core/services/cart.service';
@@ -24,6 +24,13 @@ import { OrderConfirmationComponent } from '../../components/order-confirmation/
     ],
 })
 export class CheckoutComponent implements OnInit {
+  private _fb = inject(FormBuilder);
+  private _cartService = inject(CartService);
+  private _orderService = inject(OrderService);
+  private _userService = inject(UserService);
+  private _router = inject(Router);
+  private _modalService = inject(OrderConfirmationModalService);
+
   checkoutForm!: FormGroup;
   cartItems: CartItem[] = [];
   total = 0;
@@ -33,15 +40,6 @@ export class CheckoutComponent implements OnInit {
   selectedPaymentMethod: string = 'cash';
   showEMoneyDetails: boolean = false;
   loading = false;
-
-  constructor(
-    private _fb: FormBuilder,
-    private _cartService: CartService,
-    private _orderService: OrderService,
-    private _userService: UserService,
-    private _router: Router,
-    private _modalService: OrderConfirmationModalService
-  ) {}
 
   ngOnInit(): void {
     this._initForm();

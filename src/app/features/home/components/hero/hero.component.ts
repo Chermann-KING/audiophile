@@ -1,11 +1,4 @@
-import {
-  Component,
-  OnInit,
-  OnDestroy,
-  Renderer2,
-  ElementRef,
-  AfterViewInit,
-} from '@angular/core';
+import { Component, OnInit, OnDestroy, Renderer2, ElementRef, AfterViewInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ProductService } from '../../../../core/services/product.service';
@@ -23,6 +16,11 @@ import { ButtonComponent } from '../../../../design-system/components/button/but
     ],
 })
 export class HeroComponent implements OnInit, OnDestroy, AfterViewInit {
+  private _productService = inject(ProductService);
+  private _router = inject(Router);
+  private _renderer = inject(Renderer2);
+  private _el = inject(ElementRef);
+
   newProducts: any[] = [];
   currentProductIndex = 0;
   activeProduct: any;
@@ -30,13 +28,6 @@ export class HeroComponent implements OnInit, OnDestroy, AfterViewInit {
   private _productsSubscription: Subscription | null = null;
   private _slideChangeTimer: any;
   private _animationTimer: any;
-
-  constructor(
-    private _productService: ProductService,
-    private _router: Router,
-    private _renderer: Renderer2,
-    private _el: ElementRef
-  ) {}
 
   ngOnInit(): void {
     this._loadFeaturedProducts();

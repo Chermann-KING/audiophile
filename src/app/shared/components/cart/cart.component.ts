@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject } from '@angular/core';
 import { CartService } from '../../../core/services/cart.service';
 import { Subscription } from 'rxjs';
 import { NgIf } from '@angular/common';
@@ -11,11 +11,13 @@ import { CartDialogComponent } from '../cart-dialog/cart-dialog.component';
     imports: [NgIf, CartDialogComponent],
 })
 export class CartComponent implements OnInit, OnDestroy {
+  private _cartService = inject(CartService);
+
   itemCount = 0;
   isCartOpen = false;
   private _subscription: Subscription = new Subscription();
 
-  constructor(private _cartService: CartService) {
+  constructor() {
     this._cartService.cartDialogState.subscribe((isOpen) => {
       this.isCartOpen = isOpen;
     });

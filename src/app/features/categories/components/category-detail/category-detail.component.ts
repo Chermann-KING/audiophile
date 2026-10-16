@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CategoryService } from '../../../../core/services/category.service';
 import { NgIf, NgFor, NgClass, TitleCasePipe } from '@angular/common';
@@ -23,15 +23,13 @@ import { AboutComponent } from '../../../../shared/components/about/about.compon
     ],
 })
 export class CategoryDetailComponent implements OnInit {
+  private _router = inject(Router);
+  private _route = inject(ActivatedRoute);
+  private _categoryService = inject(CategoryService);
+
   category: string = '';
   products: any[] = [];
   loading: boolean = true;
-
-  constructor(
-    private _router: Router,
-    private _route: ActivatedRoute,
-    private _categoryService: CategoryService
-  ) {}
 
   ngOnInit(): void {
     this._route.params.subscribe((params) => {

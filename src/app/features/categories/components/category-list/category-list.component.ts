@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import {
   CategoryService,
@@ -14,12 +14,10 @@ import { ButtonComponent } from '../../../../design-system/components/button/but
     imports: [NgFor, ButtonComponent],
 })
 export class CategoryListComponent implements OnInit {
-  categories: Category[] = [];
+  private _categoryService = inject(CategoryService);
+  private router = inject(Router);
 
-  constructor(
-    private _categoryService: CategoryService,
-    private router: Router
-  ) {}
+  categories: Category[] = [];
 
   ngOnInit(): void {
     this._categoryService.getCategories().subscribe({

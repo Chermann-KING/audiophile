@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -14,9 +14,9 @@ export interface Category {
   providedIn: 'root',
 })
 export class CategoryService {
-  private _apiUrl = `${environment.apiUrl}/products`;
+  private _http = inject(HttpClient);
 
-  constructor(private _http: HttpClient) {}
+  private _apiUrl = `${environment.apiUrl}/products`;
 
   // Obtenir toutes les catégories uniques et formatées
   getCategories(): Observable<Category[]> {
