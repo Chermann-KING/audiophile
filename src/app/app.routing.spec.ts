@@ -1,11 +1,11 @@
 import { TestBed } from '@angular/core/testing';
-import { Router } from '@angular/router';
+import { Router, provideRouter } from '@angular/router';
 import { RouterTestingHarness } from '@angular/router/testing';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { Type } from '@angular/core';
 
-import { AppRoutingModule } from './app-routing.module';
+import { routes } from './app.routes';
 import { HomeComponent } from './features/home/pages/home/home.component';
 import { CategoryListComponent } from './features/categories/components/category-list/category-list.component';
 import { CategoryDetailComponent } from './features/categories/components/category-detail/category-detail.component';
@@ -19,8 +19,7 @@ import { DesignShowcaseComponent } from './design-showcase/design-showcase.compo
 describe('Routage (caractérisation)', () => {
   const setup = () => {
     TestBed.configureTestingModule({
-      imports: [AppRoutingModule],
-      providers: [provideHttpClient(), provideHttpClientTesting()],
+      providers: [provideRouter(routes), provideHttpClient(), provideHttpClientTesting()],
     });
     return RouterTestingHarness.create();
   };
@@ -46,6 +45,13 @@ describe('Routage (caractérisation)', () => {
 
   it('affiche le détail d’un produit', () =>
     expectRoute('/products/headphones/xx99-mark-two', ProductDetailComponent));
+
+  // Comportement existant : CategoriesModule est aussi importé par ProductModule.
+  it('expose la liste des catégories sous /products', () =>
+    expectRoute('/products/categories', CategoryListComponent));
+
+  it('expose le détail d’une catégorie sous /products', () =>
+    expectRoute('/products/headphones', CategoryDetailComponent));
 
   it('affiche la page de connexion', () => expectRoute('/auth/login', LoginComponent));
 
