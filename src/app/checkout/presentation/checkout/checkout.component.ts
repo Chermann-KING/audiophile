@@ -4,7 +4,7 @@ import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angu
 
 import { AccountStore } from '../../../account/presentation/account.store';
 import { CartStore } from '../../../cart/presentation/cart.store';
-import { PlaceOrder } from '../../application/place-order.use-case';
+import { PlaceOrder, type PlaceOrderError } from '../../application/place-order.use-case';
 import type { OrderLine } from '../../domain/order';
 import { computeTotals } from '../../domain/order-totals';
 import { CheckoutSummaryComponent } from '../checkout-summary/checkout-summary.component';
@@ -54,6 +54,7 @@ export class CheckoutComponent implements OnInit {
   readonly selectedPaymentMethod = signal<PaymentMethod>('cash');
   readonly showEMoneyDetails = signal(false);
   readonly loading = signal(false);
+  readonly submitError = signal<string | null>(null);
 
   ngOnInit(): void {
     this.prefillFromAccount();
@@ -69,6 +70,7 @@ export class CheckoutComponent implements OnInit {
     }
 
     this.loading.set(true);
+    this.submitError.set(null);
     const result = await this.placeOrder.execute(this.toCheckoutInput());
 
     if (result.ok) {
@@ -76,6 +78,7 @@ export class CheckoutComponent implements OnInit {
       this.cart.clear();
     } else {
       console.error('Erreur lors de la création de la commande:', result.error);
+      this.submitError.set(messageOf(result.error));
     }
     this.loading.set(false);
   }
@@ -161,6 +164,18 @@ export class CheckoutComponent implements OnInit {
     emoneyNumber.updateValueAndValidity();
     emoneyPin.updateValueAndValidity();
   }
+}
+
+// Message affiché à l'utilisateur : les détails techniques restent dans la console.
+function messageOf(error: PlaceOrderError): string {
+  if (typeof error === 'string') {
+    return error === 'EMPTY_CART'
+      ? 'Votre panier est vide.'
+      : 'Certaines informations de la commande sont invalides, veuillez les vérifier.';
+  }
+  return error.kind === 'NETWORK'
+    ? 'Impossible de joindre le serveur : vérifiez votre connexion et réessayez.'
+    : 'Le serveur a refusé la commande, veuillez réessayer plus tard.';
 }
 
 const PATTERN_MESSAGES: Record<string, string> = {
