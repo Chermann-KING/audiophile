@@ -59,7 +59,7 @@ Source de vérité vivante. Étiquettes : `FACT`, `DECISION`, `ASSUMPTION`, `OPE
 - `DECISION` Règles du domaine : panier non vide, nom d'au moins 3 caractères, email, téléphone, adresse, code postal à 5 chiffres, ville, pays ; e-Money : numéro à 9 chiffres et PIN à 4 chiffres, absents pour un paiement en espèces.
 - `DECISION` Les validateurs du formulaire restent pour l'expérience de saisie ; le domaine revérifie dans `PlaceOrder` (défense en profondeur).
 - `DECISION` `OrderConfirmationStore` est fourni au niveau de la route `checkout` (portée = la visite de la page), `PlaceOrder`/`ListOrders` à la racine (utilisés aussi par le profil).
-- `OPEN` Un échec de commande n'est que journalisé : aucun message n'est affiché à l'utilisateur (comportement historique conservé).
+- `DECISION` Un échec de commande affiche un message lisible (réseau, serveur, données invalides, panier vide) dans une zone `role="alert"` ; les détails techniques restent dans la console. Le message est effacé à chaque nouvelle tentative.
 - `OPEN` Les paiements e-Money sont simulés : numéro et PIN sont transmis et stockés tels quels dans `db.json` (à ne jamais brancher sur de vrais moyens de paiement).
 
 ## Coque, UI partagée et garde-fous
@@ -68,4 +68,4 @@ Source de vérité vivante. Étiquettes : `FACT`, `DECISION`, `ASSUMPTION`, `OPE
 - `DECISION` Les racines de composition (`*.routes.ts`, `infrastructure/*.providers.ts`, `app.*.ts`, `main.ts`) et les tests sont exemptés de la règle : ils câblent.
 - `FACT` Vérifié par violations volontaires : domaine → Angular/RxJS/application, présentation → infrastructure, ui → fonctionnalité sont refusés par `pnpm lint`.
 - `DECISION` CI GitHub (`.github/workflows/ci.yml`) : lint, tests et build à chaque pull request.
-- `DEFERRED` Messages d'erreur utilisateur sur les échecs réseau (commande, catalogue) ; authentification réelle ; nettoyage du bruit d'indentation hérité des migrations de schematics.
+- `DEFERRED` Messages d'erreur utilisateur sur les échecs réseau du catalogue ; authentification réelle ; nettoyage du bruit d'indentation hérité des migrations de schematics.

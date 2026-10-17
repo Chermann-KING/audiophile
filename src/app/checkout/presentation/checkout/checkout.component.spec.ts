@@ -98,6 +98,34 @@ describe('CheckoutComponent', () => {
     expect(component.loading()).toBe(false);
   });
 
+  it.each([
+    [{ kind: 'NETWORK' }, 'connexion'],
+    [{ kind: 'SERVER', status: 500 }, 'serveur'],
+    ['EMPTY_CART', 'panier est vide'],
+  ])('affiche un message lisible quand la commande échoue (%j)', async (error, expected) => {
+    const { fixture, component } = setup({ ok: false, error });
+    component.checkoutForm.setValue(VALID_FORM);
+    vi.spyOn(console, 'error').mockImplementation(() => undefined);
+
+    await component.onSubmit();
+    await fixture.whenStable();
+
+    expect(fixture.nativeElement.querySelector('[role="alert"]')?.textContent).toContain(expected);
+  });
+
+  it('efface le message lors d’une nouvelle tentative', async () => {
+    const { fixture, component } = setup({ ok: false, error: { kind: 'NETWORK' } });
+    component.checkoutForm.setValue(VALID_FORM);
+    vi.spyOn(console, 'error').mockImplementation(() => undefined);
+    await component.onSubmit();
+    expect(component.submitError()).not.toBeNull();
+
+    const pending = component.onSubmit();
+    expect(component.submitError()).toBeNull();
+    await pending;
+    await fixture.whenStable();
+  });
+
   it('exige les coordonnées e-Money seulement pour ce moyen de paiement', () => {
     const { component } = setup();
     component.checkoutForm.setValue({ ...VALID_FORM, paymentMethod: 'emoney' });

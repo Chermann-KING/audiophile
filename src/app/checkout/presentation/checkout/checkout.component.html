@@ -173,6 +173,10 @@
                           </div>
                         </form>
 
+                        @if (submitError(); as message) {
+                          <p class="submit-error" role="alert">{{ message }}</p>
+                        }
+
                         <!-- Récapitulatif de commande -->
                         <app-checkout-summary [cartItems]="cartItems()" [total]="total()" [shipping]="shipping()" [vat]="vat()"
                         [grandTotal]="grandTotal()" [formValid]="checkoutForm.valid" (submitted)="onSubmit()"></app-checkout-summary>
