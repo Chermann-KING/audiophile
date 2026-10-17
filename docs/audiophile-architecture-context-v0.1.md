@@ -69,3 +69,13 @@ Source de vérité vivante. Étiquettes : `FACT`, `DECISION`, `ASSUMPTION`, `OPE
 - `FACT` Vérifié par violations volontaires : domaine → Angular/RxJS/application, présentation → infrastructure, ui → fonctionnalité sont refusés par `pnpm lint`.
 - `DECISION` CI GitHub (`.github/workflows/ci.yml`) : lint, tests et build à chaque pull request.
 - `DEFERRED` Messages d'erreur utilisateur sur les échecs réseau du catalogue ; authentification réelle ; nettoyage du bruit d'indentation hérité des migrations de schematics.
+
+## Backend d'authentification (api/)
+- `FACT` Fonctions Vercel en TypeScript (`api/auth/*`, `api/users/me/*`), logique dans `api/_lib/` (les dossiers préfixés par `_` ne sont pas exposés comme routes). Stockage : Neon Postgres (`DATABASE_URL`), accès par `@neondatabase/serverless` ; schéma dans `api/_lib/store/schema.sql`, appliqué par `pnpm db:migrate`.
+- `DECISION` Contrat : `POST /api/auth/register`, `POST /api/auth/login`, `POST /api/auth/logout`, `GET /api/auth/me`, `PUT /api/users/me`, `POST /api/users/me/password`. L'identité vient toujours de la session, jamais d'un identifiant fourni par le client.
+- `DECISION` Session serveur : jeton opaque de 256 bits, seule son empreinte SHA-256 est stockée ; cookie `__Host-session` (`HttpOnly; Secure; SameSite=Lax; Path=/`) ; expiration absolue 7 jours et inactivité 24 h ; nouveau jeton à chaque connexion ; révocation à la déconnexion et, pour les autres appareils, au changement de mot de passe.
+- `DECISION` Mots de passe : scrypt N=2^17, r=8, p=1, sel par mot de passe, remise à niveau transparente ; politique NIST (15 à 128 caractères, sans règle de composition, liste de mots interdits dont le contexte).
+- `DECISION` Limitation : 3 échecs par couple email + IP puis 15 minutes de verrouillage (compteur atomique en base, clés hachées) ; plafond de 20 échecs par IP ; 5 inscriptions par heure et par IP ; 3 essais du mot de passe actuel lors d'un changement.
+- `DECISION` CSRF : en-tête `Origin` exigé et comparé à l'hôte pour toute requête qui modifie des données, corps `application/json` uniquement, plus `SameSite=Lax`.
+- `DECISION` Les tests de la couche données s'exécutent contre un vrai Postgres (PGlite) avec la même suite de contrat que l'implémentation en mémoire. Modèle de menaces : `docs/auth-threat-model.md`.
+- `ASSUMPTION` Pas de vérification d'email : un email déjà utilisé est détectable à l'inscription (atténué par la limite par IP).

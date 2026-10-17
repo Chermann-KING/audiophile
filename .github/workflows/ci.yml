@@ -20,5 +20,7 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm lint
+      - run: pnpm typecheck:api
+      - run: pnpm test:api
       - run: pnpm exec ng test --no-watch
       - run: pnpm build
